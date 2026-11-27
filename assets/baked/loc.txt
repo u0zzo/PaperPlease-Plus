@@ -1,0 +1,725 @@
+S	news:RANDOM_WEATHER	The Weather	El tiempo
+S	news:RANDOM_SPORTS	Sports	Deportes
+S	news:RANDOM_ENTERTAINMENT	Entertainment	Espectáculos
+S	news:RANDOM_POLITICS	Politics	Política
+S	news:FIRST_DAY	Grestin Border Checkpoint Opens At Last!	Reabre la frontera de Grestin tras 6 años
+S	news:FIRST_DAY	After 6 Long Years. Can the Ministry of Admission Keep Us Safe?	¿Podrá velar por nuestra seguridad el Ministerio de Admisiones?
+S	news:FIRST_DAY	Families To Reunite	Reunificación familiar
+S	news:CHECKPOINT_SUCCESS	Grestin Checkpoint a Success!	Rotundo éxito de la aduana de Grestin
+S	news:CHECKPOINT_SUCCESS	Entry Restrictions To Relax, Admit Foreigners	A partir de hoy se admitirá la entrada de ciudadanos extranjeros
+S	news:CHECKPOINT_SUCCESS	Analysts Upbeat	Buenas perspectivas
+S	news:CHECKPOINT_SUCCESS	Increased Trade And Cooperation Predicted	Se espera un auge del comercio y de la cooperación internacional
+S	news:FIRST_TERRORISTS	Terrorists Strike At Grestin!	Golpe terrorista en Grestin
+S	news:FIRST_TERRORISTS	Kolechian Agitators Suspected.	Se sospecha de activistas kolechios
+S	news:FIRST_TERRORISTS	Checkpoint Lockdown	Grestin se blinda
+S	news:FIRST_TERRORISTS	More Guards - More Scrutiny	Más guardas y mayor seguridad
+S	news:BLACKMARKET_EXPLODES	Blackmarket Activity Explodes	Auge del mercado negro
+S	news:BLACKMARKET_EXPLODES	Government Blames Lax Immigration Controls	El gobierno tilda los controles de inmigración de insuficientes
+S	news:BLACKMARKET_EXPLODES	Checkpoint Expansion Postponed	No se abrirán más puestos fronterizos
+S	news:WORKPERMIT_FIRST	Jobs Few, Becoming Fewer	Creciente escasez de empleo
+S	news:WORKPERMIT_FIRST	Immigrants Taking Jobs From Locals	Los inmigrantes dejan sin trabajo a los ciudadanos arstotzkos
+S	news:KOLECHIA_COMPLAINS_SEARCH	Kolechian Leader Files Complaint	El líder kolechio eleva una queja contra Arstotzka
+S	news:KOLECHIA_COMPLAINS_SEARCH	Claims Unprovoked Border Searches Violate Rights	Supuesta violación de derechos en registros fronterizos
+S	news:AFTER_SUICIDE_BOMBER	Another Attack At Grestin Checkpoint!	Nuevo ataque a la aduana de Grestin
+S	news:AFTER_SUICIDE_BOMBER	Suicide Bomber Slips Through Security	Hombre bomba burla los controles
+S	news:GENERIC_BOMBER	Grestin Suffers Another Border Attack	Grestin, víctima de otro ataque
+S	news:GENERIC_BOMBER	Suicide Bombings Becoming Routine	Los hombres bomba marcan la rutina
+S	news:PIMP_BUSTED	Human Trafficking Ring Shut Down!	Desarticulada trama de trata de blancas
+S	news:PIMP_BUSTED	Grestin Checkpoint Officer Nabs Mastermind	Inspector de aduana de Grestin desenmascara al cabecilla
+S	news:PIMP_ESCAPED	Dancers At Grestin Club Found Dead!	Asesinadas bailarinas en un club de Grestin
+S	news:PIMP_ESCAPED	Newly Immigrated Girls Victims Of Human Trafficking	Recién llegadas al país como víctimas de la trata de blancas
+S	news:KILLERATHLETE	Republian Track Star Wanted For Murder!	Deportista republio buscado por asesinato
+S	news:KILLERATHLETE	Vince Lestrade's Whereabouts Unknown - Has Likely Fled Republia	Se sospecha que Vince Lestrade puede haber abandonado Republia
+S	news:KILLERATHLETE	Vince Lestrade: Profile	Así es Vince Lestrade
+S	news:KILLERATHLETE	Girlfriend Killed In Jealous Rage?	¿Asesinó a su compañera sentimental en un ataque de celos?
+S	news:KILLERATHLETE_DETAINED	Vince Lestrade Apprehended In Grestin!	Vince Lestrade arrestado en Grestin
+S	news:KILLERATHLETE_DETAINED	Track Champ Looks Quite Guilty Now	La sombra de la culpabilidad se cierne sobre el as del deporte
+S	news:KILLERATHLETE_APPROVED	Vince Lestrade Spotted in Arstotzka	Vince Lestrade, visto en Arstotzka
+S	news:KILLERATHLETE_DENIED	Vince Lestrade Apprehended In Kolechia!	Arresto de Vince Lestrade en Kolechia
+S	news:DIPLOMAT_FIRST	Kolechia Sends Top-Level Diplomat	Kolechia envía a un alto cargo diplomático
+S	news:DIPLOMAT_FIRST	Normalizing Trade Top Issue	La normalización comercial, objetivo clave del viaje
+S	news:BUSTED_SPY	Top-level Kolechian Exposed as Arstotzkan Spy!	Diplomático kolechio y espía arstotzko
+S	news:BUSTED_SPY	Missing From Post, Presumed Dead	Ante su desaparición, se especula acerca de un posible asesinato
+S	news:BUSTED_SPY_GAVEREALDOCS	Kolechia Cleans House - Eliminates Arstotzkan Spies	Kolechia elimina a los espías arstotzkos
+S	news:BUSTED_SPY_GAVEREALDOCS	Heroic Agents Compromised	Nuestros heroicos agentes, en grave peligro
+S	news:BUSTED_SPY_GAVEFAKEDOCS	Kolechia Cleans House - Attacks Its Own!	Kolechia arremete contra los suyos
+S	news:BUSTED_SPY_GAVEFAKEDOCS	Round Of Disappearances Blamed On Faulty Evidence	Serie de desapariciones basadas en pruebas falsas
+S	news:FORGERY_NEWS	Theft At Ministry Of Admission!	Robo en el Ministerio de Admisiones
+S	news:FORGERY_NEWS	Limited Effects - Few Items Stolen	Se sustrajo un número reducido de artículos
+S	news:SECRET_SOCIETY	The History of Arstotzka	La historia secreta de Arstotzka
+S	news:SECRET_SOCIETY	In Pictures and Words - Mostly Words	En imágenes y palabras (palabras, más que nada)
+S	news:CRIMINAL_ACTIVITY	A Criminal's Safe Haven	Arstotzka, paraíso criminal
+S	news:CRIMINAL_ACTIVITY	Arstotzka Earns Dubious Reputation	Nuestro país se gana una dudosa reputación
+S	news:LOSING_GUARDS	Ministries Fight Over Staff	Pugna ministerial por empleados competentes
+S	news:LOSING_GUARDS	Qualified Guards, Soldiers In Demand	Se requieren guardas y soldados cualificados
+S	news:LOSING_GUARDS	Consolidation, Reassignment At Border	Consolidación y reasignación en la frontera
+S	news:LOSING_GUARDS	Still Safe With Smaller Detail?	¿Seguimos estando seguros pese a la reducción de personal?
+S	news:RUNNER_AFTER_TRANQ	Grestin Incident Highlights Security Risks	La frontera no es segura
+S	news:RUNNER_AFTER_TRANQ	Further Breaches Predicted	El incidente de Grestin augura futuros percances
+S	news:BIKE_ATTACK	Daring Bike Attack At Grestin Checkpoint!	Ataque motorizado a la aduana de Grestin
+S	news:BIKE_ATTACK	Extremists Growing Bolder - Grestin Like Magnet	El puesto fronterizo, imán para el auge del extremismo
+S	news:BORDER_TARGETED	Can The Wall Hold?	¿Resistirá la frontera?
+S	news:BORDER_TARGETED	Border Safety Continually Questioned	La seguridad de la aduana de Grestin, puesta en entredicho
+S	news:BIKERUNNER_NEWS	Coordinated Border Breach!	Ataque coordinado a Grestin
+S	news:BIKERUNNER_NEWS	Unknown Assailants Swamp Security	Asaltantes no identificados sortean las medidas de seguridad
+S	news:NOSY_JOURNALIST_APPROVED	Arstotzka's Frail Border	El agujero fronterizo de Grestlin
+S	news:NOSY_JOURNALIST_APPROVED	United Fed Reporter Exposes Lax Protocols	La debilidad de la aduana, desvelada por un reportero de la U.F.
+S	news:NOSY_JOURNALIST_DENIED	Arstotzka's Iron Border	El telón de acero arstotzko
+S	news:NOSY_JOURNALIST_DENIED	Int. Media Reveals Entry Visa Bias	Parcialidad en la concesión de visados, según la prensa internacional
+S	news:IDSUPPLEMENT_INTRO	Another Bomber Slips Through!	Nuevo ataque de hombre bomba
+S	news:IDSUPPLEMENT_INTRO	Immigrant Screening Falls Short	Los registros a inmigrantes siguen demostrando su ineficacia
+S	news:IDSUPPLEMENT_INTRO	M.O.A. Gets New Director	Cambio en la dirección del MDA
+S	news:IDSUPPLEMENT_INTRO	Stricter Protocols Promised at Border	Promete un mayor control aduanero
+S	news:WHISTLEBLOWER_SETUP0	Antegria Domestic Spying Exposed!	El espionaje interno de Antegria, al descubierto
+S	news:WHISTLEBLOWER_SETUP0	Whistleblower On The Run	El supuesto informador se ha dado a la fuga
+S	news:WHISTLEBLOWER_SETUP1	Antegrian Whistleblower Denied Asylum In Republia	Republia niega la entrada al informador antegrio
+S	news:WHISTLEBLOWER_SETUP2	Antegrian Whistleblower Turned Away From United Fed	La Unión Federal cierra sus puertas al informador antegrio
+S	news:WHISTLEBLOWER_COMING	Antegrian Whistleblower Accepted By Arstotzka	El informador antegrio, aceptado en Arstotzka
+S	news:WHISTLEBLOWER_COMING	Move Risks Angering Neighbors	Posible indignación internacional ante la concesión de asilo
+S	news:WHISTLEBLOWER_IN	Antegrian Whistleblower Arrives - Disappears Immediately	El informador antegrio desaparece justo tras su llegada
+S	news:WHISTLEBLOWER_OUT	Antegrian Whistleblower Turned Away - Whereabouts Unknown	El informador, en paradero desconocido tras negársele la entrada
+S	news:IMPOR_UNHAPPY	Impor Protests Unbalanced Trade Restrictions	Imporia se queja de las restricciones al comercio
+S	news:IMPOR_UNHAPPY	Claims Arstotzka Unfairly Taxes Imporian Goods	Sostiene que Arstotzka graba sus productos de forma abusiva
+S	news:IMPOR_SANCTIONS_START	Impor Begins Trade Sanctions!	Imporia frena la importación arstotzka
+S	news:IMPOR_SANCTIONS_START	Immediately Restricts All Imports From Arstotzka	Bloqueo inmediato de todos los productos de nuestro país
+S	news:IMPOR_SANCTIONS_END	Impor Sanctions End!	Imporia pone fin al bloqueo
+S	news:IMPOR_SANCTIONS_END	Over So Fast? What Happened?	Inexplicable y repentino cambio en las políticas de importación
+S	news:SURGERY_SETUP	Breakthrough Spinal Surgery Perfected	Avance histórico para la cirugía medular
+S	news:SURGERY_SETUP	Only Possible With Arstotzkan Expertise	El milagro solo es posible gracias a la medicina arstotzka
+S	news:VIRUS_PRIMER	Polio Resurfaces In United Fed	Brote de polio en la Unión Federal
+S	news:VIRUS_PRIMER	Isolated Diagnosis Or Something More?	Se teme que pueda tratarse de algo más que un caso aislado
+S	news:VIRUS_BAN_UNITED_FED	Full-blown Epidemic Threatens United Fed!	Riesgo de epidemia en la Unión Federal
+S	news:VIRUS_BAN_UNITED_FED	Previously Under Control, Polio Back With Vengeance	La polio, anteriormente bajo control, vuelve para vengarse
+S	news:VIRUS_REQUIRE_CERT	Ministry of Health Acts To Protect Citizens	El Ministerio de Sanidad protegerá a los arstotzkos
+S	news:VIRUS_REQUIRE_CERT	New Policy, Safeguards At Borders	Nuevos protocolos de seguridad en las aduanas
+S	news:SERIAL_KILLER	Serial Child Killer Escapes United Fed Prison!	Escapa de la U.F. un asesino en serie de niños
+S	news:SERIAL_KILLER	Simon Wens: An Arstotzkan Native - Returning Home?	Simon Wens, arstotzko de nacimiento, podría regresar a nuestro país
+S	news:SERIAL_KILLER_MURDERED	Bloody Scene In Gennistora!	Sangriento episodio en Gennistora
+S	news:SERIAL_KILLER_MURDERED	Simon Wens Found Dead In Confusing Mess	Encontrado muerto y descuartizado el asesino Simon Wens
+S	news:EZIC_ATTACK0	Grestin Metro Halted	Parón en el metro de Grestin
+S	news:EZIC_ATTACK0	Tunnel Cave-in, Hints At Sabotage	Se apunta al sabotaje como causa del desmoronamiento de un túnel
+S	news:EZIC_ATTACK1_GIFT	Gov't Headquarters In Paradizna Evacuated!	Evacuadas las oficinas del gobierno en Paradizna
+S	news:EZIC_ATTACK1_GIFT	Strange Gas Detected - Staff Safe, Records Missing	Desaparición de archivos tras la detección de un gas desconocido
+S	news:EZIC_ATTACK1_NOGIFT	Head Minister Of Finance Missing!	Desaparece el ministro de Hacienda
+S	news:EZIC_ATTACK1_NOGIFT	Markets React With Fast Selling, Instability	Reacción inmediata de los mercados: inestabilidad y ventas a la baja
+S	news:POISONING	Mysterious Poison Hospitalizes Several!	Veneno misterioso provoca hospitalización masiva
+S	news:POISONING	Unnamed Immigrant Smuggles Deadly Agent	Un inmigrante no identificado introdujo el producto ilegalmente
+S	news:MARKED_DIPLOMAT	Top-Level Talks Called	Convocada cumbre bilateral
+S	news:MARKED_DIPLOMAT	Grestin Territory Remains Dividing Issue	El territorio dividido de Grestin, causa de discordia
+S	news:DIPLOMAT_SWAPPED	Kolechians Are Crazy	Los kolechios están locos
+S	news:DIPLOMAT_SWAPPED	Bizarre Behavior From Top Negotiator Spoils Talks	El inusual comportamiento de su representante desbarata la cumbre
+S	news:DIPLOMAT_ORIGINAL	A Tentative Understanding	Acuerdo de mínimos
+S	news:DIPLOMAT_ORIGINAL	Kolechian Talks Establish Common Ground	La cumbre kolechia asienta las bases de un futuro entendimiento
+S	news:TALKS_BREAK_DOWN	Roadblock To Kolechian Resolution	Bloqueo al entendimiento con Kolechia
+S	news:TALKS_BREAK_DOWN	Contested City Drives Wedge	La ciudad dividida, centro de la disputa
+S	news:BORDER_CLOSING	Grestin Checkpoint Future Uncertain	El incierto futuro de la aduana de Grestin
+S	news:BORDER_CLOSING	Too Open, Too Soon?	¿Demasiado pronto para tanta apertura?
+S	text:language_code	en	es
+S	text:language_name	ENGLISH	ESPAÑOL
+S	text:language_author	Author	J. Monchan y R. Méndez
+S	text:wrap_hyphen	-	-
+S	text:created_by	created by Lucas Pope	creado por Lucas Pope
+S	text:papers_please	Papers, please.	Sus papeles, por favor.
+S	text:protocol_violated	Protocol Violated.	Violación del protocolo.
+S	text:unauth_confiscation	Unauthorized passport confiscation	Decomiso del pasaporte no autorizado
+S	text:missing_reason	Denial reason not given	Razón de la denegación no presentada
+S	text:citation_warning	WARNING ISSUED - NO PENALTY	AMONESTACIÓN SIN SANCIÓN
+S	text:citation_lastwarning	LAST WARNING - NO PENALTY	ÚLTIMA AMONESTACIÓN SIN SANCIÓN
+S	text:citation_penalty	PENALTY ASSESSED - $0 CREDITS	SANCIÓN DE $0 CRÉDITOS
+S	text:border_next	NEXT!	¡SIGUIENTE!
+S	text:border_bomber	FOR KOLECHIA!	¡POR KOLECHIA!
+S	text:border_comeback	COME BACK AT 6AM TOMORROW	VUELVAN MAÑANA A LAS 6 A.M.
+S	text:border_announce0	ENTRY IS NOT GUARANTEED	LA ENTRADA NO ESTÁ GARANTIZADA.
+S	text:border_announce1	HAVE YOUR DOCUMENTS READY	TENGAN LA DOCUMENTACIÓN A MANO.
+S	text:border_announce2	ARSTOTZKA WELCOMES YOU	ARSTOTZKA LES DA LA BIENVENIDA.
+S	text:border_guardout	OUT!	¡VAMOS!
+S	text:border_elisa	ELISA!	¡ELISA!
+S	text:family_son_budget	SON	HIJO
+S	text:family_wife_budget	WIFE	MUJER
+S	text:family_niece_budget	NIECE	SOBRINA
+S	text:family_uncle_budget	UNCLE	TÍO
+S	text:family_mil_budget	MIL	SUEGRA
+S	text:family_son_status	Son	Hijo
+S	text:family_wife_status	Wife	Mujer
+S	text:family_niece_status	Niece	Sobrina
+S	text:family_uncle_status	Uncle	Tío
+S	text:family_mil_status	Mother-in-law	Suegra
+S	text:family_son_message	son	hijo
+S	text:family_wife_message	wife	mujer
+S	text:family_niece_message	niece	sobrina
+S	text:family_uncle_message	uncle	tío
+S	text:family_mil_message	mother-in-law	suegra
+S	text:night_endof	END OF	FIN DEL
+S	text:night_day	DAY $0	DÍA $0
+S	text:family_verysick_1	Your $0 will die without medicine.	Sin medicinas, tu $0 morirá.
+S	text:family_verysick_many	Very sick family members will die without medicine.	Varios miembros de tu familia están gravemente enfermos. Sin medicamentos, morirán.
+S	text:family_sick_1	Your $0 is sick and needs medicine.	Tu $0 ha enfermado y necesita medicamentos.
+S	text:family_sick_many	Your family needs medicine.	TU familia necesita medicamentos.
+S	text:family_died_1	Your $0 has died.	Tu $0 ha muerto.
+S	text:family_died_2	Your $0 and $1 have died.	Tu $0 y tu $1 han muerto.
+S	text:family_died_3	Your $0, $1, and $2 have died.	Tu $0, tu $1 y tu $2 han muerto.
+S	text:family_died_4	Your $0, $1, $2, and $3 have died.	Tu $0, tu $1, tu $2 y tu $3 han muerto.
+S	text:family_died_5	Your $0, $1, $2, $3, and $4 have died.	Tu $0, tu $1, tu $2, tu $3, y tu $4 han muerto.
+S	text:family_escape_with_0	You leave behind everything.	Lo dejas todo atrás.
+S	text:family_escape_with_1	You gather your $0 to leave for Obristan.	Partes hacia Obristán junto a tu $0.
+S	text:family_escape_with_2	You gather your $0 and $1 to leave for Obristan.	Partes hacia Obristán junto a tu $0 y tu $1.
+S	text:family_escape_with_3	You gather your $0, $1, and $2 to leave for Obristan.	Partes hacia Obristán junto a tu $0, tu $1 y tu $2.
+S	text:family_escape_with_4	You gather your $0, $1, $2, and $3 to leave for Obristan.	Partes hacia Obristán junto a tu $0, tu $1, tu $2 y tu $3.
+S	text:family_escape_with_5	You gather your $0, $1, $2, $3, and $4 to leave for Obristan.	Partes hacia Obristán junto a tu $0, tu $1, tu $2, tu $3 y tu $4.
+S	text:family_escape_without_1	Your $0 prepares to return to Nirsk.	Tu $0 se prepara para volver a Nirsk.
+S	text:family_escape_without_2	Your $0 and $1 prepare to return to Nirsk.	Tu $0 y tu $1 se preparan para volver a Nirsk.
+S	text:family_escape_without_3	Your $0, $1, and $2 prepare to return to Nirsk.	Tu $0, tu $1 y tu $2 se preparan para volver a Nirsk.
+S	text:family_escape_without_4	Your $0, $1, $2, and $3 prepare to return to Nirsk.	Tu $0, tu $1, tu $2 y tu $3 se preparan para volver a Nirsk.
+S	text:family_escape_without_5	Your $0, $1, $2, $3, and $4 prepare to return to Nirsk.	Tu $0, tu $1, tu $2, tu $3 y tu $4 se preparan para volver a Nirsk.
+S	text:family_flee_final_0	Obristan Above All	Obristán por encima de todo.
+S	text:family_flee_final_1	The safety of your $0 is unknown.	Ignoras si tu $0 está [m0]seguro[/m0][f0]segura[/f0].
+S	text:family_flee_final_2	The safety of your $0 and $1 is unknown.	Ignoras si tu $0 y tu $1 están a salvo.
+S	text:family_flee_final_3	The safety of your $0, $1, and $2 is unknown.	Ignoras si tu $0, tu $1 y tu $2 están a salvo.
+S	text:family_flee_final_4	The safety of your $0, $1, $2, and $3 is unknown.	Ignoras si tu $0, tu $1, tu $2 y tu $3 están a salvo.
+S	text:family_flee_final_5	The safety of your $0, $1, $2, $3, and $4 is unknown.	Ignoras si tu $0, tu $1, tu $2, tu $3 y tu $4 están a salvo.
+S	text:budget_savings	SAVINGS	AHORROS
+S	text:budget_salary	SALARY ($0)	JORNAL ($0)
+S	text:budget_penalties	PENALTIES ($0)	SANCIONES ($0)
+S	text:budget_bribes	BRIBES	SOBORNOS
+S	text:budget_rent	RENT	ALQUILER
+S	text:budget_food	FOOD	COMIDA
+S	text:budget_heat	HEAT	CALEFACCIÓN
+S	text:budget_medicine	MEDICINE ($0)	MEDICAMENTOS ($0)
+S	text:budget_sleep	SLEEP	IR A DORMIR
+S	text:budget_escape	ESCAPE	HUIR
+S	text:menu_back	BACK	VOLVER
+S	text:confirm_ok	OKAY	ACEPTAR
+S	text:confirm_cancel	CANCEL	CANCELAR
+S	text:menu_mainmenu	MAIN MENU	MENÚ PRINCIPAL
+S	text:menu_resume	RESUME	CONTINUAR
+S	text:menu_quit	QUIT	SALIR
+S	text:menu_done	DONE	VOLVER
+S	text:menu_story	STORY	HISTORIA
+S	text:menu_endless	ENDLESS	ETERNO
+S	text:menu_play	PLAY	JUGAR
+S	text:menu_fullscreen	Fullscreen	Pantalla completa
+S	text:menu_nudity	Nudity	Desnudos
+S	text:menu_easy	Easy Mode	Modo fácil
+S	text:menu_vibration	Vibration	Vibración
+S	text:menu_music	Music	Música
+S	text:menu_sound	Sound	Sonido
+S	text:menu_dateformat	Date Format	Formato de fecha
+S	text:menu_language	Language	Idioma
+S	text:menu_device	Device	Dispositivo
+S	text:menu_easytip	+ 20 credits per day	+ 20 créditos diarios
+S	text:menu_stats	STATS	ESTADÍSTICAS
+S	text:menu_next	NEXT	SIGUIENTE
+S	text:menu_walktowork	WALK TO WORK	IR A TRABAJAR
+S	text:menu_paused	PAUSED	EN PAUSA
+S	text:menu_settings	SETTINGS	OPCIONES
+S	text:menu_credits	CREDITS	CRÉDITOS
+S	text:menu_checkforupdates	CHECK FOR UPDATES	BUSCAR ACTUALIZACIONES
+S	text:stats_text	Played for $time\n$processed travelers processed\n$approved approved\n$denied denied\n$detained detained\n$citations citations earned\n$stamps stamps applied\nEnding $endnum of $endtotal	Tiempo de juego: $time\n$processed solicitudes procesadas\n$approved validadas\n$denied denegadas\n$detained detenciones\n$citations amonestaciones\n$stamps visados sellados\nFinal $endnum de $endtotal
+S	text:steam_noinit	STEAM CONNECTION FAILED\n\nIf this problem persists, re-install the Steam client.	IMPOSIBLE CONECTAR CON STEAM\n\nSi el problema persiste, vuelve a instalar Steam.
+S	text:steam_restartfailed	STEAM RESTART FAILED\n\nIf this problem persists, re-install the Steam client.	NO SE HA PODIDO REINICIAR STEAM\n\nSi el problema persiste, vuelve a instalar Steam.
+S	text:steam_noconnect	STEAM CONNECTION FAILED\n\nThe game will attempt to restart through the Steam client.	IMPOSIBLE CONECTAR CON STEAM\n\nSe intentará reiniciar el juego a través de Steam.
+S	text:steam_restart	RESTART	REINICIAR
+S	text:load_title	Select day to continue or start a new game	Elige en qué día quieres continuar o crea una nueva partida.
+S	text:load_confirm_delete_single	Delete this day $0 save?\n\nThere is no undo.	¿Quieres borrar el día $0 de esta ramificación?\n\nEsta acción no tiene vuelta atrás.
+S	text:load_confirm_delete_multi	Delete this save branch from day $0 to day $1?\n\nThere is no undo.	¿Quieres borrar esta ramificación de la partida del día $0 al $1?\n\nEsta acción no tiene vuelta atrás.
+S	text:load_delete	DELETE	BORRAR
+S	text:load_confirm_full	Save tracks full.\n\nContinue from a right-most save or delete a save branch to free up a track.	NO HAY ESPACIO PARA MÁS PARTIDAS\n\nContinúa desde uno de los días situados más a la derecha o borra una ramificación para liberar espacio.
+S	text:load_summary	Day $day\n"$news"\n\n$savings credits, $family family members,\n$tokens tokens, apartment $apt	Día $day\n"$news"\n\n$savings créditos, $family familiares,\n$tokens medalla(s), vivienda $apt
+S	text:load_continue	CONTINUE	CONTINUAR
+S	text:emotion_happy	HAPPY	FELIZ
+S	text:emotion_ok	OK	BIEN
+S	text:emotion_sad	SAD	TRISTE
+S	text:emotion_cold	COLD	TOS
+S	text:emotion_sick	SICK	EN CAMA
+S	text:emotion_verysick	VERY SICK	GRAVE
+S	text:emotion_dead	DEAD	R.I.P.
+S	text:emotion_hungry	HUNGRY	HAMBRE
+S	text:load_latest	LATEST	ÚLTIMA
+S	text:entry_approved	ENTRY GRANTED	ENTRADA PERMITIDA
+S	text:entry_denied	ENTRY DENIED	ENTRADA DENEGADA
+S	text:stamp_approved	APPROVED	APROBADO
+S	text:stamp_denied	DENIED	DENEGADO
+S	text:stamp_reason	REASON	RAZÓN
+S	text:booth_dragdocs	DRAG DOCUMENTS HERE	ARRASTRE AQUÍ LOS DOCUMENTOS
+S	text:booth_highlight	HIGHLIGHT DISCREPANCIES	RESALTAR DISCREPANCIAS
+S	text:booth_discrepancy	DISCREPANCY\nDETECTED	DISCREPANCIA DETECTADA
+S	text:booth_interrogate	INTERROGATE	INTERROGAR
+S	text:booth_matching	MATCHING\nDATA	DATOS COINCIDENTES
+S	text:booth_nocorrelation	NO\nCORRELATION	SIN CORRELACIÓN
+S	text:booth_cleared	DISCREPANCY\nCLEARED	DISCREPANCIA\nRESUELTA
+S	text:env_clearforentry	Applicant clear for entry	Solicitante apto para la entrada
+S	text:env_lettermale	M	H
+S	text:env_letterfemale	F	M
+S	text:env_noalias	No known alias	Sin alias conocido
+S	text:env_typochars	aeiou,iuy,pgq,lj,ck,bh	ao,iyj,pgq,mnr,ck,bv,ftl,uv
+S	text:carousel_give	GIVE	ENTREGAR
+S	text:carousel_hang	HANG ON WALL	CUÉLGUESE EN LA PARED
+S	text:carousel_confiscate	CONFISCATE	DECOMISE
+S	text:endless_complete	$style\n$course\n\n$time\n$score Points	$style\n$course\n\n$time\n$score puntos
+S	text:endless_ranked	Ranked #$0	Posición: #$0
+S	text:endless_unlock	Complete story mode with your job intact to unlock endless mode	Completa el modo Historia sin perder tu trabajo para desbloquear el modo Eterno.
+S	text:endless_wrongcode	S O R R Y	C U A S I
+S	text:date_verbose	$month $day, $year	$day de $month de $year
+S	text:month_1	January	enero
+S	text:month_2	February	febrero
+S	text:month_3	March	marzo
+S	text:month_4	April	abril
+S	text:month_5	May	mayo
+S	text:month_6	June	junio
+S	text:month_7	July	julio
+S	text:month_8	August	agosto
+S	text:month_9	September	septiembre
+S	text:month_10	October	octubre
+S	text:month_11	November	noviembre
+S	text:month_12	December	diciembre
+S	text:day_1	1st	1
+S	text:day_2	2nd	2
+S	text:day_3	3rd	3
+S	text:day_4	4th	4
+S	text:day_5	5th	5
+S	text:day_6	6th	6
+S	text:day_7	7th	7
+S	text:day_8	8th	8
+S	text:day_9	9th	9
+S	text:day_10	10th	10
+S	text:day_11	11th	11
+S	text:day_12	12th	12
+S	text:day_13	13th	13
+S	text:day_14	14th	14
+S	text:day_15	15th	15
+S	text:day_16	16th	16
+S	text:day_17	17th	17
+S	text:day_18	18th	18
+S	text:day_19	19th	19
+S	text:day_20	20th	20
+S	text:day_21	21st	21
+S	text:day_22	22nd	22
+S	text:day_23	23rd	23
+S	text:day_24	24th	24
+S	text:day_25	25th	25
+S	text:day_26	26th	26
+S	text:day_27	27th	27
+S	text:day_28	28th	28
+S	text:day_29	29th	29
+S	text:day_30	30th	30
+S	text:day_31	31st	31
+S	text:bulletin_default	Arstotzka\nMinistry of Admission\nOfficial Bulletin\n\nInspector,\n\n$content\n\nGlory to Arstotzka.	Gobierno de Arstotzka\nMinisterio de Admisiones\nBoletín oficial\n\nInspector:\n\n$content\n\nGloria a Arstotzka.
+S	text:bulletin_notice	Arstotzka\nMinistry of Admission\nOfficial Bulletin\n\nNOTICE:\n\n$content\n\nGlory to Arstotzka.	Gobierno de Arstotzka\nMinisterio de Admisiones\nBoletín oficial\n\nAVISO:\n\n$content\n\nGloria a Arstotzka.
+S	text:bulletin_endless	Arstotzka\nMinistry of Admission\nOfficial Bulletin\n\n$style\n\n$course\n\nGlory to Arstotzka.	Gobierno de Arstotzka\nMinisterio de Admisiones\nBoletín oficial\n\n\n$style\n\n$course\n\nGloria a Arstotzka.
+S	bulletin:1A	Welcome to your new position at Grestin Border Checkpoint.\n\nStamp passport ENTRY VISA and return documents to entrant.\n\nEntry is restricted to Arstotzkan citizens only.\n\nDeny all foreigners.	Le damos la bienvenida a su nuevo trabajo en la aduana de Grestin.\n\nSelle el visado en el pasaporte y reintégrelo al solicitante.\n\nLa entrada está restringida a ciudadanos arstotzkos.\n\nLos extranjeros serán considerados como no aptos.
+S	bulletin:2A	From today, foreigners with a valid passport are permitted to enter.\n\nYour booth's INSPECTION hardware is now installed.\n\nCheck all passport information carefully for discrepancies. Deny any entrant with inconsistent information.\n\nContinued...	A partir de hoy se permitirá la entrada a aquellos extranjeros que se encuentren en posesión de un pasaporte válido.\n\nSe ha instalado un mecanismo de INSPECCIÓN en su garita. Compruebe minuciosamente todos los datos de pasaporte en busca de discrepancias. Niegue la entrada a todo solicitante con datos no coincidentes.\n\n(Continúa)
+S	bulletin:2B	__________________________\nINSPECT MODE\n\nEnter INSPECT mode using the red button on your desk. While inspecting, highlight two pieces of discrepant information for further options.\n\n__________________________\nRULES & REGULATIONS\n\nThis post is bound by Ministry of Admission rules and regulations. Study the rule book closely.	__________________________\nMODO DE INSPECCIÓN\n\nPara entrar en modo de INSPECCIÓN, pulse el botón rojo de su mostrador. Seleccione datos en busca de discrepancias y aparecerán más opciones.\n__________________________\nREGLAMENTO Y NORMATIVA\n\nEl presente boletín queda sujeto a las reglamentaciones del Ministerio de Admisiones. Estudie el reglamento detenidamente.
+S	bulletin:3A	Entry for non-citizens is now regulated.\n\nAll foreigners require a valid ENTRY TICKET.\n\nVerify information before stamping passport ENTRY VISA and returning all documents to entrant.	La entrada de ciudadanos extranjeros ha sido regulada. A partir de hoy deberán acreditar un TIQUE DE ACCESO válido.\n\nCompruebe los datos antes de sellar el VISADO del pasaporte y reintegrar al solicitante la totalidad de su documentación.
+S	bulletin:4A	Stricter credential requirements have been instituted.\n\nArstotzkan citizens must show their ID CARD.\n\nForeigners must secure and present a valid ENTRY PERMIT.\n\nEntry tickets are no longer sufficient.\n\nContinued...	Los requisitos en la presentación de documentos acreditativos han sido endurecidos.\n\nLos ciudadanos arstotzkos deberán presentar su documento arstotzko de identidad (D.A.I.).\n\nLos extranjeros deberán obtener y acreditar un PERMISO DE ENTRADA válido. La presentación de un TIQUE de ACCESO no será suficiente.\n\n(Continúa)
+S	bulletin:4B	A new chapter detailing document features has been added to your rulebook.\n\nCheck all information thoroughly.\n\nDeny any applicant with discrepant documents.\n\nRefer to the AUDIO TRANSCRIPT to correlate entrant's statements.	El reglamento ha sido ampliado merced a la inclusión de un nuevo capítulo.\n\nEstudie las nuevas instrucciones meticulosamente.\n\nNiegue la entrada a todo solicitante con documentos discordantes.\n\nHaga uso de la TRANSCRIPCIÓN DE VOZ para cotejar la declaración del solicitante con sus documentos.
+S	bulletin:5A	You are now authorized to detain suspicious individuals.\n\nInterrogate discrepancies to enable detention option.	En virtud de la presente, se le concede autorización para llevar a cabo la detención de ciudadanos.\n\nInterrogue a los solicitantes acerca de las discrepancias encontradas para posibilitar una eventual detención.
+S	bulletin:6A	The Ministry of Labor has instituted a special program to control immigrant labor.\n\nTravelers entering for work require a valid WORK PASS.	El Ministerio de Trabajo ha puesto en marcha un programa especial de control de la mano de obra inmigrante.\n\nTodo solicitante cuyo motivo de entrada sea laboral deberá encontrarse en posesión de un PERMISO DE TRABAJO válido.
+S	bulletin:7A	To facilitate more thorough inspections, a SEARCH scanner system has been installed in your booth.\n\nKolechian extremists are suspected in yesterday's bombing.\n\nSearch all Kolechians before approving their entry.	Con el objeto de posibilitar inspecciones más minuciosas, se ha instalado en su garita un sistema que le permitirá ESCANEAR a los solicitantes.\n\nSe sospecha que el extremismo kolechio anda detrás del atentado ayer perpetrado.\n\nEscanee a todos los ciudadanos kolechios antes de permitir su entrada a nuestro país.
+S	bulletin:8A	The Kolechians have filed a formal complaint.\n\nA diplomat will arrive today for high-level discussions.\n\nAutomatic searches of Kolechian citizens are no longer authorized.\n\nContinued...	Kolechia ha elevado una queja formal contra nuestra patria.\n\nDurante la presente jornada, se espera la llegada de un alto diplomático kolechio con el fin de iniciar las negociaciones.\n\nPor la presente, se revoca la autorización que permitía el registro automático de ciudadanos kolechios.\n\n(Continúa)
+S	bulletin:8B	__________________________\nDIPLOMATS\n\nDiplomats require only a PASSPORT and valid DIPLOMATIC AUTHORIZATION to enter.\n\nRefer to the rulebook for updated document information.	__________________________\nDIPLOMÁTICOS\n\nLos miembros de un cuerpo diplomático podrán acceder al país con la sola presentación de un PASAPORTE válido y una AUTORIZACIÓN DIPLOMÁTICA.\n\nEn el reglamento podrá acceder a información actualizada.
+S	bulletin:9A	An undercover agent of the Ministry of Information has been compromised.\n\nThe Ministry of Admission has offered its services as liaison. Expect a possible drop later today.	La vida de un agente encubierto del Ministerio de Información corre peligro.\n\nEl Ministerio de Admisiones ha ofrecido su colaboración como intermediario. Es posible que reciba una entrega lo largo de la jornada.
+S	bulletin:10A	The divisional authority of East Grestin operations will visit today.\n\nMaintain your best behavior.	La autoridad divisional de operaciones de Grestin visitará hoy su puesto fronterizo.\n\nCondúzcase con extrema corrección.
+S	bulletin:11A	A break-in at M.O.A. offices may have compromised our document sealing plates.\n\nNothing important was stolen but intelligence suggests counterfeiters have already begun forging official Arstotzkan documents.\n\nContinued...	La entrada de personal no autorizado en las oficinas del MDA puede haber comprometido la confidencialidad de las planchas con las que se imprimen nuestros sellos oficiales.\n\nAunque no se robó ningún objeto de importancia, Inteligencia opina que las redes ilegales pueden haber empezado a falsificar documentos oficiales arstotzkos.\n\n(Continúa)
+S	bulletin:11B	__________________________\nFORGERIES\n\nDouble-check that required documents contain valid seals.\n\nCorrelate missing or wrong seals against the appropriate entries in the DOCUMENTS chapter of your rulebook.	__________________________\nFALSIFICACIONES\n\nVerifique la validez de los sellos incluidos en los documentos requeridos.\n\nCoteje los sellos sospechosos o ausentes con sus entradas correspondientes en el capítulo de documentos del reglamento.
+S	bulletin:13A	The new director is unsatisfied with the level of scrutiny afforded to foreigners.\n\nFrom today forward, all foreign entrants must present a recent IDENTITY SUPPLEMENT listing weight, height, and appearance.\n\nThe rulebook DOCUMENTS chapter has been updated.	El nuevo director del MDA no está satisfecho con el grado de escrutinio aplicado a los extranjeros.\n\nDe hoy en adelante, todos los solicitantes foráneos deberán poseer una TARJETA DE IDENTIDAD en la que figurarán su altura, peso y apariencia física.\n\nEl capítulo de DOCUMENTOS del reglamento ha sido actualizado.
+S	bulletin:14A	The Ministry of Justice has requested our support.\n\nDaily bulletins will now contain a listing of the top 3 most wanted international criminals.\n\nCheck faces against entrants and detain suspects immediately.	El Ministerio de Justicia ha solicitado nuestro apoyo.\n\nLos boletines diarios contendrán a partir de ahora un listado de los tres criminales internacionales más buscados.\n\nCompare las imágenes de la lista con las de los solicitantes y detenga instantáneamente a cualquier sospechoso.
+S	bulletin:16A	The Ministry of Justice has appropriated the outer guard detail.\n\nYou are now responsible for controlling trespasser activity.\n\nThe provided key can be used to unlock the tranquilizer gun once an alarm has been raised.\n\nContinued...	El Ministerio de Justicia se ha hecho cargo de la guardia exterior.\n\nA partir de hoy, usted será responsable de de neutralizar cualquier transgresión.\n\nSe le ha facilitado una llave que le permitirá acceder a un rifle de dardos neutralizantes cuando suene la alarma.\n\n(Continúa)
+S	bulletin:16B	__________________________\nCOMPENSATION\n\nYou will receive a bonus for stopping any trespasser. A smaller bonus is provided for firing on, but missing, your target.\n\n__________________________\nWEAPONS PROTOCOL\n\nReview instructional diagram on following page.	__________________________\nCOMPENSACIÓN\n\nSe le otorgará una compensación económica por cada intruso que neutralice. Si dispara sin alcanzar su objetivo, recibirá una compensación menor.\n\n__________________________\nPROTOCOLO DE USO DE ARMAS\n\nRevise el diagrama de adiestramiento de la siguiente página.
+S	bulletin:18A	Unfavorable international press has affected immigration protocol.\n\nAll denials must be accompanied by a REASON FOR DENIAL stamp.\n\nA new computer inking system has been installed. Interrogate discrepancies to prime the REASON FOR DENIAL stamp.\n\nContinued...	El acoso por parte de la prensa internacional ha afectado a nuestro protocolo de inmigración.\n\nToda denegación de entrada debe ir acompañada de un sello con la RAZÓN de tal denegación.\n\n(Continúa)
+S	bulletin:18B	__________________________\nDENIAL PROTOCOL\n\nREASON FOR DENIAL stamp is activated on first interrogation.\n\nWhen denying entry, stamp both DENIED and REASON FOR DENIAL on passport.\n\nIf applicant clarifies discrepancies sufficiently, approval is authorized even while REASON FOR DENIAL stamp remains available.	__________________________\nPROTOCOLO DE DENEGACIÓN\n\nCuando inicie un interrogatorio, se habilitará el sello de RAZÓN de la denegación.\n\nAl denegar la entrada a un solicitante, selle el documento correspondiente con DENEGADO y la RAZÓN del tal denegación.\n\nEn caso de que el solicitante aclarase satisfactoriamente las discrepancias, se autorizará la aprobación, aunque el sello de RAZÓN de la denegación seguirá habilitado.
+S	bulletin:19A	Impor rejects all imported goods from Arstotzka.\n\nUnder request from the Ministry of Trade, the Ministry of Admission will react to this violation.\n\nDeny all travelers from Impor.	Imporia ha impuesto un bloqueo comercial a Arstotzka.\n\n\nEl Ministerio de Admisiones, a petición del Ministerio de Comercio, reaccionará convenientemente a tal agresión.\n\nDeniegue la entrada a todo ciudadano de Imporia.
+S	bulletin:20A	Impor has relented on their faulty policy.\n\nImporians are now permitted entry.\n\nThe divisional authority of East Grestin operations will visit again today.	Imporia ha abandonado su ultrajante política comercial.\n\nLa entrada de ciudadanos imporios vuelve a estar permitida.\n\nLa autoridad divisional de operaciones de Grestin le visitará hoy de nuevo.
+S	bulletin:21A	A special program for political asylum has been established.\n\nThose seeking asylum must carry a valid GRANT OF ASYLUM.\n\nEntrants with such a grant do not require an ENTRY PERMIT or an ID SUPPLEMENT.	El gobierno ha implantado un programa especial de asilo político.\n\nLos solicitantes que deseen cogerse al programa deberán poseer una CONCESIÓN DE ASILO válida
+S	bulletin:23A	Your position is important and your responsibilities are broad.\n\nFollow all protocols strictly.	Su cargo es de vital importancia y sus responsabilidades son muchas.\n\nSea extremadamente estricto en la aplicación de los protocolos.
+S	bulletin:24A	Recent events have cast suspicion on the activities of Arstotzkan citizens in the ALTAN district.\n\nThe Ministry of Information has requested our cooperation.\n\nA special drawer for confiscating documents has been installed in your booth.\n\nContinued...	Acontecimientos recientes han levantado sospechas acerca de las actividades de ciudadanos arstotzkos en la región de ALTAN.\n\nEl Ministerio de Información ha solicitado nuestra cooperación.\n\nA tal efecto, se ha instalado en su garita una gaveta para el decomiso de documentos.\n\n(Continúa)
+S	bulletin:24B	The rulebook has been updated with information regarding confiscation policy.\n\nConfiscate all Arstotzkan passports from residents living in ALTAN district.\n\nTravelers may still be granted entry if passport is confiscated and no other rules are violated.\n\nPASSPORT SEIZURE slips will be issued to allow entry or denial without a passport.	El reglamento ha sido actualizado con instrucciones relativas a los protocolos de decomiso.\n\nConfisque todo pasaporte arstotzko de ciudadanos afincados en la región de ALTAN.\n\nEn caso de que no haya incurrido en ninguna otra infracción de las normas, el solicitante cuyo pasaporte haya sido decomisado podrá acceder al país.\n\nSe extenderá un COMPROBANTE DE DECOMISO con objeto de aprobar o denegar la entrada aun cuando se haya confiscado el pasaporte.
+S	bulletin:25A	United Federation citizens present a risk of spreading infectious disease.\n\nDeny all entrants from United Federation.\n\nContinue to confiscate Arstotzkan passports from residents living in ALTAN district.	Los ciudadanos de la Unión Federal son susceptibles de propagar cierta enfermedad contagiosa.\n\nDeniegue la entrada a todo solicitante de la Unión Federal.\n\nProsiga con el decomiso de los pasaportes arstotzkos pertenecientes a residentes de la región de ALTAN.
+S	bulletin:26A	The risk of disease is too great. A new protocol has been instituted.\n\nAll entrants must carry a valid CERTIFICATE OF VACCINATION with an up-to-date POLIO vaccine.\n\nThis requirement extends to natives, foreigners, diplomats, and asylum seekers.\n\nContinued...	El riesgo de contagio es demasiado grande. Se ha instaurado un nuevo protocolo.\n\nTodos los solicitantes deben estar en posesión de un CERTIFICADO DE VACUNACIÓN válido que incluya una vacuna contra la POLIO vigente.\n\nSe extenderá tal requerimiento a nativos, extranjeros, diplomáticos y solicitantes de asilo.\n\n(Continúa)
+S	bulletin:26B	United Federation citizens are permitted entry with such certification.\n\nContinue to confiscate Arstotzkan passports from residents living in ALTAN district.	Se permitirá la entrada de aquellos ciudadanos de la Unión Federal que presenten tal certificado.\n\nProsiga con el decomiso de los pasaportes arstotzkos pertenecientes a residentes de la región de ALTAN.
+S	bulletin:27A	In order to improve efficiency, the ENTRY PERMIT and ID SUPPLEMENT have been consolidated into a single ACCESS PERMIT.\n\nForeigners are now required to present a valid ACCESS PERMIT.\n\nContinued...	Con vistas a mejorar la eficiencia de nuestros procesos, el PERMISO DE ENTRADA y la TARJETA DE IDENTIFICACIÓN han sido combinados en un único PERMISO DE ACCESO.\n\nA partir de hoy, los solicitantes extranjeros deberán presentar un PERMISO DE ACCESO en regla.\n\n(Continúa)
+S	bulletin:27B	Yesterday's coordinated attack has prompted an emergency meeting.\n\nAn important Kolechian negotiator will arrive today to discuss issues at this checkpoint.\n\nContinue to confiscate Arstotzkan passports from residents living in ALTAN district.	El ataque coordinado de ayer ha propiciado el acaecimiento de una cumbre de urgencia.\n\nUn importante negociador kolechio llegará hoy a este puesto fronterizo para dialogar sobre lo sucedido.\n\nProsiga con el decomiso de los pasaportes arstotzkos pertenecientes a residentes de la región de ALTAN.
+S	bulletin:28A	In response to continued attacks, the Ministry of Information is expanding the passport confiscation program.\n\nConfiscate all Arstotzkan passports from native entrants.\n\nThere are no exceptions.\n\nDo not confiscate foreign passports.	Como respuesta a los ataques constantes, el Ministerio de Información acaba de expandir su programa de decomiso de pasaportes.\n\nConfisque todos los pasaportes de ciudadanos arstotzkos.\n\nNo haga excepciones.\n\nNo confisque pasaportes extranjeros.
+S	bulletin:29A	[NOTICE] All government workers are subject to a thorough information audit. Involvement with unauthorized groups is grounds for immediate arrest.\n\nYour audit is scheduled for: DECEMBER 24\n\nDO NOT LEAVE YOUR DESIGNATED REGION.\n\nContinued...	[NOTICE] Todos los funcionarios del gobierno están obligados a asistir a una sesión de control en profundidad. La implicación con grupos no autorizados será causa de arresto inmediato.\n\nSu sesión tendrá lugar el 24 DE DICIEMBRE.\n\nNO ABANDONE LA REGIÓN A LA QUE FUE ASIGNADO.\n\n(Continúa)
+S	bulletin:29B	Continue to confiscate all Arstotzkan passports from native entrants.	Prosiga con el decomiso de los pasaportes pertenecientes a solicitantes oriundos de Arstotzka.
+S	bulletin:30A	[NOTICE] All government workers are subject to a thorough information audit. Involvement with unauthorized groups is grounds for immediate arrest.\n\nYour audit is scheduled for: DECEMBER 24\n\nDO NOT LEAVE YOUR DESIGNATED REGION.\n\nContinued...	[NOTICE] Todos los funcionarios del gobierno están obligados a asistir a detallada sesión de control. La implicación con grupos no autorizados será causa de arresto inmediato.\n\nSu sesión tendrá lugar el 24 DE DICIEMBRE.\n\nNO ABANDONE LA ZONA A LA QUE FUE ASIGNADO.\n\n(Continúa)
+S	bulletin:30B	Continue to confiscate all Arstotzkan passports from native entrants.	Prosiga con el decomiso de los pasaportes pertenecientes a nativos arstotzkos.
+S	bulletin:31A	The Ministry of Admission is involved in discussions regarding the closure of this checkpoint.\n\nUntil a decision is made, maintain your duties as ordered.\n\nContinued...	El Ministerio de Admisiones está considerando el cierre de este puesto fronterizo.\n\nHasta que se llegue a una conclusión, continúe distinguiéndose en el ejercicio de su deber tal y como le ha sido ordenado.\n\n(Continúa)
+S	bulletin:31B	You are scheduled for an information audit tomorrow morning.\n\nDO NOT LEAVE YOUR DESIGNATED REGION.\n\nContinue to confiscate all Arstotzkan passports from native entrants.	Mañana deberá asistir a una reunión informativa.\n\nNO ABANDONE LA REGIÓN A LA QUE FUE ASIGNADO.\n\nProsiga con el decomiso de los pasaportes pertenecientes a nativos arstotzkos.
+S	facts	$paper: Invalid $fact	Problema con $paper: $fact
+S	facts	Missing $paper	Falta $paper
+S	facts	$0 DISTRICT	REGIÓN DE $0
+S	facts	Presence	Presencia
+S	facts	Sufficience	Mediocridad
+S	facts	Excellence	Excelencia
+S	facts	Obristan	Obristán
+S	facts	Antegria	Antegria
+S	facts	Republia	Republia
+S	facts	UnitedFed	U.F.
+S	facts	Impor	Imporia
+S	facts	Kolechia	Kolechia
+S	facts	Arstotzka	Arstotzka
+S	facts	Skal	Skal
+S	facts	Lorndaz	Lorndaz
+S	facts	Mergerous	Mergerous
+S	facts	St. Marmero	San Marmero
+S	facts	Glorian	Gloriana
+S	facts	Outer Grouse	Fora Grouse
+S	facts	True Glorian	Gloriana Real
+S	facts	Lesrenadi	Lesrenadia
+S	facts	Bostan	Bostán
+S	facts	Great Rapid	Great Rapid
+S	facts	Shingleton	Shingleton
+S	facts	Korista City	Korista
+S	facts	Enkyo	Enkyo
+S	facts	Haihan	Haihan
+S	facts	Tsunkeido	Tsunkeido
+S	facts	Yurko City	Yurko
+S	facts	Vedor	Vedor
+S	facts	West Grestin	Grestin Occ.
+S	facts	Orvech Vonor	Orvech Vonor
+S	facts	East Grestin	Grestin Or.
+S	facts	Paradizna	Paradizna
+S	facts	Passport	Pasaporte
+S	facts	Entry Ticket	Tique acceso
+S	facts	Entry Permit	Perm. entrada
+S	facts	Work Pass	Perm. trabajo
+S	facts	Id Card	D.A.I.
+S	facts	Id Supplement	Tarj. identidad
+S	facts	Access Permit	Perm. acceso
+S	facts	Diplomatic Auth	Aut. diplom.
+S	facts	Asylum Grant	Conc. asilo
+S	facts	Vaccine Cert	Cert. vacun.
+S	facts	Identity Record	Ficha ident.
+S	facts	Fingerprints	Huellas
+S	facts	Name	Nombre
+S	facts	Id Number	Nº Pasaporte
+S	facts	Expiration Date	Caducidad
+S	facts	Issuing City	Ciudad exp.
+S	facts	Birth Date	Fecha nac.
+S	facts	Alias	Alias
+S	facts	Height	Altura
+S	facts	Weight	Peso
+S	facts	Description	Descripción
+S	facts	Thumbprint	Huella
+S	facts	Date	Fecha
+S	facts	Purpose	Motivo
+S	facts	Duration	Duración
+S	facts	Face	Rostro
+S	facts	District	Región
+S	facts	Gender	Sexo
+S	facts	Work End Date	Fin trabajo
+S	facts	Altan	Altan
+S	facts	Vescillo	Vescillo
+S	facts	Burnton	Burnton
+S	facts	Octovalis	Octovalis
+S	facts	Gennistora	Gennistora
+S	facts	Lendiforma	Lendiforma
+S	facts	Wozenfield	Wozenfield
+S	facts	Fardesto	Fardesto
+S	facts	DENTISTRY	ODONTOLOGÍA
+S	facts	HEALTH-CARE	MEDICINA
+S	facts	GENERAL-LABOR	NO CUALIFICADO
+S	facts	ENGINEERING	INGENIERÍA
+S	facts	SPORTS	DEPORTE
+S	facts	ARCHITECTURE	ARQUITECTURA
+S	facts	FOOD-SERVICE	ALIMENTACIÓN
+S	facts	AVIATION	AVIACIÓN
+S	facts	ACCOUNTING	CONTABILIDAD
+S	facts	FISHING	PESCA
+S	facts	DRAFTING	RECLUTAMIENTO
+S	facts	RESEARCH	INVESTIGACIÓN
+S	facts	FINE-ARTS	BELLAS ARTES
+S	facts	AGRICULTURE	AGRICULTURA
+S	facts	MANUFACTURING	MANUFACTURA
+S	facts	CONSTRUCTION	CONSTRUCCIÓN
+S	facts	SURVEYING	TOPOGRAFÍA
+S	facts	STATISTICS	ESTADÍSTICA
+S	facts	POLIO	POLIO
+S	facts	HPV	VHP
+S	facts	COWPOX	VIRUELA
+S	facts	TETANUS	TÉTANOS
+S	facts	YEL.FEV.	FIEBRE AM.
+S	facts	CHOLERA	CÓLERA
+S	facts	RUBELLA	RUBEOLA
+S	facts	HEP-B	HEPAT. B
+S	facts	MEASLES	SARAMPIÓN
+S	facts	TUBERC.	TUBERC.
+S	facts	2 DAYS	2 DÍAS
+S	facts	14 DAYS	14 DÍAS
+S	facts	1 MONTH	1 MES
+S	facts	2 MONTHS	2 MESES
+S	facts	3 MONTHS	3 MESES
+S	facts	6 MONTHS	6 MESES
+S	facts	1 YEAR	1 AÑO
+S	facts	FOREVER	PARA SIEMPRE
+S	facts	visit	turismo
+S	facts	transit	tránsito
+S	facts	work	trabajo
+S	facts	immigrate	inmigración
+S	facts	Possible Smuggler Admitted	Admisión de posible traficante
+S	facts	Missing documents	Documentos no presentados
+S	facts	Wanted criminal admitted	Criminal en busca y captura
+S	facts	Incorrect purpose response	Respuesta incorrecta: motivo
+S	facts	Incorrect visit duration response	Respuesta falsa: duración de visita
+S	facts	Passport: Non-matching photo	Pasaporte: fotogr. no coincidente
+S	facts	Forged Entry Permit	Permiso de entrada falsificado
+S	facts	Forged Work Pass	Permiso de trabajo falsificado
+S	facts	Id Card: Non-matching photo	D.A.I.: fotografía no coincidente
+S	facts	Forged Access Permit	Permiso de acceso falsificado
+S	facts	No Diplomatic Access to Arstotzka	Sin acceso diplomático a Arstotzka
+S	facts	Forged Diplomatic Auth	Autorización diplomática falsificada
+S	facts	Forged Asylum Grant Seal	Sello de concesión de asilo falso
+S	facts	Necessary vaccine expired	Vacuna necesaria caducada
+S	facts	Missing necessary vaccine	Carencia de vacuna necesaria
+S	facts	Name does not match record	Nombre no coincidente con ficha
+S	facts	Alias does not match record	Alias no coincidente con ficha
+S	facts	Fingerprints do not match record	Huellas no coincidentes con ficha
+S	facts	Cobrastan is not a real country	Cobrastán no existe como país
+S	facts	No entry from Antegria	No se admiten entradas de Antegria
+S	facts	No entry from Arstotzka	No se admiten entradas de Arstotzka
+S	facts	No entry from Republia	No se admiten entradas de Republia
+S	facts	No entry from United Fed	No se admiten entradas de U.F.
+S	facts	No entry from Obristan	No se admiten entradas de Obristán
+S	facts	No entry from Impor	No se admiten entradas de Imporia
+S	facts	No entry from Kolechia	No se admiten entradas de Kolechia
+S	facts	Possible Terrorist Admitted	Admisión de posibles terroristas
+S	facts	Entrant Holds Conflicting Passports	Pasaportes no coincidentes
+S	facts	Entrant must have a passport	Para entrar se requerirá pasaporte
+S	facts	Foreigners require an entry permit	Permiso de entrada para los extranjeros
+S	facts	Foreigners require an entry ticket	Tique de acceso para los extranjeros
+S	facts	All documents must be current	Los documentos deben estar en regla
+S	facts	Workers must have a work pass	Permiso de trabajo para trabajadores
+S	facts	Citizens must have an id card	Los arstotzkos deben tener un D.A.I.
+S	facts	Foreigners require an id supplement	Tarjeta de identidad para extranjeros
+S	facts	Arstotzkan citizens only	Solo ciudadanos arstotzkos
+S	facts	No entry from United Federation	No pueden entrar ciudadanos de la U.F.
+S	facts	No weapons or contraband	Ni armas ni contrabando
+S	facts	All Kolechians must be searched	Los kolechios deben ser escaneados
+S	facts	Diplomats require authorization	Ningún diplomático sin autorización
+S	facts	Entrant must have polio vaccine cert	Requerida vacuna contra la polio
+S	facts	Asylum seekers must have a grant	Concesión de asilo requerida para asilo
+S	facts	Foreigners require an access permit	Permiso de acceso para los extranjeros
+S	facts	CONFISCATE ARSTOTZKAN PASSPORTS BELONGING TO ALTAN RESIDENTS.	DECOMISE PASAPORTES ARSTOTZKOS A RESIDENTES EN ALTAN
+S	facts	CONFISCATE ALL ARSTOTZKAN PASSPORTS. NO EXCEPTIONS.	DECOMISE TODOS LOS PASAPORTES ARSTOTZKOS SIN EXCEPCIÓN
+S	facts	Passport not confiscated	PASAPORTE NO CONFISCADO
+S	paper:Rules	Basic Rules	Normas básicas
+S	paper:Rules	Regional Map	Mapa de la zona
+S	paper:Rules	Booth Info	Garita
+S	paper:Rules	Documents	Documentos
+S	paper:Rules	Confiscation	Decomiso
+S	paper:Rules	Obristan	Obristán
+S	paper:Rules	Antegria	Antegria
+S	paper:Rules	Republia	Republia
+S	paper:Rules	United	Unión
+S	paper:Rules	Federation	Federal
+S	paper:Rules	Impor	Imporia
+S	paper:Rules	Kolechia	Kolechia
+S	paper:Rules	Arstotzka	Arstotzka
+S	paper:Rules	ANTEGRIA	ANTEGRIA
+S	paper:Rules	ARSTOTZKA	ARSTOTZKA
+S	paper:Rules	IMPOR	IMPORIA
+S	paper:Rules	KOLECHIA	KOLECHIA
+S	paper:Rules	OBRISTAN	OBRISTÁN
+S	paper:Rules	REPUBLIA	REPUBLIA
+S	paper:Rules	UNITED FED.	UNIÓN FEDERAL
+S	paper:Rules	Id Card (Native)	D.A.I. (Nativos)
+S	paper:Rules	Entry Permit	Permiso de entrada
+S	paper:Rules	Id Supplement	Tarjeta de identidad
+S	paper:Rules	Access Permit	Permiso de acceso
+S	paper:Rules	Work Pass	Permiso de trabajo
+S	paper:Rules	Diplomatic Auth.	Autoriz. diplomática
+S	paper:Rules	Grant of Asylum	Concesión de asilo
+S	paper:Rules	Vaccine Cert.	Certif. de vacunación
+S	intro	Congratulations.	¡Enhorabuena!
+S	intro	The October labor lottery is complete. Your name was pulled.	Su nombre ha salido elegido en la lotería de trabajo.
+S	intro	For immediate placement, report to the Ministry of Admission at Grestin Border Checkpoint.	Preséntese inmediatamente ante el Ministerio de Admisiones, en el puesto fronterizo de Grestin.
+S	intro	An apartment will be provided for you and your family in East Grestin. Expect a Class-8 dwelling.	Se le proporcionará una vivienda de clase 8 en Grestin Oriental, en la cual podrá alojarse junto a su familia.
+S	intro	Glory to Arstotzka.	Gloria a Arstotzka.
+T	language_code	es
+T	language_name	ESPAÑOL
+T	language_author	J. Monchan y R. Méndez
+T	wrap_hyphen	-
+T	created_by	creado por Lucas Pope
+T	papers_please	Sus papeles, por favor.
+T	protocol_violated	Violación del protocolo.
+T	unauth_confiscation	Decomiso del pasaporte no autorizado
+T	missing_reason	Razón de la denegación no presentada
+T	citation_warning	AMONESTACIÓN SIN SANCIÓN
+T	citation_lastwarning	ÚLTIMA AMONESTACIÓN SIN SANCIÓN
+T	citation_penalty	SANCIÓN DE $0 CRÉDITOS
+T	border_next	¡SIGUIENTE!
+T	border_bomber	¡POR KOLECHIA!
+T	border_comeback	VUELVAN MAÑANA A LAS 6 A.M.
+T	border_announce0	LA ENTRADA NO ESTÁ GARANTIZADA.
+T	border_announce1	TENGAN LA DOCUMENTACIÓN A MANO.
+T	border_announce2	ARSTOTZKA LES DA LA BIENVENIDA.
+T	border_guardout	¡VAMOS!
+T	border_elisa	¡ELISA!
+T	family_son_budget	HIJO
+T	family_wife_budget	MUJER
+T	family_niece_budget	SOBRINA
+T	family_uncle_budget	TÍO
+T	family_mil_budget	SUEGRA
+T	family_son_status	Hijo
+T	family_wife_status	Mujer
+T	family_niece_status	Sobrina
+T	family_uncle_status	Tío
+T	family_mil_status	Suegra
+T	family_son_message	hijo
+T	family_wife_message	mujer
+T	family_niece_message	sobrina
+T	family_uncle_message	tío
+T	family_mil_message	suegra
+T	night_endof	FIN DEL
+T	night_day	DÍA $0
+T	family_verysick_1	Sin medicinas, tu $0 morirá.
+T	family_verysick_many	Varios miembros de tu familia están gravemente enfermos. Sin medicamentos, morirán.
+T	family_sick_1	Tu $0 ha enfermado y necesita medicamentos.
+T	family_sick_many	TU familia necesita medicamentos.
+T	family_died_1	Tu $0 ha muerto.
+T	family_died_2	Tu $0 y tu $1 han muerto.
+T	family_died_3	Tu $0, tu $1 y tu $2 han muerto.
+T	family_died_4	Tu $0, tu $1, tu $2 y tu $3 han muerto.
+T	family_died_5	Tu $0, tu $1, tu $2, tu $3, y tu $4 han muerto.
+T	family_escape_with_0	Lo dejas todo atrás.
+T	family_escape_with_1	Partes hacia Obristán junto a tu $0.
+T	family_escape_with_2	Partes hacia Obristán junto a tu $0 y tu $1.
+T	family_escape_with_3	Partes hacia Obristán junto a tu $0, tu $1 y tu $2.
+T	family_escape_with_4	Partes hacia Obristán junto a tu $0, tu $1, tu $2 y tu $3.
+T	family_escape_with_5	Partes hacia Obristán junto a tu $0, tu $1, tu $2, tu $3 y tu $4.
+T	family_escape_without_1	Tu $0 se prepara para volver a Nirsk.
+T	family_escape_without_2	Tu $0 y tu $1 se preparan para volver a Nirsk.
+T	family_escape_without_3	Tu $0, tu $1 y tu $2 se preparan para volver a Nirsk.
+T	family_escape_without_4	Tu $0, tu $1, tu $2 y tu $3 se preparan para volver a Nirsk.
+T	family_escape_without_5	Tu $0, tu $1, tu $2, tu $3 y tu $4 se preparan para volver a Nirsk.
+T	family_flee_final_0	Obristán por encima de todo.
+T	family_flee_final_1	Ignoras si tu $0 está [m0]seguro[/m0][f0]segura[/f0].
+T	family_flee_final_2	Ignoras si tu $0 y tu $1 están a salvo.
+T	family_flee_final_3	Ignoras si tu $0, tu $1 y tu $2 están a salvo.
+T	family_flee_final_4	Ignoras si tu $0, tu $1, tu $2 y tu $3 están a salvo.
+T	family_flee_final_5	Ignoras si tu $0, tu $1, tu $2, tu $3 y tu $4 están a salvo.
+T	budget_savings	AHORROS
+T	budget_salary	JORNAL ($0)
+T	budget_penalties	SANCIONES ($0)
+T	budget_bribes	SOBORNOS
+T	budget_rent	ALQUILER
+T	budget_food	COMIDA
+T	budget_heat	CALEFACCIÓN
+T	budget_medicine	MEDICAMENTOS ($0)
+T	budget_sleep	IR A DORMIR
+T	budget_escape	HUIR
+T	menu_back	VOLVER
+T	confirm_ok	ACEPTAR
+T	confirm_cancel	CANCELAR
+T	menu_mainmenu	MENÚ PRINCIPAL
+T	menu_resume	CONTINUAR
+T	menu_quit	SALIR
+T	menu_done	VOLVER
+T	menu_story	HISTORIA
+T	menu_endless	ETERNO
+T	menu_play	JUGAR
+T	menu_fullscreen	Pantalla completa
+T	menu_nudity	Desnudos
+T	menu_easy	Modo fácil
+T	menu_vibration	Vibración
+T	menu_music	Música
+T	menu_sound	Sonido
+T	menu_dateformat	Formato de fecha
+T	menu_language	Idioma
+T	menu_device	Dispositivo
+T	menu_easytip	+ 20 créditos diarios
+T	menu_stats	ESTADÍSTICAS
+T	menu_next	SIGUIENTE
+T	menu_walktowork	IR A TRABAJAR
+T	menu_paused	EN PAUSA
+T	menu_settings	OPCIONES
+T	menu_credits	CRÉDITOS
+T	menu_checkforupdates	BUSCAR ACTUALIZACIONES
+T	stats_text	Tiempo de juego: $time\n$processed solicitudes procesadas\n$approved validadas\n$denied denegadas\n$detained detenciones\n$citations amonestaciones\n$stamps visados sellados\nFinal $endnum de $endtotal
+T	load_title	Elige en qué día quieres continuar o crea una nueva partida.
+T	load_confirm_delete_single	¿Quieres borrar el día $0 de esta ramificación?\n\nEsta acción no tiene vuelta atrás.
+T	load_confirm_delete_multi	¿Quieres borrar esta ramificación de la partida del día $0 al $1?\n\nEsta acción no tiene vuelta atrás.
+T	load_delete	BORRAR
+T	load_confirm_full	NO HAY ESPACIO PARA MÁS PARTIDAS\n\nContinúa desde uno de los días situados más a la derecha o borra una ramificación para liberar espacio.
+T	load_summary	Día $day\n"$news"\n\n$savings créditos, $family familiares,\n$tokens medalla(s), vivienda $apt
+T	load_continue	CONTINUAR
+T	emotion_happy	FELIZ
+T	emotion_ok	BIEN
+T	emotion_sad	TRISTE
+T	emotion_cold	TOS
+T	emotion_sick	EN CAMA
+T	emotion_verysick	GRAVE
+T	emotion_dead	R.I.P.
+T	emotion_hungry	HAMBRE
+T	load_latest	ÚLTIMA
+T	entry_approved	ENTRADA PERMITIDA
+T	entry_denied	ENTRADA DENEGADA
+T	stamp_approved	APROBADO
+T	stamp_denied	DENEGADO
+T	stamp_reason	RAZÓN
+T	booth_dragdocs	ARRASTRE AQUÍ LOS DOCUMENTOS
+T	booth_highlight	RESALTAR DISCREPANCIAS
+T	booth_discrepancy	DISCREPANCIA DETECTADA
+T	booth_interrogate	INTERROGAR
+T	booth_matching	DATOS COINCIDENTES
+T	booth_nocorrelation	SIN CORRELACIÓN
+T	booth_cleared	DISCREPANCIA\nRESUELTA
+T	env_clearforentry	Solicitante apto para la entrada
+T	env_lettermale	H
+T	env_letterfemale	M
+T	env_noalias	Sin alias conocido
+T	env_typochars	ao,iyj,pgq,mnr,ck,bv,ftl
+T	carousel_give	ENTREGAR
+T	carousel_hang	CUÉLGUESE EN LA PARED
+T	carousel_confiscate	DECOMISE
+T	endless_complete	$style\n$course\n\n$time\n$score puntos
+T	endless_ranked	Posición: #$0
+T	endless_unlock	Completa el modo Historia sin perder tu trabajo para desbloquear el modo Eterno.
+T	endless_wrongcode	C U A S I
+T	date_verbose	$day de $month de $year
+T	month_1	enero
+T	month_2	febrero
+T	month_3	marzo
+T	month_4	abril
+T	month_5	mayo
+T	month_6	junio
+T	month_7	julio
+T	month_8	agosto
+T	month_9	septiembre
+T	month_10	octubre
+T	month_11	noviembre
+T	month_12	diciembre
+T	day_1	1
+T	day_2	2
+T	day_3	3
+T	day_4	4
+T	day_5	5
+T	day_6	6
+T	day_7	7
+T	day_8	8
+T	day_9	9
+T	day_10	10
+T	day_11	11
+T	day_12	12
+T	day_13	13
+T	day_14	14
+T	day_15	15
+T	day_16	16
+T	day_17	17
+T	day_18	18
+T	day_19	19
+T	day_20	20
+T	day_21	21
+T	day_22	22
+T	day_23	23
+T	day_24	24
+T	day_25	25
+T	day_26	26
+T	day_27	27
+T	day_28	28
+T	day_29	29
+T	day_30	30
+T	day_31	31
+T	bulletin_default	Gobierno de Arstotzka\nMinisterio de Admisiones\nBoletín oficial\n\nInspector:\n\n$content\n\nGloria a Arstotzka.
+T	bulletin_notice	Gobierno de Arstotzka\nMinisterio de Admisiones\nBoletín oficial\n\nAVISO:\n\n$content\n\nGloria a Arstotzka.
+T	bulletin_endless	Gobierno de Arstotzka\nMinisterio de Admisiones\nBoletín oficial\n\n\n$style\n\n$course\n\nGloria a Arstotzka.

@@ -1,0 +1,911 @@
+#--------------------------------------------------------
+# Actions
+#--------------------------------------------------------
+*Interrogate
+	" $1
+
+*Interrogate:Missing
+	" ask-missing-$1
+	" missing-$1
+
+*Interrogate:Hidden
+	" ask-missing-$1
+	" hidden-paper
+
+*Interrogate:Expired
+	" ask-expired-paper
+	" expired-$1
+
+*Interrogate:WrongName
+	" ask-wrong-name
+	" wrong-name
+	@ Fingerprint
+
+*Interrogate:WrongAlias
+	" ask-wrong-alias
+	" wrong-alias
+	@ Detain
+
+*Interrogate:WrongFingerprints
+	" ask-wrong-fingerprints
+	" wrong-fingerprints
+	@ Detain
+
+*Interrogate:WrongThumbprint
+	" ask-wrong-thumbprint
+	" wrong-thumbprint
+	@ Detain
+
+*Interrogate:Forgery
+	" ask-forgery-$1
+	" forgery
+	@ Detain
+
+*Interrogate:Contraband
+	" ask-contraband
+	" contraband
+	@ Detain
+
+*Interrogate:Criminal
+	" ask-criminal
+	" criminal
+	@ Detain
+
+
+#--------------------------------------------------------
+# Traveler
+#--------------------------------------------------------
+# Only put requirements for papers explicitly given
+# to the traveler. Day papers aren't considered (Rules, Bulletin, etc)
+Traveler-ConfusingGender<generic>			WrongGender
+	\ Passport
+	\ FEATURES has SEARCH
+	\ FILTER !has ADDITIONAL # don't consider this error if looking for additional errors
+	! ~Passport/Gender
+		> Interrogate 
+			" ask-wrong-gender
+			" wrong-gender
+			@ Search
+Traveler-Criminal<generic>
+	\ FEATURES has CRIMINALS
+	\ FILTER !has ADDITIONAL # don't consider this error if looking for additional errors
+	
+#--------------------------------------------------------
+# Rules
+#--------------------------------------------------------
+Rules-SearchKolechiaClear<generic>			Rules-SearchKolechia
+	\ NATION == Kolechia
+	\ RULES has RuleSearchKolechia
+	\ FEATURES has SEARCH
+	! ~Rules/RuleSearchKolechia
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+Rules-SearchKolechiaContraband<generic><contraband>		Rules-SearchKolechia
+	\ NATION == Kolechia
+	\ RULES has RuleSearchKolechia
+	\ FEATURES has SEARCH
+	! ~Rules/RuleSearchKolechia
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+	! Traveler/Contraband
+		> $Interrogate:Contraband
+
+#--------------------------------------------------------
+# Errors that are always applied (based on requirements)
+#--------------------------------------------------------
+ALWAYS:Rules-ArstotzkaOnly
+	\ NATION != Arstotzka
+	\ RULES has RuleArstotzkaOnly
+	! Traveler/Nationality
+		> Interrogate
+			" ask-wrong-nation		
+ALWAYS:Rules-NoImpor
+	\ NATION == Impor
+	\ RULES has RuleNoImpor
+	! Rules/RuleNoImpor
+		> Interrogate
+			" ask-wrong-nation
+ALWAYS:Rules-NoUnitedFed
+	\ NATION == UnitedFed
+	\ RULES has RuleNoUnitedFed
+	! Rules/RuleNoUnitedFed
+		> Interrogate
+			" ask-wrong-nation
+
+#--------------------------------------------------------
+# Passport
+#--------------------------------------------------------
+Passport-Missing<missing><deny><obvious>		Passport-MissingHidden
+	\ Passport
+	\ FEATURES has INSPECT
+	\ PURPOSE != diplomat
+	! Passport/Exists
+		> $Interrogate:Missing passport
+			+ VisaSlip
+Passport-Hidden<missing>			Passport-MissingHidden
+	\ Passport
+	\ FEATURES has INSPECT
+	! Passport/Visible
+		> $Interrogate:Hidden passport
+			^ Passport/Visible
+Passport-WrongFaceClear<generic>	Passport-WrongFace
+	\ Passport
+	\ FEATURES has FINGERPRINT
+	! ~Passport/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+Passport-WrongFaceError<generic><deny><obvious>	Passport-WrongFace
+	\ Passport
+	! Passport/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+Passport-WrongIssuingCity<generic><deny>
+	\ Passport
+	! Passport/IssuingCity
+		> Interrogate
+			" ask-wrong-issuingcity
+			" wrong-issuingcity
+			@ Detain
+Passport-WrongExpiration<generic><deny>
+	\ Passport
+	! Passport/ExpirationDate
+		> $Interrogate:Expired passport
+Passport-WrongGender<generic><deny>		WrongGender
+	\ Passport
+	\ FEATURES has SEARCH
+	! Photo/GenderProxy
+		> Interrogate
+			" ask-wrong-gender-busted
+			" wrong-gender-busted
+			@ Detain
+	! Passport/Gender
+		> Interrogate 
+			" ask-wrong-gender
+			" wrong-gender
+			@ Search
+#Passport-WrongGender<generic><deny><rare>	WrongGender
+	# rare version of WrongGender, before SEARCH is enabled
+#	\ Passport
+#	\ FEATURES !has SEARCH
+#	! Passport/Gender
+#		> Interrogate 
+#			" ask-wrong-gender
+#			" wrong-gender
+#			@ Search
+
+#--------------------------------------------------------
+# EntryTicket
+#--------------------------------------------------------
+EntryTicket-Missing<missing><deny><obvious>	EntryTicket-MissingHidden
+	\ EntryTicket
+	! EntryTicket/Exists
+		> $Interrogate:Missing entryticket
+EntryTicket-Hidden<missing>			EntryTicket-MissingHidden
+	\ EntryTicket
+	! EntryTicket/Visible
+		> $Interrogate:Hidden entryticket
+			^ EntryTicket/Visible
+EntryTicket-WrongUseDate<generic><deny>
+	\ EntryTicket
+	! EntryTicket/UseDate
+		> Interrogate
+			" ask-wrong-entryticket-date
+			" wrong-entryticket-date
+
+#--------------------------------------------------------
+# IdCard
+#--------------------------------------------------------
+IdCard-Missing<missing><deny><obvious>		IdCard-MissingHidden
+	\ IdCard
+	# Altan has to be confiscated at some point, so we always need icard to verify
+	\ DISTRICT != Altan || CONFISCATION != DistrictAltan
+	! IdCard/Exists
+		> $Interrogate:Missing idcard
+IdCard-Hidden<missing>				IdCard-MissingHidden
+	\ IdCard
+	! IdCard/Visible
+		> $Interrogate:Hidden idcard
+			^ IdCard/Visible
+IdCard-WrongName<generic><deny><obvious>		IdCard-WrongName
+	\ IdCard
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! IdCard/Name
+		> $Interrogate:WrongName
+IdCard-ConfusingName<generic>		IdCard-WrongName
+	\ IdCard
+	\ FEATURES has FINGERPRINT
+	! ~IdCard/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias IdCard/Name		
+IdCard-WrongDistrict<generic><deny>
+	\ IdCard
+	# Altan has to be confiscated at some point, so don't confuse things by making it an error
+	\ DISTRICT != Altan || CONFISCATION != DistrictAltan
+	! IdCard/District
+		> Interrogate
+			" ask-forgery-idcard
+			" forgery
+			@ Detain
+IdCard-WrongBirthDate<generic><deny>
+	\ IdCard
+	! IdCard/BirthDate
+		> Interrogate
+			" ask-wrong-birthdate
+			" forgery
+			@ Detain
+IdCard-WrongHeightClear<generic>	IdCard-WrongHeight
+	\ IdCard
+	\ FEATURES has FINGERPRINT	
+	! ~IdCard/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+IdCard-WrongHeightError<generic>	IdCard-WrongHeight
+	\ IdCard
+	\ FEATURES has FINGERPRINT	
+	! IdCard/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints			
+IdCard-WrongFaceClear<generic>		IdCard-WrongFace
+	\ IdCard
+	\ FEATURES has FINGERPRINT
+	! ~IdCard/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+IdCard-WrongFaceError<generic><deny><obvious>		IdCard-WrongFace
+	\ IdCard
+	! IdCard/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+IdCard-ContrabandClear<generic>		IdCard-Contraband
+	\ IdCard
+	\ FEATURES has SEARCH
+	! ~IdCard/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+IdCard-ContrabandError<generic><contraband>		IdCard-Contraband
+	\ IdCard
+	\ FEATURES has SEARCH
+	! IdCard/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+	! Traveler/Contraband
+		> $Interrogate:Contraband
+
+#--------------------------------------------------------
+# IdSupplement
+#--------------------------------------------------------
+IdSupplement-Missing<missing><deny><obvious>			IdSupplement-MissingHidden
+	\ IdSupplement	
+	! IdSupplement/Exists
+		> $Interrogate:Missing idsupplement
+IdSupplement-Hidden<missing>				IdSupplement-MissingHidden
+	\ IdSupplement
+	! IdSupplement/Visible
+		> $Interrogate:Hidden idsupplement
+			^ IdSupplement/Visible		
+IdSupplement-WrongExpiration<generic><deny>
+	\ IdSupplement
+	! IdSupplement/ExpirationDate
+		> $Interrogate:Expired idsupplement			
+IdSupplement-WrongHeightClear<generic>		IdSupplement-WrongHeight
+	\ IdSupplement
+	\ FEATURES has FINGERPRINT	
+	! ~IdSupplement/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+IdSupplement-WrongHeightError<generic>		IdSupplement-WrongHeight
+	\ IdSupplement
+	\ FEATURES has FINGERPRINT	
+	! IdSupplement/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+	! IdSupplement/Thumbprint
+		> $Interrogate:WrongFingerprints
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints		
+IdSupplement-ContrabandClear<generic>		IdSupplement-Contraband
+	\ IdSupplement
+	\ FEATURES has SEARCH
+	! ~IdSupplement/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+IdSupplement-ContrabandError<generic><contraband>		IdSupplement-Contraband
+	\ IdSupplement
+	\ FEATURES has SEARCH
+	! IdSupplement/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+	! Traveler/Contraband
+		> $Interrogate:Contraband
+IdSupplement-WrongDescriptionClear<generic>	IdSupplement-WrongAppearance
+	\ IdSupplement
+	\ FEATURES has FINGERPRINT	
+	! ~IdSupplement/Description
+		> Interrogate
+			" ask-wrong-description
+			" wrong-description
+			@ Fingerprint
+IdSupplement-WrongDescriptionError<generic>	IdSupplement-WrongAppearance
+	\ IdSupplement
+	\ FEATURES has FINGERPRINT	
+	! IdSupplement/Description
+		> Interrogate
+			" ask-wrong-description
+			" wrong-description
+			@ Fingerprint
+	! IdSupplement/Thumbprint
+		> $Interrogate:WrongThumbprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+
+#--------------------------------------------------------
+# EntryPermit
+#--------------------------------------------------------
+EntryPermit-Missing<missing><deny><obvious>		EntryPermit-MissingHidden
+	\ EntryPermit
+	! EntryPermit/Exists
+		> $Interrogate:Missing entrypermit
+EntryPermit-Hidden<missing>				EntryPermit-MissingHidden
+	\ EntryPermit
+	! EntryPermit/Visible
+		> $Interrogate:Hidden entrypermit
+			^ EntryPermit/Visible
+EntryPermit-WrongSeal<generic><deny>
+	\ EntryPermit
+	\ FEATURES has FORGERY
+	! EntryPermit/Emblem/MinistryOfAdmission
+		> $Interrogate:Forgery entrypermit
+EntryPermit-Expired<generic><deny>
+	\ EntryPermit
+	! EntryPermit/ExpirationDate
+		> $Interrogate:Expired permit
+EntryPermit-WrongName<generic><deny>	EntryPermit-WrongName
+	\ EntryPermit
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! EntryPermit/Name
+		> $Interrogate:WrongName
+EntryPermit-ConfusingName<generic>		EntryPermit-WrongName
+	\ EntryPermit
+	\ FEATURES has FINGERPRINT
+	! ~EntryPermit/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias EntryPermit/Name
+EntryPermit-WrongId<generic><deny>
+	\ EntryPermit
+	! EntryPermit/IdNumber
+		> Interrogate 
+			" ask-wrong-idnumber
+			" wrong-idnumber
+			@ Detain
+EntryPermit-WrongPurpose<speech>
+	\ EntryPermit
+	\ PURPOSE != immigrate
+	! Speech/Purpose
+		> Interrogate
+			^ Speech/Purpose
+			" ask-wrong-purpose
+			" wrong-purpose		
+EntryPermit-WrongDuration<speech>
+	\ EntryPermit
+	\ PURPOSE != immigrate
+	! Speech/Duration
+		> Interrogate 
+			^ Speech/Duration
+			" ask-wrong-duration
+			" wrong-duration
+
+#--------------------------------------------------------
+# WorkPermit
+#--------------------------------------------------------
+WorkPermit-Missing<missing><deny>			WorkPermit-MissingHidden
+	\ WorkPermit
+	! WorkPermit/Exists
+		> $Interrogate:Missing workpermit
+WorkPermit-Hidden<missing>					WorkPermit-MissingHidden
+	\ WorkPermit
+	! WorkPermit/Visible
+		> $Interrogate:Hidden workpermit
+			^ WorkPermit/Visible
+WorkPermit-WrongSeal<generic><deny>
+	\ WorkPermit
+	\ FEATURES has FORGERY
+	! WorkPermit/Emblem/MinistryOfLabor
+		> $Interrogate:Forgery workpermit
+WorkPermit-WrongEndDate<generic><deny>
+	\ WorkPermit
+	! WorkPermit/WorkEndDate
+		> Interrogate
+			" ask-wrong-workend
+			" wrong-workend
+WorkPermit-WrongName<generic><deny>		WorkPermit-WrongName
+	\ WorkPermit
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! WorkPermit/Name
+		> $Interrogate:WrongName
+WorkPermit-ConfusingName<generic>			WorkPermit-WrongName
+	\ WorkPermit
+	\ FEATURES has FINGERPRINT
+	! ~WorkPermit/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias WorkPermit/Name
+
+#--------------------------------------------------------
+# DiplomaticAuth
+#--------------------------------------------------------
+#*
+# Missing DiplomaticAuth doesn't make sense since diplomat has only
+# Passport and DiplomaticAuth
+DiplomaticAuth-Missing<missing><deny>			DiplomaticAuth-MissingHidden
+	\ DiplomaticAuth
+	! DiplomaticAuth/Exists
+		> $Interrogate:Missing diplomaticauth
+DiplomaticAuth-Hidden<missing>					DiplomaticAuth-MissingHidden
+	\ DiplomaticAuth
+	! DiplomaticAuth/Visible
+		> $Interrogate:Hidden diplo
+			^ DiplomaticAuth/Visible
+*#			
+#* this one is too confusing
+DiplomaticAuth-WrongNation<generic><deny>
+	\ DiplomaticAuth
+	! DiplomaticAuth/Nation
+		> Interrogate 
+			" ask-wrong-diplonation
+			" wrong-diplonation
+			@ Detain
+*#			
+DiplomaticAuth-WrongAccessNations<generic><deny>
+	\ DiplomaticAuth
+	! DiplomaticAuth/AccessNations
+		> Interrogate 
+			" ask-wrong-diploaccess
+			" wrong-diploaccess
+			@ Detain			
+DiplomaticAuth-WrongSeal<generic><deny>
+	\ DiplomaticAuth
+	\ FEATURES has FORGERY
+	! DiplomaticAuth/Emblem/DiplomaticAuth
+		> $Interrogate:Forgery diplo		
+DiplomaticAuth-WrongId<generic><deny>
+	\ DiplomaticAuth
+	! DiplomaticAuth/IdNumber
+		> Interrogate 
+			" ask-wrong-idnumber
+			" wrong-idnumber
+			@ Detain			
+DiplomaticAuth-WrongName<generic><deny><obvious>		DiplomaticAuth-WrongName
+	\ DiplomaticAuth
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! DiplomaticAuth/Name
+		> $Interrogate:WrongName
+DiplomaticAuth-ConfusingName<generic>			DiplomaticAuth-WrongName
+	\ DiplomaticAuth
+	\ FEATURES has FINGERPRINT
+	! ~DiplomaticAuth/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias DiplomaticAuth/Name
+
+#--------------------------------------------------------
+# AsylumGrant
+#--------------------------------------------------------
+AsylumGrant-Missing<missing><deny><obvious>			AsylumGrant-MissingHidden
+	\ AsylumGrant
+	! AsylumGrant/Exists
+		> $Interrogate:Missing asylumgrant
+AsylumGrant-Hidden<missing>							AsylumGrant-MissingHidden
+	\ AsylumGrant
+	! AsylumGrant/Visible
+		> $Interrogate:Hidden asylumgrant
+			^ AsylumGrant/Visible
+AsylumGrant-Expired<generic><deny>
+	\ AsylumGrant
+	! AsylumGrant/ExpirationDate
+		> $Interrogate:Expired asylumgrant
+AsylumGrant-WrongId<generic><deny>
+	\ AsylumGrant
+	! AsylumGrant/IdNumber
+		> Interrogate 
+			" ask-wrong-idnumber
+			" wrong-idnumber
+			@ Detain	
+AsylumGrant-WrongName<generic><deny><obvious>		AsylumGrant-WrongName
+	\ AsylumGrant
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! AsylumGrant/Name
+		> $Interrogate:WrongName
+AsylumGrant-ConfusingName<generic>					AsylumGrant-WrongName
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT
+	! ~AsylumGrant/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias AsylumGrant/Name		
+AsylumGrant-WrongBirthDate<generic><deny>
+	\ AsylumGrant
+	! AsylumGrant/BirthDate
+		> Interrogate
+			" ask-wrong-birthdate
+			" forgery
+			@ Detain
+AsylumGrant-WrongFingerprints<generic><deny>
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT	
+	! AsylumGrant/Fingerprints
+		> $Interrogate:WrongFingerprints			
+AsylumGrant-WrongHeightClear<generic>				AsylumGrant-WrongHeight
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT	
+	! ~AsylumGrant/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+AsylumGrant-WrongHeightError<generic>				AsylumGrant-WrongHeight
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT	
+	! AsylumGrant/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints			
+AsylumGrant-WrongFaceClear<generic>					AsylumGrant-WrongFace
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT
+	! ~AsylumGrant/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+AsylumGrant-WrongFaceError<generic><deny><obvious>		AsylumGrant-WrongFace
+	\ AsylumGrant
+	! AsylumGrant/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+AsylumGrant-ContrabandClear<generic>					AsylumGrant-Contraband
+	\ AsylumGrant
+	\ FEATURES has SEARCH
+	! ~AsylumGrant/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+AsylumGrant-ContrabandError<generic><contraband>		AsylumGrant-Contraband
+	\ AsylumGrant
+	\ FEATURES has SEARCH
+	! AsylumGrant/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+	! Traveler/Contraband
+		> $Interrogate:Contraband
+AsylumGrant-WrongExpiration<generic><deny>
+	\ AsylumGrant
+	! AsylumGrant/ExpirationDate
+		> $Interrogate:Expired asylumgrant	
+AsylumGrant-WrongSeal<generic><deny>
+	\ AsylumGrant
+	\ FEATURES has FORGERY
+	! AsylumGrant/Emblem/MinistryOfAdmission
+		> $Interrogate:Forgery asylumgrant
+
+#--------------------------------------------------------
+# VaccineCert
+#--------------------------------------------------------
+VaccineCert-Missing<missing><deny><obvious>			VaccineCert-MissingHidden
+	\ VaccineCert
+	! VaccineCert/Exists
+		> $Interrogate:Missing vaccinecert
+VaccineCert-Hidden<missing>					VaccineCert-MissingHidden
+	\ VaccineCert
+	! VaccineCert/Visible
+		> $Interrogate:Hidden vaccinecert
+			^ VaccineCert/Visible
+VaccineCert-WrongId<generic><deny>
+	\ VaccineCert
+	! VaccineCert/IdNumber
+		> Interrogate 
+			" ask-wrong-idnumber
+			" wrong-idnumber
+			@ Detain			
+VaccineCert-WrongName<generic><deny>		VaccineCert-WrongName
+	\ VaccineCert
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! VaccineCert/Name
+		> $Interrogate:WrongName
+VaccineCert-ConfusingName<generic>		VaccineCert-WrongName
+	\ VaccineCert
+	\ FEATURES has FINGERPRINT
+	! ~VaccineCert/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias VaccineCert/Name
+VaccineCert-Expired<missing><deny>
+	\ VaccineCert
+	! VaccineCert/VaccineDates
+		> Interrogate
+			" ask-vaccine-expired
+			" vaccine-expired
+VaccineCert-WrongDrugs<missing><deny>
+	\ VaccineCert
+	! VaccineCert/VaccineDrugs
+		> Interrogate
+			" ask-vaccine-wrongdrugs
+			" vaccine-wrongdrugs
+
+#--------------------------------------------------------
+# AccessPermit
+#--------------------------------------------------------
+AccessPermit-Missing<missing><deny><obvious>		AccessPermit-MissingHidden
+	\ AccessPermit
+	! AccessPermit/Exists
+		> $Interrogate:Missing accesspermit
+AccessPermit-Hidden<missing>				AccessPermit-MissingHidden
+	\ AccessPermit
+	! AccessPermit/Visible
+		> $Interrogate:Hidden accesspermit
+			^ AccessPermit/Visible
+AccessPermit-WrongSeal<generic><deny>
+	\ AccessPermit
+	\ FEATURES has FORGERY
+	! AccessPermit/Emblem/MinistryOfAdmission
+		> $Interrogate:Forgery accesspermit
+AccessPermit-Expired<generic><deny>
+	\ AccessPermit
+	! AccessPermit/ExpirationDate
+		> $Interrogate:Expired permit
+AccessPermit-WrongName<generic><deny>	AccessPermit-WrongName
+	\ AccessPermit
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! AccessPermit/Name
+		> $Interrogate:WrongName
+AccessPermit-ConfusingName<generic>		AccessPermit-WrongName
+	\ AccessPermit
+	\ FEATURES has FINGERPRINT
+	! ~AccessPermit/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias AccessPermit/Name
+AccessPermit-WrongId<generic><deny>
+	\ AccessPermit
+	! AccessPermit/IdNumber
+		> Interrogate 
+			" ask-wrong-idnumber
+			" wrong-idnumber
+			@ Detain
+AccessPermit-WrongPurpose<speech>
+	\ AccessPermit
+	\ PURPOSE != immigrate
+	! Speech/Purpose
+		> Interrogate
+			^ Speech/Purpose
+			" ask-wrong-purpose
+			" wrong-purpose		
+AccessPermit-WrongDuration<speech>
+	\ AccessPermit
+	\ PURPOSE != immigrate
+	! Speech/Duration
+		> Interrogate 
+			^ Speech/Duration
+			" ask-wrong-duration
+			" wrong-duration
+AccessPermit-WrongHeightClear<generic>		AccessPermit-WrongHeight
+	\ AccessPermit
+	\ FEATURES has FINGERPRINT	
+	! ~AccessPermit/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+AccessPermit-WrongHeightError<generic>		AccessPermit-WrongHeight
+	\ AccessPermit
+	\ FEATURES has FINGERPRINT	
+	! AccessPermit/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints		
+AccessPermit-ContrabandClear<generic>		AccessPermit-Contraband
+	\ AccessPermit
+	\ FEATURES has SEARCH
+	! ~AccessPermit/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+AccessPermit-ContrabandError<generic><contraband>		AccessPermit-Contraband
+	\ AccessPermit
+	\ FEATURES has SEARCH
+	! AccessPermit/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+	! Traveler/Contraband
+		> $Interrogate:Contraband
+AccessPermit-WrongDescriptionClear<generic>	AccessPermit-WrongAppearance
+	\ AccessPermit
+	\ FEATURES has FINGERPRINT	
+	! ~AccessPermit/Description
+		> Interrogate
+			" ask-wrong-description
+			" wrong-description
+			@ Fingerprint
+AccessPermit-WrongDescriptionError<generic>	AccessPermit-WrongAppearance
+	\ AccessPermit
+	\ FEATURES has FINGERPRINT	
+	! AccessPermit/Description
+		> Interrogate
+			" ask-wrong-description
+			" wrong-description
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+
+#--------------------------------------------------------
+# Bulletin
+#--------------------------------------------------------
+# These are set manually by Travelers.txt or by the traveler
+# as part of another error (eg: Traveler-Criminal)
+Bulletin-News0
+	! Bulletin/News0
+		> Interrogate
+			# response is handled manually by traveler
+Bulletin-News1
+	! Bulletin/News1
+		> Interrogate
+			# response is handled manually by traveler
+Bulletin-News0News1
+	! Bulletin/News0
+		> Interrogate
+			# response is handled manually by traveler	
+	! Bulletin/News1
+		> Interrogate
+			# response is handled manually by traveler
+Bulletin-Criminal0
+	! Bulletin/Criminal0
+		> $Interrogate:Criminal
+	! Booth/Criminal0
+		> $Interrogate:Criminal
+Bulletin-Criminal1
+	! Bulletin/Criminal1
+		> $Interrogate:Criminal
+	! Booth/Criminal1
+		> $Interrogate:Criminal
+Bulletin-Criminal2
+	! Bulletin/Criminal2
+		> $Interrogate:Criminal
+	! Booth/Criminal2
+		> $Interrogate:Criminal
+
+#--------------------------------------------------------
+# Misc
+#--------------------------------------------------------
+Misc-BrothelHelp
+	! BrothelHelp
+		> Interrogate
+			# response is handled manually by traveler
+
+Misc-BoothCounter
+	! Booth/Counter
+		> Interrogate
+			# response is handled manually by traveler
+
+Misc-TwoPassports
+	\ SecondPassport
+	! SecondPassport
+		> Interrogate
+			# response is handled manually by traveler
+
+Misc-AllMissing-EP
+	\ EntryPermit
+	\ PURPOSE != diplomat
+	\ PURPOSE != asylum
+	\ RULES has RuleNeedEntryPermit
+	\ RULES !has RuleNeedIdSupplement
+	\ RULES !has RuleNeedVaccineCert
+	! EntryPermit/Exists
+		> $Interrogate:Missing entrypermit
+
+Misc-AllMissing-EPID
+	\ EntryPermit
+	\ IdSupplement
+	\ PURPOSE != diplomat
+	\ PURPOSE != asylum
+	\ RULES has RuleNeedEntryPermit
+	\ RULES has RuleNeedIdSupplement
+	\ RULES !has RuleNeedVaccineCert
+	! EntryPermit/Exists
+		> $Interrogate:Missing entrypermit
+	! IdSupplement/Exists
+		> $Interrogate:Missing idsupplement
+
+Misc-AllMissing-EPIDVC
+	\ EntryPermit
+	\ IdSupplement
+	\ VaccineCert
+	\ PURPOSE != diplomat
+	\ PURPOSE != asylum
+	\ RULES has RuleNeedEntryPermit
+	\ RULES has RuleNeedIdSupplement
+	\ RULES has RuleNeedVaccineCert
+	! EntryPermit/Exists
+		> $Interrogate:Missing entrypermit
+	! IdSupplement/Exists
+		> $Interrogate:Missing idsupplement
+	! VaccineCert/Exists
+		> $Interrogate:Missing vaccinecert
+
+Misc-AllMissing-AP
+	\ AccessPermit
+	\ PURPOSE != diplomat
+	\ PURPOSE != asylum
+	\ RULES has RuleNeedAccessPermit
+	! AccessPermit/Exists
+		> $Interrogate:Missing accesspermit
+			
+Misc-AllMissing-APVC
+	\ AccessPermit
+	\ VaccineCert
+	\ PURPOSE != diplomat
+	\ PURPOSE != asylum
+	\ RULES has RuleNeedAccessPermit
+	\ RULES has RuleNeedVaccineCert
+	! AccessPermit/Exists
+		> $Interrogate:Missing accesspermit
+	! VaccineCert/Exists
+		> $Interrogate:Missing vaccinecert			
+
+#*
+# AllMissing doesn't work well with diplomat and asylum since it's often not
+# clear the person is special when Intro-Replace is changed
+Misc-AllMissing-Diplo
+	\ DiplomaticAuth
+	\ PURPOSE == diplomat
+	\ RULES has RuleNeedDiplomaticAuth
+	! DiplomaticAuth/Exists
+		> $Interrogate:Missing diplomaticauth
+
+Misc-AllMissing-Asylum
+	\ AsylumGrant
+	\ PURPOSE == asylum
+	\ RULES has RuleNeedAsylumGrant
+	! AsylumGrant/Exists
+		> $Interrogate:Missing asylumgrant		
+*#

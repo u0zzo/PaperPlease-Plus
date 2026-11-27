@@ -1,0 +1,321 @@
+RANDOM_WEATHER
+	- The Weather
+#*	
+	- The Weather: Southern Warm Front Expected
+	- The Weather
+		- Seasonal Snow Surprisingly Absent
+	- The Weather
+		- Snow In Northern Regions Manageable
+	- The Weather
+		- Cold Relents, Respite From Seasonal Temps
+	- The Weather
+		- Expected Cold Front Misses Southern Coast
+	- The Weather
+		- Warm Winds Blanket Central Arstotzka
+	- The Weather
+		- Crushing Cold Conditions Continue
+	- The Weather
+		- Strong Cold Front Extends Stay
+	- The Weather
+		- Unseasonal Winds Expected in Northern Region
+	- The Weather
+		- Unexpected Front Freezes Eastern Arstotzka
+	- The Weather
+		- Snow Collects To Unmanageable Levels
+	- The Weather
+		- Cold Fails to Relent, Heating Costs Spiral
+*#
+
+RANDOM_SPORTS
+	- Sports
+#	- Arsotzkan Football Scores Big!
+#	- Altan Stadium Rebuilding
+
+RANDOM_ENTERTAINMENT
+	- Entertainment
+#	- Filipp Hasse's Latest Book Surprises
+#	- State Television Network To Increase Programming
+
+RANDOM_POLITICS
+	- Politics
+#*
+	- Food Production On Target
+	- Crops Continue Strong Growth
+	- Seaboard Industries Rebuilding
+	- United Fed: Copyright Cops
+	- Kolechian Submarines Detected Off Coast
+	- Arstotzkan Currency Regains Strength
+*#
+
+#------------------------------------------------------------------------------------------------------------
+FIRST_DAY
+	* Grestin Border Checkpoint Opens At Last!
+		- After 6 Long Years. Can the Ministry of Admission Keep Us Safe?
+	* Families To Reunite
+
+CHECKPOINT_SUCCESS
+	* Grestin Checkpoint a Success!
+		- Entry Restrictions To Relax, Admit Foreigners
+	* Analysts Upbeat
+		- Increased Trade And Cooperation Predicted
+
+FIRST_TERRORISTS
+	* Terrorists Strike At Grestin!
+		- Kolechian Agitators Suspected.
+	* Checkpoint Lockdown
+		- More Guards - More Scrutiny
+
+#------------------------------------------------------------------------------------------------------------
+BLACKMARKET_EXPLODES
+	* Blackmarket Activity Explodes
+		- Government Blames Lax Immigration Controls
+	* Checkpoint Expansion Postponed
+
+WORKPERMIT_FIRST
+	* Jobs Few, Becoming Fewer
+		- Immigrants Taking Jobs From Locals
+
+#------------------------------------------------------------------------------------------------------------
+KOLECHIA_COMPLAINS_SEARCH
+	* Kolechian Leader Files Complaint
+		- Claims Unprovoked Border Searches Violate Rights
+
+#------------------------------------------------------------------------------------------------------------
+AFTER_SUICIDE_BOMBER
+	* Another Attack At Grestin Checkpoint!
+		- Suicide Bomber Slips Through Security
+
+GENERIC_BOMBER
+	* Grestin Suffers Another Border Attack
+		- Suicide Bombings Becoming Routine
+
+#------------------------------------------------------------------------------------------------------------
+PIMP_BUSTED
+	* Human Trafficking Ring Shut Down!
+		- Grestin Checkpoint Officer Nabs Mastermind
+		@ Face:M-11-12-8-5
+
+PIMP_ESCAPED
+	* Dancers At Grestin Club Found Dead!
+		- Newly Immigrated Girls Victims Of Human Trafficking
+
+#------------------------------------------------------------------------------------------------------------
+KILLERATHLETE
+	* Republian Track Star Wanted For Murder!
+		- Vince Lestrade's Whereabouts Unknown - Has Likely Fled Republia
+		@ Face:M-3-3-10-10
+		= NewsKA0
+	* Vince Lestrade: Profile
+		- Girlfriend Killed In Jealous Rage?
+		= NewsKA1
+
+KILLERATHLETE_DETAINED
+	* Vince Lestrade Apprehended In Grestin!
+		- Track Champ Looks Quite Guilty Now
+
+KILLERATHLETE_APPROVED
+	- Vince Lestrade Spotted in Arstotzka
+
+KILLERATHLETE_DENIED
+	- Vince Lestrade Apprehended In Kolechia!
+
+#------------------------------------------------------------------------------------------------------------
+DIPLOMAT_FIRST
+	* Kolechia Sends Top-Level Diplomat
+		- Normalizing Trade Top Issue
+
+#------------------------------------------------------------------------------------------------------------
+BUSTED_SPY
+	* Top-level Kolechian Exposed as Arstotzkan Spy!
+		- Missing From Post, Presumed Dead
+
+BUSTED_SPY_GAVEREALDOCS
+	* Kolechia Cleans House - Eliminates Arstotzkan Spies
+		- Heroic Agents Compromised
+
+BUSTED_SPY_GAVEFAKEDOCS
+	* Kolechia Cleans House - Attacks Its Own!
+		- Round Of Disappearances Blamed On Faulty Evidence
+
+#------------------------------------------------------------------------------------------------------------
+FORGERY_NEWS
+	* Theft At Ministry Of Admission!
+		- Limited Effects - Few Items Stolen
+
+SECRET_SOCIETY
+	* The History of Arstotzka
+		- In Pictures and Words - Mostly Words
+
+CRIMINAL_ACTIVITY
+	* A Criminal's Safe Haven
+		- Arstotzka Earns Dubious Reputation
+
+LOSING_GUARDS
+	* Ministries Fight Over Staff
+		- Qualified Guards, Soldiers In Demand
+	* Consolidation, Reassignment At Border
+		- Still Safe With Smaller Detail?
+
+RUNNER_AFTER_TRANQ
+	* Grestin Incident Highlights Security Risks
+		- Further Breaches Predicted
+
+BIKE_ATTACK
+	* Daring Bike Attack At Grestin Checkpoint!
+		- Extremists Growing Bolder - Grestin Like Magnet
+
+BORDER_TARGETED
+	* Can The Wall Hold?
+		- Border Safety Continually Questioned
+
+BIKERUNNER_NEWS
+	* Coordinated Border Breach!
+		- Unknown Assailants Swamp Security
+
+#------------------------------------------------------------------------------------------------------------
+NOSY_JOURNALIST_APPROVED
+	* Arstotzka's Frail Border
+		- United Fed Reporter Exposes Lax Protocols
+
+NOSY_JOURNALIST_DENIED
+	* Arstotzka's Iron Border
+		- Int. Media Reveals Entry Visa Bias
+#		- United Fed Media Lashes Out At Unfair Immigration Policies
+
+IDSUPPLEMENT_INTRO
+	* Another Bomber Slips Through!
+		- Immigrant Screening Falls Short
+	* M.O.A. Gets New Director
+		- Stricter Protocols Promised at Border
+
+#------------------------------------------------------------------------------------------------------------
+WHISTLEBLOWER_SETUP0
+	* Antegria Domestic Spying Exposed!
+		- Whistleblower On The Run
+
+WHISTLEBLOWER_SETUP1
+	- Antegrian Whistleblower Denied Asylum In Republia
+
+WHISTLEBLOWER_SETUP2
+	- Antegrian Whistleblower Turned Away From United Fed
+
+WHISTLEBLOWER_COMING
+	* Antegrian Whistleblower Accepted By Arstotzka
+		- Move Risks Angering Neighbors
+		@ Face:F-12-12-8-8
+		= NewsWB0
+
+WHISTLEBLOWER_IN
+	- Antegrian Whistleblower Arrives - Disappears Immediately
+
+WHISTLEBLOWER_OUT
+	- Antegrian Whistleblower Turned Away - Whereabouts Unknown
+
+#*
+JOURNO2
+	* International Press Continues Abuse
+		- Empty Revelations, Baseless Accusations
+*#
+
+#------------------------------------------------------------------------------------------------------------
+IMPOR_UNHAPPY
+	* Impor Protests Unbalanced Trade Restrictions
+		- Claims Arstotzka Unfairly Taxes Imporian Goods
+
+IMPOR_SANCTIONS_START
+	* Impor Begins Trade Sanctions!
+		- Immediately Restricts All Imports From Arstotzka
+
+IMPOR_SANCTIONS_END
+	* Impor Sanctions End!
+		- Over So Fast? What Happened?
+
+#------------------------------------------------------------------------------------------------------------
+SURGERY_SETUP
+	* Breakthrough Spinal Surgery Perfected
+		- Only Possible With Arstotzkan Expertise
+
+#------------------------------------------------------------------------------------------------------------
+VIRUS_PRIMER
+	* Polio Resurfaces In United Fed
+		- Isolated Diagnosis Or Something More?
+
+VIRUS_BAN_UNITED_FED
+	* Full-blown Epidemic Threatens United Fed!
+		- Previously Under Control, Polio Back With Vengeance
+
+VIRUS_REQUIRE_CERT
+	* Ministry of Health Acts To Protect Citizens
+		- New Policy, Safeguards At Borders
+
+#------------------------------------------------------------------------------------------------------------
+SERIAL_KILLER
+	* Serial Child Killer Escapes United Fed Prison!
+		- Simon Wens: An Arstotzkan Native - Returning Home?
+		@ Face:M-9-10-4-12
+
+SERIAL_KILLER_MURDERED
+	* Bloody Scene In Gennistora!
+		- Simon Wens Found Dead In Confusing Mess
+		@ Face:M-9-10-4-12
+
+#------------------------------------------------------------------------------------------------------------
+EZIC_ATTACK0
+	* Grestin Metro Halted
+		- Tunnel Cave-in, Hints At Sabotage
+		$ NewsEzicStamp.png
+
+EZIC_ATTACK1_GIFT
+	* Gov't Headquarters In Paradizna Evacuated!
+		- Strange Gas Detected - Staff Safe, Records Missing
+		$ NewsEzicStamp.png
+
+EZIC_ATTACK1_NOGIFT
+	* Head Minister Of Finance Missing!
+		- Markets React With Fast Selling, Instability
+		$ NewsEzicStamp.png		
+
+POISONING
+	* Mysterious Poison Hospitalizes Several!
+		- Unnamed Immigrant Smuggles Deadly Agent
+		$ NewsEzicStamp.png
+
+#*
+EZIC_ATTACK2
+	* Arson At Ministry Of Agriculture HQ!
+		- Crop Output Predictions Severely Affected
+
+EZIC_ATTACK3
+	* Last Remaining Battleship on Southern Coast Sunk!
+		- Clear Act Of Sabotage, Kolechia Blamed
+
+EZIC_ATTACK4
+	* Head Minister Of Finance Found Dead!
+		- Markets React With Fast Selling, Instability
+
+EZIC_ATTACK5
+	* Critical Orvoch Vonor Power Plant Shut Down!
+		- Coolant System Sabotaged, On Brink Of Meltdown
+*#
+
+#------------------------------------------------------------------------------------------------------------
+MARKED_DIPLOMAT
+	* Top-Level Talks Called
+		- Grestin Territory Remains Dividing Issue
+
+DIPLOMAT_SWAPPED
+	* Kolechians Are Crazy
+		- Bizarre Behavior From Top Negotiator Spoils Talks
+		$ NewsEzicStamp.png
+
+DIPLOMAT_ORIGINAL
+	* A Tentative Understanding
+		- Kolechian Talks Establish Common Ground
+
+TALKS_BREAK_DOWN
+	* Roadblock To Kolechian Resolution
+		- Contested City Drives Wedge
+
+BORDER_CLOSING
+	* Grestin Checkpoint Future Uncertain
+		- Too Open, Too Soon?

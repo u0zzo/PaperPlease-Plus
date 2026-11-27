@@ -1,0 +1,231 @@
+Process-SearchDetain
+	Intro-Before Intro-Replace Intro-After
+		Approved
+		Denied
+		Interrogate-Before Interrogate-Search-Before Interrogate-Replace Interrogate-Search-Replace Interrogate-After Interrogate-Search-After Enable-Search
+			Approved
+			Denied
+			Search-Before Search-Replace Search-After
+				Approved
+				Denied
+				Interrogate-Before Interrogate-Detain-Before Interrogate-Replace Interrogate-Detain-Replace Interrogate-After Interrogate-Detain-After Enable-Detain
+					Approved
+					Denied
+					Detain-Before Detain-Replace Detain-After
+Process-Intro
+	Intro-Before Intro-Replace Intro-After
+
+
+Graph KID_KILLER HideContext
+	> KID_KILLER0 Process-Intro
+	> KID_KILLER1
+		Intro-Replace
+			Give-VictimPhoto
+			Denied
+			Approved
+			Detain-After
+	= Day/Confiscated PASSPORT-SIMON-WENS
+		> KID_KILLER2
+			Intro-Replace
+				Give-PASSPORT-SIMON-WENS.*
+					Approved
+						Give-VictimPhoto
+					Denied
+						Give-VictimPhoto
+	= Day/Confiscated --
+		> KID_KILLER2
+			Intro-Replace
+				Give-VictimPhoto
+#*
+Graph WATCH_GIVER
+	> WATCH_GIVER0
+		Intro-Replace
+			Give-Watch
+				Approved
+				Denied
+			Denied
+				Detain-Replace
+				Give-Watch
+			Approved
+	= Game/StayingPapers Watch
+		> WATCH_GIVER1
+			Intro-Replace
+				Give-Watch
+					Give-Money10
+						Approved
+						Denied
+							Detain-Replace
+					Detain-Replace
+					Approved
+					Denied					
+
+				Approved
+					Detain-Replace
+					Give-Watch
+						Detain-Replace
+						Give-Money10
+					Give-Watch
+				Denied
+					Give-Watch
+				Denied
+					Detain-Replace
+	= Game/StayingPapers ""
+		> WATCH_GIVER1
+			Intro-Replace
+				Approved
+				Denied
+*#
+
+#*
+Graph JORJI 
+	> JORJI_SMUGGLE0 Process-SearchDetain
+	> JORJI_SMUGGLE1 Process-SearchDetain
+	= Game/Jorji ""
+		> JORJI_CRIMINAL Process-Intro
+		> JORJI_PASSPORTS Process-Intro
+		> JORJI_GOODBYE Process-Intro
+	
+
+#--------------------------------------
+Process-EzicNoteHandler
+	Intro-Replace
+		LinkClicked-EzicNote-open
+			Give-EzicNote
+
+Process-EzicAgent
+	Intro-Replace
+		Approved
+		Denied
+		Detain-Replace
+
+Graph EZIC HideContext
+	> EZIC_INTRO Process-Intro
+	> EZIC_CORMAN
+		Intro-Before
+			Approved
+	> EZIC_CORMAN
+		Intro-Before
+			Approved
+			Denied
+			Give-EzicIntro
+				Approved
+				Denied
+				LinkClicked-EzicNote-open
+					Approved
+					Denied
+					Give-EzicNote
+						Approved
+						Denied
+	= Game/Ezic ""
+		> EZIC_HANDLER_PRE0
+			Intro-Replace
+		> EZIC_AGENT0 Process-EzicAgent
+		> EZIC_HANDLER_POST0 Process-EzicNoteHandler
+		= Night/EzicPayout ACCEPTED
+			& SUBEZIC
+		= Night/EzicPayout DENIED
+			& SUBEZIC
+
+SubGraph SUBEZIC
+	> EZIC_HANDLER_PRE1 Process-EzicNoteHandler
+	> EZIC_AGENT1 Process-EzicAgent
+	= split left
+		> SECRET_POLICE_CAUGHT
+			Intro-Replace
+	= split right
+		> EZIC_HANDLER_POST1 Process-EzicNoteHandler
+		> EZIC_HANDLER_EXT Process-EzicNoteHandler
+		> EZIC_AGENT_EXT Process-EzicAgent
+		> EZIC_POISON_MESSENGER Process-EzicNoteHandler
+		> EZIC_POISON_TARGET 
+			Intro-Replace
+				Approved
+				Denied
+				Poisoned
+					Approved
+					Denied
+		> EZIC_HANDLER_SNIPE Process-EzicNoteHandler
+		> EZIC_HANDLER_POSTSNIPE Process-EzicNoteHandler
+		> EZIC_HANDLER_DIPLO Process-EzicNoteHandler
+		> EZIC_DIPLO
+			Intro-Replace
+				Approved
+				Denied
+		= Day/Confiscated PASSPORT-SPECIAL-NAME.*
+			& SUBEZIC2
+		= Day/Confiscated ""
+			& SUBEZIC2
+
+SubGraph SUBEZIC2
+	> EZIC_DIPLO_FOLLOW
+		Intro-Replace
+			Approved
+			Denied
+			Give-PASSPORT-SPECIAL-NAME.*
+				Approved
+				Denied
+	> EZIC_FINAL Process-EzicNoteHandler
+
+Graph FRIENDLY_GUARD
+	> FRIENDLY_GUARD0 Process-Intro
+	> FRIENDLY_GUARD1 Process-Intro
+	> FRIENDLY_GUARD2 Process-Intro
+	> FRIENDLY_GUARD3 Process-Intro
+	> ELISA
+		Approved
+		Denied
+		Give-Locket
+			Approved
+			Denied	
+	> FRIENDLY_GUARD4
+		Intro-Before Intro-Replace Intro-After
+			Give-Locket
+*#
+
+#*	
+Graph PRISON_GUARD
+	> PRISON_GUARD Process-Intro
+	= Game/NumDetains 0
+		> PRISON_GUARD Process-Intro	
+		> PRISON_GUARD Process-Intro
+		> PRISON_GUARD Process-Intro	
+		> PRISON_GUARD Process-Intro
+	= Game/NumDetains 1
+		> PRISON_GUARD Process-Intro
+		= Game/NumDetains 1
+			> PRISON_GUARD Process-Intro
+			= Game/NumDetains 1
+				> PRISON_GUARD Process-Intro
+				= Game/NumDetains 5
+					> PRISON_GUARD Process-Intro				
+	= Game/NumDetains 5
+		> PRISON_GUARD Process-Intro
+		= Game/NumDetains 5
+			> PRISON_GUARD Process-Intro
+			= Game/NumDetains 5
+				> PRISON_GUARD Process-Intro
+				= Game/NumDetains 1
+					> PRISON_GUARD Process-Intro				
+	= Game/NumDetains 5
+		> PRISON_GUARD Process-Intro
+		= Game/NumDetains 1
+			> PRISON_GUARD Process-Intro
+			= Game/NumDetains 1
+				> PRISON_GUARD Process-Intro
+				= Game/NumDetains 5
+					> PRISON_GUARD Process-Intro				
+	= Game/NumDetains 5
+		> PRISON_GUARD Process-Intro
+		= Game/NumDetains 5
+			> PRISON_GUARD Process-Intro
+			= Game/NumDetains 1
+				> PRISON_GUARD Process-Intro
+				= Game/NumDetains 5
+					> PRISON_GUARD Process-Intro				
+					= Game/NumDetains 5
+						> PRISON_GUARD Process-Intro
+						= Game/NumDetains 5
+							> PRISON_GUARD Process-Intro
+							= Game/NumDetains 5
+								> PRISON_GUARD Process-Intro
+*#

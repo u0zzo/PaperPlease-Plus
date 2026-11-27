@@ -1,0 +1,101 @@
+<faces>
+	<!-- Male -->
+	<sheet id="M0">
+		<face id="M00" age="45" bmi="25" hairheight="0" head="Short Hair" eyes="Good Vision" nhead="Balding" nmouth="Large Mustache" neyes="Glasses" 
+			canbeconfusing="head eyes mouth"/>
+		<face id="M01" age="70" bmi="18" hairheight="5" head="Bald" nhead="Large Curly Locks" neyes="Glasses"
+			canbeconfusing="eyes mouth"/>
+		<face id="M02" age="38" bmi="20" hairheight="4" head="Cropped Hair" eyes="Glasses" nhead="Overweight" neyes="No Glasses"
+			canbeconfusing="head eyes mouth"/>
+		<face id="M03" age="36" bmi="23" hairheight="6" head="Dark Hair" mouth="Mustache" nhead="Light Hair" neyes="Glasses"
+			canbeconfusing="head eyes"/>
+	</sheet>
+	<sheet id="M1">
+		<face id="M10" age="40" bmi="22" hairheight="4" head="Beard" mouth="Mustache" nhead="Shaved Head" neyes="Glasses"
+			canbeconfusing="eyes"/>
+		<face id="M11" age="29" bmi="17" hairheight="4" head="Goatee" eyes="Perfect Vision" nhead="Mohawk" neyes="Glasses"
+			canbeconfusing="eyes mouth"/>
+		<face id="M12" age="35" bmi="24" hairheight="5" head="Short Cropped Hair" nhead="Long Wavy Hair" neyes="Glasses"
+			canbeconfusing="head eyes mouth"/>
+		<face id="M13" age="43" bmi="34" hairheight="2" head="Balding" nhead="Huge Afro" neyes="Thick Glasses"
+			canbeconfusing="eyes mouth"/>
+	</sheet>
+	<sheet id="M2">
+		<face id="M20" age="40" bmi="19" hairheight="4" head="Balding" nhead="Curly Hair" neyes="Glasses"
+			canbeconfusing="eyes mouth"/>
+		<face id="M21" age="29" bmi="23" hairheight="2" head="Short Straight Hair" nhead="Bald" neyes="Glasses"
+			canbeconfusing="head eyes mouth"/>
+		<face id="M22" age="35" bmi="22" hairheight="7" head="Short Light Hair" nhead="Dark Hair" neyes="Glasses"
+			canbeconfusing="head eyes mouth"/>
+		<face id="M23" age="43" bmi="24" hairheight="10" head="Widow's Peak" mouth="Mustache" nhead="Shaved Head" nmouth="Clean Shaven" neyes="Glasses"
+			canbeconfusing="head eyes"/>
+	</sheet>
+	<sheet id="M3">
+		<face id="M30" age="35" bmi="19" hairheight="8" head="Tall Forehead" nhead="Totally Bald" neyes="Glasses"
+			canbeconfusing="head eyes mouth"/>
+		<face id="M31" age="40" bmi="26" hairheight="12" head="Killer Sideburns" nhead="Light Hair" neyes="Glasses"
+			canbeconfusing="eyes mouth"/>
+		<face id="M32" age="46" bmi="32" hairheight="3" head="Bobbed Hair" nhead="Long Curly Hair" nmouth="Large Mustache" neyes="Glasses"
+			canbeconfusing="head eyes mouth"/>
+		<face id="M33" age="30" bmi="22" hairheight="6" head="Short Curly Hair" mouth="Mustache" nhead="Balding" nmouth="No Mustache" neyes="Glasses"
+			canbeconfusing="head eyes"/>
+	</sheet>
+	<sheet id="M4">
+		<face id="M40" age="37" bmi="20" hairheight="0" head="Bald" nhead="Long Hair" neyes="Glasses"
+			canbeconfusing="eyes mouth"/>
+		<face id="M41" age="28" bmi="19" hairheight="18" head="Mohawk" nhead="Large Sideburns" neyes="Glasses"
+			canbeconfusing="head eyes mouth"/>
+		<face id="M42" age="52" bmi="24" hairheight="4" head="Short Curly Hair" nhead="Flat-top Hair" nmouth="Pencil Mustache" neyes="Glasses"
+			canbeconfusing="head eyes mouth"/>
+		<face id="M43" age="44" bmi="22" hairheight="4" head="Unkempt Curly Hair" mouth="Mustache" nhead="Long Straight Hair" neyes="Glasses"
+			canbeconfusing="head eyes"/>
+	</sheet>
+
+	<sheet id="M5"> <!-- Boss & Guards -->
+		<face age="55" bmi="26" hairheight="10"/>
+		<face age="26" bmi="19" hairheight="10"/>
+		<face age="46" bmi="22" hairheight="10"/>
+		<face age="44" bmi="22" hairheight="10"/>
+	</sheet>
+	
+	<sheet id="M6"> <!-- More Custom Faces -->
+		<face age="45" bmi="24" hairheight="10"/>
+		<face age="26" bmi="19" hairheight="10"/>
+		<face age="46" bmi="22" hairheight="10"/>
+		<face age="44" bmi="22" hairheight="10"/>
+	</sheet>	
+
+
+	<!-- Female -->
+	<sheet id="F0">
+		<face id="F00" age="25" bmi="19" hairheight="10" head="Wavy Hair" nhead="Short Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F01" age="68" bmi="18" hairheight="3" head="Small Head" eyes="Glasses" nhead="Afro" neyes="Perfect Vision" canbeconfusing="head eyes mouth"/>
+		<face id="F02" age="39" bmi="33" hairheight="-7" head="Overweight" nhead="Slim Figure" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F03" age="27" bmi="22" hairheight="-6" head="Bobbed Hair" nhead="Long Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+	</sheet>
+	<sheet id="F1">
+		<face id="F10" age="20" bmi="19" hairheight="3" head="Straight Hair" nhead="Long Curly Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F11" age="30" bmi="24" hairheight="5" head="Bobbed Hair" nhead="Afro" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F12" age="22" bmi="26" hairheight="2" head="Short Hair" nhead="Huge Afro" neyes="Thick Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F13" age="65" bmi="17" hairheight="0" head="Very Short Hair" nhead="Long Straight Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+	</sheet>
+	<sheet id="F2">
+		<face id="F20" age="19" bmi="23" hairheight="4" head="Short Hair" nhead="Long Curly Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F21" age="36" bmi="30" hairheight="2" head="Overweight" nhead="Slim Figure" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F22" age="31" bmi="22" hairheight="5" head="Bobbed Hair" nhead="Shaved Head" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F23" age="40" bmi="24" hairheight="13" head="Short Curly Hair" nhead="Long Straight Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+	</sheet>
+	<sheet id="F3">
+		<face id="F30" age="25" bmi="26" hairheight="9" head="Curly Bobbed Hair" nhead="Shaved Head" neyes="Thick Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F31" age="42" bmi="24" hairheight="5" head="Short Wavy Hair" eyes="Glasses" nhead="Long Hair" neyes="Good Vision" canbeconfusing="head eyes mouth"/>
+		<face id="F32" age="20" bmi="20" hairheight="8" head="Bobbed Hair" nhead="Light Curly Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F33" age="67" bmi="18" hairheight="14" head="Long Hair" nhead="Shaved Head" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+	</sheet>
+	<sheet id="F4">
+		<face id="F40" age="19" bmi="20" hairheight="5" head="Straight Hair" nhead="Curly Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F41" age="40" bmi="20" hairheight="3" head="Bobbed Hair" nhead="Round Face" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F42" age="43" bmi="24" hairheight="7" head="Dark Hair" nhead="Long Straight Hair" neyes="Glasses" canbeconfusing="head eyes mouth"/>
+		<face id="F43" age="50" bmi="20" hairheight="23" head="Long Hair" nhead="Shaved Head" neyes="No Glasses" canbeconfusing="head eyes mouth"/>
+	</sheet>	
+
+</faces>

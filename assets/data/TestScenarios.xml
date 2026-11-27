@@ -1,0 +1,82 @@
+<scenarios>
+	<scenario id="day-9-have-ezic" day="9" cleargamefacts="true">
+		<fact path="Game/Ezic-MetCorman" val="YES"/>
+		<fact path="Game/StayingPapers" val="EzicIntro"/>
+	</scenario>
+
+	<scenario id="boss-1" traveler="BOSS" cleargamefacts="true">		
+		<fact path="Game/BossStep" val=""/>
+		<fact path="Game/NumCitations" val="10"/>		
+	</scenario>
+
+	<scenario id="boss-2" traveler="BOSS2" cleargamefacts="true">		
+		<fact path="Game/NumCitations" val="10"/>
+		<fact path="Game/WarnedHangings" val="YES"/>
+		<fact path="Game/StayingPapers" val="PlaqueOne;PlaqueTwo;FamilyPhoto"/>
+	</scenario>
+
+	<scenario id="day-18" day="18" cleargamefacts="true">		
+		<fact path="Game/Day17TravelerNews" val="NOSY_JOURNALIST_DENIED"/>		
+		<fact path="Game/StayingPapers" val="KeyTranq"/>
+		<fact path="Game/PrisonGuard" val="4"/>
+		<fact path="Game/NumDetains" val="0"/>
+	</scenario>
+
+	<scenario id="day-19" traveler="TEST" cleargamefacts="true">		
+		<fact path="Game/StayingPapers" val="Watch"/>
+	</scenario>
+
+	<scenario id="confiscation-district" traveler="CONFISCATION_DISTRICT_FIRST" cleargamefacts="true">		
+	</scenario>
+
+	<scenario id="escape" night="31" cleargamefacts="true">	
+		<fact path="Night/Savings" val="374"/>
+		<fact path="Night/NumEscapePassports" val="6"/>
+		<fact path="Night/HaveFamilyPassports" val="0"/>
+		<fact path="Night/HaveNiece" val="1"/>
+	</scenario>
+
+	<scenario id="escape2" night="31" cleargamefacts="true">	
+		<fact path="Night/Savings" val="96"/>
+		<fact path="Night/NumEscapePassports" val="6"/>
+		<fact path="Night/HaveFamilyPassports" val="0"/>
+		<fact path="Night/HaveNiece" val="0"/>
+		<!--
+		<fact path="Night/son" val="alive=false cold=1 justDied=false sick=10 hungry=0"/>
+	-->
+		<fact path="Night/mil" val="alive=false cold=1 justDied=false sick=10 hungry=0"/>
+		<fact path="Night/wife" val="alive=false cold=1 justDied=false sick=10 hungry=0"/>
+		<fact path="Night/uncle" val="alive=false cold=1 justDied=false sick=10 hungry=0"/>
+	</scenario>
+
+	<scenario id="escape3" night="31" cleargamefacts="true">	
+		<fact path="Night/Savings" val="50"/>
+		<fact path="Night/NumEscapePassports" val="6"/>
+		<fact path="Night/HaveFamilyPassports" val="0"/>
+		<fact path="Night/HaveNiece" val="1"/>
+
+		<fact path="Night/son" val="alive=true cold=1 justDied=false sick=1 hungry=0"/>
+		<fact path="Night/niece" val="alive=true cold=1 justDied=false sick=1 hungry=0"/>
+		<fact path="Night/mil" val="alive=true cold=1 justDied=false sick=1 hungry=0"/>
+		<fact path="Night/wife" val="alive=true cold=1 justDied=false sick=1 hungry=0"/>
+		<fact path="Night/uncle" val="alive=true cold=1 justDied=false sick=1 hungry=0"/>		
+	</scenario>
+
+	<scenario id="last-day" day="31" cleargamefacts="true">		
+		<fact path="Game/StayingPapers" val="KeyTranq;KeyKill"/>
+		<fact path="Game/HelpedEzic" val="YES"/>
+	</scenario>
+
+	<scenario id="no-money" night="12" cleargamefacts="true">		
+		<fact path="Night/Savings" val="155"/>
+		<fact path="Night/Rent" val="-25"/>
+		<fact path="Night/Apartment" val="C8"/>
+		<fact path="Night/ApartmentTimer" val="0"/>
+	</scenario>
+
+	<scenario id="elisa" traveler="ELISA" cleargamefacts="true">		
+		<fact path="Game/FriendlyGuardDead" val="YES"/>
+		<fact path="Game/StayingPapers" val="Locket"/>
+	</scenario>
+
+</scenarios>

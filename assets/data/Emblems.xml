@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<emblems>
+	<emblem id="MinistryOfAdmission" file="EmblemsMOA.png" count="9" valid="2" size="35 35" canrotate="false"/>
+	<emblem id="MinistryOfLabor" file="EmblemsMOL.png" count="9" valid="4" size="35 35" canrotate="false"/>
+	
+	<emblem id="DiplomaticAuth" count="6" valid="2" size="42 42" canrotate="true">
+		<nation id="Kolechia" file="EmblemsDipKolechia.png"/>
+		<nation id="Republia" file="EmblemsDipRepublia.png"/>
+		<nation id="Antegria" file="EmblemsDipAntegria.png"/>
+		<nation id="UnitedFed" file="EmblemsDipUnitedFed.png"/>
+		<nation id="Obristan" file="EmblemsDipObristan.png"/>
+		<nation id="Impor" file="EmblemsDipImpor.png"/>
+	</emblem>
+</emblems>

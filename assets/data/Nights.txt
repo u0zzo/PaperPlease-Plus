@@ -1,0 +1,412 @@
+#------------------------------------------------------------------------------
+# Misc
+#------------------------------------------------------------------------------
+MANAGE_EXPENSES
+	" Manage your expenses using the checkboxes below.
+
+AFTER_6PM
+	" Applicants entering after 6PM are unpaid.
+
+PROGRESS_SAVED
+	" Progress is saved at the start of each day.
+
+ATTACK_DIDNOTHING
+	" The day was cut short by a terrorist attack.
+
+ATTACK_FIREDGUN
+	" The day was cut short by a terrorist attack.
+	> TRIGGER BONUS | 10
+
+ATTACK_SOLVED
+	" The day was cut short by a terrorist attack.
+	> SHARPSHOOTER BONUS | 20
+
+POISONING
+	" The day was cut short by a security incident.
+
+FAMILY_PICTURE
+	? Night/wife has alive=true
+		" Your wife found an old family picture.
+		@ GivePaper FamilyPhoto
+
+#------------------------------------------------------------------------------
+# Upgrades
+#------------------------------------------------------------------------------
+BUY_UPGRADE0
+	? Game/Day < 31
+		? Game/Device == desktop
+			" Booth Upgrade Available: SPACE key to toggle INSPECT mode.
+			> UPGRADE BOOTH | -5 | NO
+				> YES
+					@ Upgrade-INSPECT_HOTKEY
+					+ 3 BUY_UPGRADE1
+				> NO
+					+ 1 BUY_UPGRADE0
+		? Game/Device == tablet
+			" Booth Upgrade Available: Multitouch.
+			> UPGRADE BOOTH | -10 | NO
+				> YES
+					@ Upgrade-BOOTH_MULTITOUCH
+					+ 6 BUY_UPGRADE2
+				> NO
+					+ 1 BUY_UPGRADE0
+		? Game/Device == phone
+			" Booth Upgrade Available: Rulebook shortcuts.
+			> UPGRADE BOOTH | -10 | NO
+				> YES
+					@ Upgrade-RULEBOOK_TABS
+				> NO
+					+ 1 BUY_UPGRADE0
+
+BUY_UPGRADE1
+	? Game/Day < 31
+		" Booth Upgrade Available: TAB key to toggle stamp bar.
+		> UPGRADE BOOTH | -5 | NO
+			> YES
+				@ Upgrade-STAMPBAR_HOTKEY
+				+ 3 BUY_UPGRADE2
+			> NO
+				+ 1 BUY_UPGRADE1
+
+BUY_UPGRADE2
+	? Game/Day < 31
+		? Game/Device == desktop
+			" Booth Upgrade Available: Rulebook shortcuts.
+			> UPGRADE BOOTH | -5 | NO
+				> YES
+					@ Upgrade-RULEBOOK_TABS
+					+ 3 BUY_UPGRADE3
+				> NO
+					+ 1 BUY_UPGRADE2
+		? Game/Device == tablet
+			" Booth Upgrade Available: Rulebook shortcuts.
+			> UPGRADE BOOTH | -10 | NO
+				> YES
+					@ Upgrade-RULEBOOK_TABS
+				> NO
+					+ 1 BUY_UPGRADE2
+
+BUY_UPGRADE3
+	? Game/Day < 31
+		" Booth Upgrade Available: Double-click for quick INSPECT.
+		> UPGRADE BOOTH | -5 | NO
+			> YES
+				@ Upgrade-INSPECT_DOUBLECLICK
+			> NO
+				+ 1 BUY_UPGRADE3
+
+#------------------------------------------------------------------------------
+# Apartment
+#------------------------------------------------------------------------------
+APARTMENT_RENT
+	" The rent has gone up.
+	= Night/Rent -25
+	= Night/Apartment C8
+	= Night/ApartmentTimer 0
+	+ 8 APARTMENT_UPGRADE
+
+APARTMENT_UPGRADE
+	+ 1 APARTMENT_UPGRADE
+
+	? Night/Savings < 20
+		? Night/Apartment == C7
+			" A cheaper class 8 apartment is available (Rent = 25, Heat = 10)
+			> MOVE TO CLASS-8 | 75 | NO
+				> YES
+					= Night/Apartment C8
+					= Night/Rent -25
+					= Night/Heat -10
+					= Night/ApartmentTimer 4
+		? Night/Apartment == C6
+			" A cheaper class 8 apartment is available (Rent = 25, Heat = 10)
+			> MOVE TO CLASS-8 | 150 | NO
+				> YES
+					= Night/Apartment C8
+					= Night/Rent -25
+					= Night/Heat -10					
+					= Night/ApartmentTimer 4
+		? Night/Apartment == C5
+			" A cheaper class 8 apartment is available (Rent = 25, Heat = 10)
+			> MOVE TO CLASS-8 | 225 | NO
+				> YES
+					= Night/Apartment C8
+					= Night/Rent -25
+					= Night/Heat -10
+					= Night/ApartmentTimer 4
+
+	? Night/Savings > 20
+		= Night/ApartmentTimer --1
+		? Night/ApartmentTimer <= 0
+			? Night/Apartment == C8
+				" A class-7 apartment is available. (Rent = 30, Heat = 10)
+				> MOVE TO CLASS-7 | -100 | NO
+					> YES
+						= Night/Apartment C7
+						= Night/Rent -30
+						= Night/Heat -10
+						= Night/ApartmentTimer 5
+					> NO
+						= Night/ApartmentTimer 2
+			? Night/Apartment == C7
+				" A class-6 apartment is available. (Rent = 40, Heat = 5)
+				> MOVE TO CLASS-6 | -100 | NO
+					> YES
+						= Night/Apartment C6
+						= Night/Rent -40
+						= Night/Heat -5
+						= Night/ApartmentTimer 5
+					> NO
+						= Night/ApartmentTimer 2
+			? Night/Apartment == C6
+				" A class-5 apartment is available. (Rent = 50, Heat = 0)
+				" Class-5 is the best a worker can have.
+				> MOVE TO CLASS-5 | -100 | NO
+					> YES
+						= Night/Apartment C5
+						= Night/Rent -50
+						= Night/Heat 0
+						@ Achievement ACH_APT_CLASS5
+
+#------------------------------------------------------------------------------
+# Son's Birthday
+#------------------------------------------------------------------------------
+SON_BIRTHDAY
+	? Night/son has alive=true
+		" Your son's birthday is in 2 days.
+		+ 1 SON_BIRTHDAY2
+
+SON_BIRTHDAY2		
+	? Night/son has alive=true
+		" Your son's birthday is tomorrow. He wants an expensive crayon set.
+		> SON'S GIFT | -25 | NO
+			> YES
+				@ MakeSonHappy
+				+ 1 SON_BIRTHDAY3
+			> NO
+				@ MakeSonSad
+
+SON_BIRTHDAY3
+	? Night/son has alive=true
+		" Your son has drawn a picture for you to take to work.
+		@ GivePaper SonDrawing
+
+#------------------------------------------------------------------------------
+# Niece
+#------------------------------------------------------------------------------
+NIECE
+	" Your sister has been arrested. Her young daughter needs a home.
+	> ADOPT NIECE | -40 | NO
+		> YES
+			@ AdoptNiece
+			+ 1 NIECE2_YES
+		> NO
+			+ 1 NIECE2_NO
+
+NIECE2_YES
+	" Your niece has brought her mother's savings.
+	> SISTER'S SAVINGS | 100
+
+NIECE2_NO
+	" Your niece has disappeared.
+
+#------------------------------------------------------------------------------
+# Friendly Guard Payout
+#------------------------------------------------------------------------------
+FRIENDLY_GUARD_PAYOUT
+	" A young woman dropped off something.
+	> ELISA'S GIFT | 100
+
+#------------------------------------------------------------------------------
+# Detain payout (after PRISON_GUARD stops coming by the booth)
+#------------------------------------------------------------------------------
+DETAIN_PAYOUT
+	? Game/NumDetains >= 2 && Game/NumDetains < 4
+		= Game/NumDetains --2
+		> DETAIN BONUS | 5
+	? Game/NumDetains >= 4 && Game/NumDetains < 6
+		= Game/NumDetains --4
+		> DETAIN BONUS | 10
+	? Game/NumDetains >= 6 && Game/NumDetains < 8
+		= Game/NumDetains --6
+		> DETAIN BONUS | 15
+	? Game/NumDetains >= 8 && Game/NumDetains < 10
+		= Game/NumDetains --8
+		> DETAIN BONUS | 20
+	? Game/NumDetains >= 10 && Game/NumDetains < 12
+		= Game/NumDetains --10
+		> DETAIN BONUS | 25
+	? Game/NumDetains >= 12
+		= Game/NumDetains --12
+		> DETAIN BONUS | 30
+
+#------------------------------------------------------------------------------
+# Ezic payout
+#------------------------------------------------------------------------------
+EZIC_PAYOUT
+	" A strange man brought money. Uncheck to burn it.
+	> EZIC GIFT | 1000 | YES
+		> YES
+			= Night/EzicPayout ACCEPTED
+		> NO
+			+ 1 EZIC_PAYOUT_RETRY
+			= Night/EzicPayout REJECTED
+
+EZIC_PAYOUT_RETRY
+	" A strange man brought money again. Uncheck to burn it.
+	> EZIC GIFT | 2000 | YES
+		> YES
+			= Night/EzicPayout ACCEPTED
+		> NO
+			= Night/EzicPayout REJECTED
+
+EZIC_TAKESAVINGS
+	? Night/EzicPayout == ACCEPTED
+		" The neighbors have reported your new wealth.
+		" The Ministry of Income has confiscated your savings pending investigation.
+		= Night/EzicPayout CONFISCATED
+		@ RemoveSavings
+		+ 2 EZIC_CLEARED
+
+EZIC_CLEARED
+	" The Ministry of Income has cleared all wrongdoing.
+	" Your savings will not be returned.
+	#+ 1 SISTER_LOAN
+
+EZIC_REWARD
+	" A small package arrived.
+	> EZIC GIFT | 20
+
+#*
+SISTER_LOAN
+	" Your sister in Nirsk has sent her savings.
+	> SISTER'S SAVINGS | 170
+		> YES
+		> NO
+*#
+
+#------------------------------------------------------------------------------
+# Escape
+#------------------------------------------------------------------------------
+TAKE_FAMILY_PASSPORTS
+	" The Ministry of Information has confiscated your family's passports.
+	@ TakeFamilyPassports
+
+ESCAPE
+	? Night/NumEscapePassports == 1
+		" You can now escape to Obristan by yourself.
+		@ Include ESCAPE_1
+	? Night/NumEscapePassports > 1 && Night/Profit < 50
+		@ Include ESCAPE_1
+
+	? Night/NumEscapePassports == 2
+		" You can now escape to Obristan with one family member.
+		@ Include ESCAPE_2
+	? Night/NumEscapePassports > 2 && Night/Profit >= 50 && Night/Profit < 75
+		@ Include ESCAPE_2
+
+	? Night/NumEscapePassports == 3
+		" You can now escape to Obristan with two family members.
+		@ Include ESCAPE_3
+	? Night/NumEscapePassports > 3 && Night/Profit >= 75 && Night/Profit < 100
+		@ Include ESCAPE_3
+
+	? Night/NumEscapePassports == 4
+		" You can now escape to Obristan with three family members.
+		@ Include ESCAPE_4
+	? Night/NumEscapePassports > 4 && Night/Profit >= 100 && Night/Profit < 125
+		@ Include ESCAPE_4
+
+	? Night/HaveNiece == 1
+		? Night/NumEscapePassports == 5
+			" You can now escape to Obristan with four family members.
+			@ Include ESCAPE_5
+		? Night/NumEscapePassports > 5 && Night/Profit >= 125 && Night/Profit < 150
+			@ Include ESCAPE_5
+
+		? Night/NumEscapePassports >= 6
+			" You can now escape to Obristan with everyone.
+			@ Include ESCAPE_6
+
+	? Night/HaveNiece != 1
+		? Night/NumEscapePassports >= 5
+			" You can now escape to Obristan with everyone.
+			@ Include ESCAPE_5
+
+ESCAPE_1
+	> ESCAPE (SELF) | -25 | NO
+		> YES
+			@ Escape 1
+			@ RenameSleepButton budget_escape
+ESCAPE_2
+	> ESCAPE (SELF+1) | -50 | NO
+		> YES
+			@ Escape 2
+			@ RenameSleepButton budget_escape
+ESCAPE_3
+	> ESCAPE (SELF+2) | -75 | NO
+		> YES
+			@ Escape 3
+			@ RenameSleepButton budget_escape
+ESCAPE_4
+	> ESCAPE (SELF+3) | -100 | NO
+		> YES
+			@ Escape 4
+			@ RenameSleepButton budget_escape
+ESCAPE_5
+	> ESCAPE (SELF+4) | -125 | NO
+		> YES
+			@ Escape 5
+			@ RenameSleepButton budget_escape
+ESCAPE_6
+	> ESCAPE (SELF+5) | -150 | NO
+		> YES
+			@ Escape 6
+			@ RenameSleepButton budget_escape
+
+#------------------------------------------------------------------------------
+# Misc
+#------------------------------------------------------------------------------
+HANGINGS_PENALTY
+	" A fine has been assessed for unofficial wall hangings.
+	> HANGINGS FINE | -20 | MUSTPAY
+	
+SELL_WATCH
+	" You sold the digital watch on your way home.
+	@ TakePaper Watch
+	> WATCH PROFIT | 10
+
+EASY_MODE
+	> EASY MODE CRUTCH | 20
+
+SNEAK_HOME
+	" You have rushed home amid the panic at work to check on your family.
+	" Your information audit is scheduled for tomorrow morning.
+
+#------------------------------------------------------------------------------
+# Final end-game decision
+#------------------------------------------------------------------------------
+FINAL
+	? Game/HelpedEzic == YES
+		# On Ezic team, see if we killed the attackers today
+		? Night/AttackResult == SOLVED
+			? Game/WallDestroyed == YES
+				@ End help-ezic-kill-attackers-wall-destroyed
+			? Game/WallDestroyed != YES
+				@ End help-ezic-kill-attackers-wall-safe				
+		? Night/AttackResult != SOLVED
+			@ End help-ezic-hold-fire
+	? Game/HelpedEzic != YES
+		? Game/WallDestroyed == YES
+			@ End wall-destroyed
+		? Game/WallDestroyed != YES
+			? Game/EzicAgentsApproved < 1
+				@ End ignore-ezic
+			? Game/EzicAgentsApproved >= 1
+				@ End help-few-ezic
+	# Other cases (shooting guards or innocents) are handled automatically
+
+
+
+
+#STOLE_TOO_MANY_PASSPORTS
+#	" The Ministry of Admission has detected too many missing foreign passports.

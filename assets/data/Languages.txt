@@ -1,0 +1,16 @@
+cs
+de
+en
+es
+eu
+fr
+id
+it
+ja
+ko
+pl
+pt-BR
+ru
+tr
+ukr
+zh

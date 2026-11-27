@@ -1,0 +1,343 @@
+#------------------------------------------------------------------------------------------------
+@
+	story 1 in-debt
+	story 2 family-dead
+	story 3 turned-over-ezic-docs
+	story 4 caught-with-ezic-money
+	story 5 killed-innocent
+	story 6 tranqed-innocent
+	story 7 killed-guard
+	story 8 tranqed-guard
+	story 9 killed-target
+	story 10 tranqed-target
+	story 11 stuff-on-walls
+	story 12 arrested-boss-buddy
+	story 13 wall-destroyed
+	story 14 help-ezic-kill-attackers-wall-safe
+	story 15 help-ezic-kill-attackers-wall-destroyed
+	story 16 flee
+	story 17 help-few-ezic
+	story 18 escape
+	story 19 help-ezic-hold-fire
+	story 20 ignore-ezic
+	
+	story 40 all-tokens
+	
+	endless 100 timed course1
+	endless 101 timed course2
+	endless 102 timed course3
+	endless 103 timed course4
+
+	endless 104 perfection course1
+	endless 105 perfection course2
+	endless 106 perfection course3
+	endless 107 perfection course4
+
+	endless 108 endurance course1
+	endless 109 endurance course2
+	endless 110 endurance course3
+	endless 111 endurance course4
+
+#------------------------------------------------------------------------------------------------
+default
+	SECRET_POLICE_INTRO
+		give PoliceBadge
+		give PoliceEzic
+
+	BOSS_BUDDY
+		interrogate
+		stamp APPROVED
+		giveall
+
+	PRISON_GUARD_BOMB
+		click TimeBomb timebomb-screw0
+		click TimeBomb timebomb-screw1
+		click TimeBomb timebomb-screw2
+		click TimeBomb timebomb-screw3
+		click TimeBomb timebomb-wire0
+		click TimeBomb timebomb-wire1
+		click TimeBomb timebomb-wire2
+		click TimeBomb timebomb-wire3
+		giveall
+
+	WATCH_GIVER0
+		interrogate
+		stamp APPROVED
+		giveallexcept Watch
+
+	WATCH_BUYER0
+		interrogate
+		stamp APPROVED
+		giveallexcept Watch
+
+	WATCH_BUYER1
+		interrogate
+		stamp APPROVED
+		giveallexcept Watch
+
+	ELISA
+		stamp APPROVED
+		giveall
+
+	KID_KILLER1
+		confiscate
+		stamp APPROVED
+		giveall
+
+	NIGHT
+		"FOOD" EVEN
+		"HEAT" ODD
+		"UPGRADE BOOTH" YES
+		"MEDICINE" YES
+		"SON'S GIFT" YES
+		"ADOPT NIECE" YES
+		"EZIC GIFT" NO
+
+	HANG_ON_WALL safe
+
+#------------------------------------------------------------------------------------------------
+base-ignore-ezic
+	# same as default
+	
+#------------------------------------------------------------------------------------------------
+base-help-ezic
+	EZIC_AGENT0
+		interrogate
+		stamp APPROVED
+		giveall
+
+	EZIC_AGENT1
+		interrogate
+		stamp APPROVED
+		giveall
+	
+	EZIC_AGENT_EXT
+		interrogate
+		stamp APPROVED
+		giveall
+
+	EZIC_POISON_TARGET
+		poison
+		stamp APPROVED
+		giveall
+
+	EZIC_DIPLO
+		confiscate
+		stamp APPROVED
+		giveall
+
+	EZIC_DIPLO_FOLLOW
+		giveall
+		stamp APPROVED
+		giveall
+
+	NIGHT
+		"FOOD" EVEN
+		"HEAT" ODD
+		"UPGRADE BOOTH" YES
+		"SON'S GIFT" YES
+		"ADOPT NIECE" YES
+		"EZIC GIFT" YES
+
+	ATTACK_31
+		hold
+
+#------------------------------------------------------------------------------------------------
+# 1
+in-debt
+	*
+		stamp WRONG
+		giveall
+
+#------------------------------------------------------------------------------------------------
+# 2
+family-dead
+	NIGHT
+		# no heat, no food
+
+#------------------------------------------------------------------------------------------------
+# 3
+turned-over-ezic-docs
+	SECRET_POLICE_INTRO
+		give EzicGrid
+
+#------------------------------------------------------------------------------------------------
+# 4
+caught-with-ezic-money
+	EZIC_AGENT0
+		interrogate
+		stamp APPROVED
+		giveall
+
+	EZIC_AGENT1
+		interrogate
+		stamp DENIED
+		giveall
+	
+	EZIC_AGENT_EXT
+		interrogate
+		stamp APPROVED
+		giveall
+
+	NIGHT
+		"FOOD" EVEN
+		"HEAT" ODD
+		"UPGRADE BOOTH" YES
+		"MEDICINE" YES
+		"EZIC GIFT" YES
+
+#------------------------------------------------------------------------------------------------
+# 5
+killed-innocent
+	ATTACK_23 kill
+		snipe innocent
+
+#------------------------------------------------------------------------------------------------
+# 6
+tranqed-innocent
+	ATTACK_16 tranq
+		snipe innocent
+
+#------------------------------------------------------------------------------------------------
+# 7
+killed-guard
+	ATTACK_26 kill
+		snipe guard
+
+#------------------------------------------------------------------------------------------------
+# 8
+tranqed-guard
+	ATTACK_16 tranq
+		snipe guard
+
+#------------------------------------------------------------------------------------------------
+# 9
+killed-target
+	ATTACK_23 kill
+		snipe man-in-red
+
+#------------------------------------------------------------------------------------------------
+# 10
+tranqed-target
+	ATTACK_23 tranq
+		snipe man-in-red
+
+#------------------------------------------------------------------------------------------------
+# 11
+stuff-on-walls
+	HANG_ON_WALL all
+
+#------------------------------------------------------------------------------------------------
+# 12
+arrested-boss-buddy
+	BOSS_BUDDY
+		interrogate
+		detain
+
+#------------------------------------------------------------------------------------------------
+# 13
+wall-destroyed base-ignore-ezic
+	ATTACK_31 kill
+		snipe $enemy1
+		wait Game/WallDestroyed YES
+		snipe $enemy0
+
+#------------------------------------------------------------------------------------------------
+# 14
+help-ezic-kill-attackers-wall-safe base-help-ezic
+	ATTACK_31 kill
+		snipe enemies
+
+#------------------------------------------------------------------------------------------------
+# 15
+help-ezic-kill-attackers-wall-destroyed base-help-ezic
+	ATTACK_31 kill
+		snipe $enemy1
+		wait Game/WallDestroyed YES
+		snipe $enemy0
+
+#------------------------------------------------------------------------------------------------
+# 16
+flee
+	CONFISCATE_OBRISTAN 1
+	NIGHT_31
+		"ESCAPE (SELF)" YES
+
+#------------------------------------------------------------------------------------------------
+# 17
+help-few-ezic base-ignore-ezic
+	EZIC_AGENT0
+		interrogate
+		stamp APPROVED
+		giveall
+
+	EZIC_AGENT1
+		interrogate
+		stamp APPROVED
+		giveall
+
+#------------------------------------------------------------------------------------------------
+# 18
+escape
+	CONFISCATE_OBRISTAN 6
+	NIGHT_31
+		"ESCAPE (SELF+1)" YES
+		"ESCAPE (SELF+2)" YES
+		"ESCAPE (SELF+3)" YES
+		"ESCAPE (SELF+4)" YES
+		"ESCAPE (SELF+5)" YES
+
+#------------------------------------------------------------------------------------------------
+# 19
+help-ezic-hold-fire base-help-ezic
+
+#------------------------------------------------------------------------------------------------
+# 20
+ignore-ezic base-ignore-ezic
+
+
+#------------------------------------------------------------------------------------------------
+# 21
+all-tokens base-ignore-ezic
+	# TokenAntegria
+	HUSBAND_WIFE1
+		interrogate
+		stamp APPROVED
+		giveall
+	
+	# TokenObristan
+	JORJI4
+		interrogate
+		stamp APPROVED
+		giveall
+
+	# TokenArstotzka
+	HIRING_ENGINEERS
+		interrogate
+		give BizCard
+		stamp APPROVED
+		giveallexcept BizCard
+
+	# TokenUnitedFed (default KID_KILLER1 -> KID_KILLER2)
+
+	# TokenRepublia
+	WATCH_BUYER0
+		interrogate
+		stamp CORRECT
+		giveallexcept Watch
+	WATCH_BUYER1
+		interrogate
+		stamp CORRECT
+		giveallexcept Watch
+	WATCH_GIVER1
+		interrogate
+		stamp CORRECT
+		giveall
+
+	# TokenKolechia (LOVE_SONG_LONELY)
+
+	# TokenImpor
+	VISIT_SON
+		interrogate
+		stamp APPROVED
+		giveall

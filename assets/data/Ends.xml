@@ -1,0 +1,242 @@
+<ends>
+
+<!----------------------------------------------------------->
+<end id="in-debt" music="Death" num="1">
+	<page image="Arrested.png" text="Arstotzka has zero tolerance for delinquency."/>
+	<page image="JailDoor.png" text="Your family will be sent back to their village."/>
+	<page image="JailNear.png" text="You are under arrest until your debts are repaid."/>
+	<page image="JailFar.png" text="A replacement inspector will be found easily."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="family-dead" music="Death" num="2">
+	<page image="FamilyDead.png" text="Your entire family is gone."/>	
+	<page image="LargeFamily.png" text="The Ministry Of Labor focuses on Arstotzka's future growth."/>
+	<page image="LargeFamily.png" text="Workers are expected to support large healthy families."/>
+	<page image="LargeFamily.png" text="Your position will be filled by someone more appropriate."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="turned-over-ezic-docs" achieve="ACH_END_TURNEDOVEREZICDOCS" music="Death" num="3">
+	<page image="Arrested.png" text="You are under arrest for associating with suspicious groups."/>
+	<page image="JailDoor.png" text="The Ministry of Information will perform a full audit of your recent activities."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="caught-with-ezic-money" music="Death" num="4">
+	<page image="Arrested.png" text="The Ministry of Income has discovered an anomaly in your earnings."/>
+	<page image="JailDoor.png" text="You are under arrest pending a full audit of your recent activities."/>
+	<page image="JailNear.png" text="Your family will likewise be held for questioning."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="killed-innocent" music="Death" num="5">
+	<page image="Arrested.png" text="You are under arrest for the murder of an innocent."/>
+	<page image="JailDoor.png" text="The penalty is death."/>
+	<page image="JailNear.png" text="Your family will be questioned about their involvement."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="tranqed-innocent" music="Death" num="6">
+	<page image="Arrested.png" text="You are under arrest for attacking an innocent."/>
+	<page image="JailDoor.png" text="The penalty is forced labor."/>
+	<page image="JailNear.png" text="Your family will be questioned about their involvement."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="killed-guard" music="Death" num="7">
+	<page image="Arrested.png" text="You are under arrest for the murder of an Arstotzkan official."/>
+	<page image="JailDoor.png" text="The penalty is death."/>
+	<page image="JailNear.png" text="Your family will be questioned about their involvement."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="tranqed-guard" music="Death" num="8">
+	<page image="Arrested.png" text="You are under arrest for attacking an Arstotzkan official."/>
+	<page image="JailDoor.png" text="The penalty is death."/>
+	<page image="JailNear.png" text="Your family will be questioned about their involvement."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="killed-target" achieve="ACH_END_KILLEDTARGET" music="Death" num="9">
+	<page image="Arrested.png" text="You are under arrest for the murder of an innocent."/>
+	<page image="JailDoor.png" text="The penalty is death."/>
+	<page image="JailNear.png" text="Your family will be questioned about their involvement."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+	<page image="JailNote.png" text="[A note appears from under the cell door]"/>
+	<page image="EzicNote.png" text="INSPECTOR - FAMILY IS SAFE - TARGET ELIMINATED BUT OTHER PROBLEMS ARISE"/>
+	<page image="EzicNote.png" text="REPLACEMENT INSPECTOR NOT COOPERATIVE - EZIC ACTIVITIES HINDERED"/>
+	<page image="EzicNote.png" text="WE CANNOT PROVIDE FURTHER SUPPORT - EZIC TO HIBERNATE AGAIN"/>
+	<page image="EzicNote.png" text="FAMILY WILL BE TAKEN TO OBRISTAN - GOOD LUCK"/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="tranqed-target" music="Death" num="10">
+	<page image="Arrested.png" text="You are under arrest for attacking an innocent."/>
+	<page image="JailDoor.png" text="The penalty is forced labor."/>
+	<page image="JailNear.png" text="Your family will be questioned about their involvement."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+	<page image="JailNote.png" text="[A note appears from under the cell door]"/>
+	<page image="EzicNote.png" text="INSPECTOR - FAMILY IS SAFE - TARGET HAS RECOVERED IN HOSPITAL"/>
+	<page image="EzicNote.png" text="REPLACEMENT INSPECTOR NOT COOPERATIVE - EZIC ACTIVITIES HINDERED"/>
+	<page image="EzicNote.png" text="WE CANNOT PROVIDE FURTHER SUPPORT - EZIC TO HIBERNATE AGAIN"/>
+	<page image="EzicNote.png" text="FAMILY WILL BE TAKEN TO OBRISTAN - GOOD LUCK"/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="stuff-on-walls" music="Death" num="11">
+	<page image="Arrested.png" text="You are under arrest for violating direct orders."/>
+	<page image="JailDoor.png" text="The penalty is forced labor."/>
+	<page image="JailNear.png" text="Your family will be sent back to their village."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="arrested-boss-buddy" music="Death" num="12">
+	<page image="Arrested.png" text="Your supervisor has reported you for theft of Arstotzkan property."/>
+	<page image="JailDoor.png" text="The penalty is forced labor."/>
+	<page image="JailNear.png" text="Your family will be sent back to their village."/>
+	<page image="JailFar.png" text="The border will remain open under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="wall-destroyed" music="Death" num="13">
+	<page image="BorderPierced.png" text="The Grestin Border wall has been destroyed."/>
+	<page image="Arrested.png" text="You are under arrest for failure to defend the checkpoint."/>
+	<page image="JailDoor.png" text="Your family will be sent back to their village."/>
+	<page image="JailFar.png" text="The border will reopen under a replacement inspector."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>	
+</end>
+
+<!----------------------------------------------------------->
+<end id="help-ezic-kill-attackers-wall-safe" music="Death" num="14">
+	<page image="Interrogation.png" text="Hello inspector."/>
+	<page image="Interrogation.png" text="We have audited your recent activities."/>
+	<page image="Interrogation.png" text="Your involvement with a group calling themselves THE ORDER OF THE EZIC STAR has been uncovered."/>
+	<page image="Interrogation.png" text="Several members of this group have been arrested in Arstotzka."/>
+	<page image="Interrogation.png" text="At least one EZIC member has confessed to receiving your help."/>
+	<page image="Interrogation.png" text="This represents treason of the highest order."/>
+	<page image="Interrogation.png" text="Goodbye inspector."/>
+	<page image="JailDoor.png" text="The execution is scheduled for tonight."/>
+	<page image="JailNear.png" text="Your family's safety is unknown."/>
+	<page image="JailFar.png" text="EZIC has been crushed. The balance of justice is restored."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+	<page image="JailNote.png" text="[A note appears from under the cell door]"/>
+	<page image="EzicNote.png" text="INSPECTOR - YOU HAVE BETRAYED US AT THE LAST MOMENT"/>
+	<page image="EzicNote.png" text="THIS CHAPTER OF EZIC IS OVER - WE CAN OFFER NO HELP TO YOUR FAMILY"/>	
+</end>
+
+<!----------------------------------------------------------->
+<end id="help-ezic-kill-attackers-wall-destroyed" music="Death" num="15">
+	<page image="BorderPierced.png" text="The border has been pierced."/>
+	<page image="EzicCelebrate.png" text="It is a glorious day for THE ORDER OF THE EZIC STAR but you have betrayed us at the last moment."/>
+	<page image="EzicCelebrate.png" text="EZIC grows strong while the corrupt and greedy weaken."/>
+	<page image="EzicCelebrate.png" text="Your betrayal means you have chosen the wrong side."/>
+	<page image="EzicCelebrate.png" text="There is no place for you or your family in this revolution."/>
+	<page image="EzicCelebrate.png" text="Goodbye inspector."/>
+	<page image="Arstotzka.png" text="Glory to the New Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="flee" music="Death" num="16" pages="escape">
+</end>
+
+<!----------------------------------------------------------->
+<end id="help-few-ezic" music="Death" num="17">
+	<page image="Interrogation.png" text="Hello inspector."/>
+	<page image="Interrogation.png" text="We have audited your recent activities."/>
+	<page image="Interrogation.png" text="Your involvement with a group calling themselves THE ORDER OF THE EZIC STAR has been uncovered."/>
+	<page image="Interrogation.png" text="Several members of this group have been arrested in Arstotzka."/>
+	<page image="Interrogation.png" text="At least one EZIC member has confessed to receiving your help."/>
+	<page image="Interrogation.png" text="This represents treason of the highest order."/>
+	<page image="Interrogation.png" text="Goodbye inspector."/>
+	<page image="JailDoor.png" text="The execution is scheduled for tonight."/>
+	<page image="JailNear.png" text="Your family's safety is unknown."/>
+	<page image="JailFar.png" text="EZIC has been crushed. The balance of justice is restored."/>
+	<page image="Arstotzka.png" text="Glory to Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="escape" achieve="ACH_END_ESCAPE" music="Victory" num="18" gocredits="true">
+	<page image="FamilyPhoto.png" text="$End/FamilyEscapeIntro"/>
+
+	<page image="NightTrain.png" text="You board the late train to the Northern Territories. It is nearly empty."/>
+	
+	<page image="$End/FamilyPassportsImage" text="You pay for the hastily forged passport and re-entry ticket. They look terrible." when="End/FamilyTakeCount == 0"/>
+	<page image="$End/FamilyPassportsImage" text="You pay for the hastily forged passports and re-entry tickets. They look terrible." when="End/FamilyTakeCount >= 1"/>
+
+	<page image="WaitingLine.png" text="You reach the border crossing at dawn. The line is immense."/>
+	<page image="Shutter.png" text="Six hours later."/>
+
+	<page image="Obrinspector.png" color="0xb19600" text="Your documents."/>
+	<page image="Passport1.png" color="0xd3ecd3" text="Here."/>
+	<page image="Obrinspector.png" color="0xb19600" text="You are entering alone?"/>
+	
+	<!-- by self -->
+	<page image="Obrinspector.png" color="0xd3ecd3" text="Yes." when="End/FamilyTakeCount == 0"/>
+	<page image="$End/FamilyPassportsImage" color="0xd3ecd3" text="I come to visit relatives." when="End/FamilyTakeCount == 0"/>
+	
+	<!-- with family members -->
+	<page image="Obrinspector.png" color="0xd3ecd3" text="No, my family as well." when="End/FamilyTakeCount >= 1"/>
+	<page image="Obrinspector.png" color="0xb19600" text="Hand over all documents now." when="End/FamilyTakeCount >= 1"/>
+	<page image="$End/FamilyPassportsImage" color="0xd3ecd3" text="We come to visit relatives." when="End/FamilyTakeCount >= 1"/>
+
+	<page image="Obrinspector.png" color="0xb19600" text="I do not care why you come. Wait here."/>
+	<page image="Shutter.png" text=""/>
+	<page image="Shutter.png" sound="stamp-down" text="*KACHUNK*" when="End/FamilyTakeCount >= 1"/>
+	<page image="Shutter.png" sound="stamp-down" text="*KACHUNK*" when="End/FamilyTakeCount >= 2"/>
+	<page image="Shutter.png" sound="stamp-down" text="*KACHUNK*" when="End/FamilyTakeCount >= 3"/>
+	<page image="Shutter.png" sound="stamp-down" text="*KACHUNK*" when="End/FamilyTakeCount >= 4"/>
+	<page image="Shutter.png" sound="stamp-down" text="*KACHUNK*" when="End/FamilyTakeCount >= 5"/>
+	<page image="Shutter.png" text="" when="End/FamilyTakeCount >= 1"/>
+	<page image="Shutter.png" text=""/>
+	<page image="Shutter.png" sound="stamp-down" text="*KACHUNK*"/>
+	<page image="Obrinspector.png" color="0xb19600" text="Welcome to Obristan. Next!"/>
+
+	<page image="Obristan.png" text="$End/FamilyEscapeFinal"/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="help-ezic-hold-fire" achieve="ACH_END_HELPEZICHOLDFIRE" music="Victory" num="19" gocredits="true">
+	<page image="BorderPierced.png" text="Inspector! It is a glorious day!"/>
+	<page image="BorderPierced.png" text="The border has been pierced."/>
+	<page image="EzicCelebrate.png" text="EZIC grows strong while the corrupt and greedy weaken."/>
+	<page image="EzicCelebrate.png" text="We are moving you and your family to a better home."/>
+	<page image="EzicCelebrate.png" text="Your services as an inspector are no longer required. We need agents."/>
+	<page image="EzicCelebrate.png" text="Follow us and together we will complete the revolution!"/>
+	<page image="Arstotzka.png" text="Glory to the New Arstotzka."/>
+</end>
+
+<!----------------------------------------------------------->
+<end id="ignore-ezic" achieve="ACH_END_IGNOREEZIC" music="Victory" num="20" gocredits="true">
+	<page image="Interrogation.png" text="Hello inspector."/>
+	<page image="Interrogation.png" text="We have audited your activities for the past 20 years."/>
+	<page image="Interrogation.png" text="There are some anomalies."/>
+	<page image="Interrogation.png" text="But you have served Arstotzka well."/>
+	<page image="Interrogation.png" text="We will overlook these small transgressions."/>
+	<page image="Interrogation.png" text="You have been cleared of any suspicion."/>
+	<page image="Interrogation.png" text="Glory to Arstotzka."/>
+	<page image="EndNews.png" text="A new agreement has been reached with Kolechia."/>
+	<page image="EndNews.png" text="Grestin Border Checkpoint will reopen soon."/>
+	<page image="EndNews.png" text="Return to your post on January 1st."/>
+	<page image="Arstotzka.png" text="ENDLESS UNLOCK CODE: 62131"/>
+</end>
+
+</ends>

@@ -1,0 +1,42 @@
+<endlesses>
+
+	<style id="timed" name="Timed" time="600" button="EndlessStyleTimed.png" 
+		icon="EndlessIconTimed.png" 
+		leaderboard="Timed" 
+		desc="Process as many travelers as possible in 10 minutes."
+		bulletin="ENDLESS - TIMED\n\nProcess as many travelers as possible in 10 minutes. One point per traveler. Lose 30 seconds for each citation."
+	>
+		<process score="+1"/>
+		<mistake time="-30"/>
+		<detain time="+5" score="+1"/>
+	</style>
+
+	<style id="perfection" name="Perfection" time="0" button="EndlessStylePerfection.png" 
+		icon="EndlessIconPerfection.png" 
+		leaderboard="Perfection" 
+		desc="Game over at first penalty. Earn dwindling points." 
+		bulletin="ENDLESS - PERFECTION\n\nEarn points for processing travelers. No citations allowed. Ten points per traveler in the first minute, one less point for each minute that passes. Work quickly."
+	>
+		<score scale0="10.9999" scale1="1" time0="0" time1="600"/>
+		<process score="+1"/>
+		<mistake end="true"/>
+		<detain score="+1"/>
+	</style>
+
+	<style id="endurance" name="Endurance" time="0" reportscoremax="true" button="EndlessStyleEndurance.png" 
+		icon="EndlessIconEndurance.png" 
+		leaderboard="Endurance"
+		desc="Play until balance goes negative. Avoid penalties."
+		bulletin="ENDLESS - ENDURANCE\n\nProcess travelers until your balance drops below zero. Citations penalize an escalating number of points. The highest achieved points are remembered for scoring."
+	>
+		<process score="+1"/>
+		<mistake score="-5" delta="-5"/>
+		<detain score="+2"/>
+	</style>
+
+	<course id="course1" name="Course 1" day="1" button="EndlessCourse1.png" leaderboard="Course 1"/>
+	<course id="course2" name="Course 2" day="2" button="EndlessCourse2.png" leaderboard="Course 2"/>
+	<course id="course3" name="Course 3" day="3" button="EndlessCourse3.png" leaderboard="Course 3"/>
+	<course id="course4" name="Course 4" day="4" button="EndlessCourse4.png" leaderboard="Course 4"/>
+
+</endlesses>

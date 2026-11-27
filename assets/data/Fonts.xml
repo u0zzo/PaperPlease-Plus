@@ -1,0 +1,28 @@
+<fonts>
+	<!--<font id="tiny" file="6px_normal_6" baselineheight="2"/>-->
+
+	<font id="tiny" file="minikylie_u_regular_8" lineheight="8"/>
+	<font id="small_harsh" file="5mikropix_regular_8" lineheight="9"/>
+	<font id="small_tight" file="atarismall_u_regular_8" lineheight="8"/>
+	
+	<font id="digits" file="Digits"/>
+	
+	<font id="regular" file="bmmini_u_regular_8" lineheight="9"/>
+	<font id="regular_short2" file="bmmini_u_regular_8" lineheight="8"/>
+	<font id="regular_tall" file="bmmini_u_regular_8" lineheight="12"/>
+
+	<font id="regular_short" file="04b03_u_regular_8" lineheight="9"/>
+	<font id="regular_transcript" file="04b03_u_regular_8" lineheight="8"/>
+
+	<font id="ui_regular" file="notnokia_u_regular_8" lineheight="10"/>
+
+	<font id="ui_large" file="pixelplay_regular_16" lineheight="20"/>
+	<font id="title_tall" file="pixelplay_regular_16" lineheight="20"/>
+
+	<font id="large" file="resource_u_regular_8" lineheight="10"/>
+
+	<font id="fixed" file="proggytinytt_regular_16" lineheight="16"/>
+
+	<font id="title_thick" file="chixa_demibold_14" lineheight="11"/>
+	<font id="title_news" file="motorolascreentype_u_regular_16" lineheight="20"/>
+</fonts>

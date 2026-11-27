@@ -1,0 +1,461 @@
+DAY,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,,100
+DESC,"Arstotzkans only
+No inspection
+No errors","Inspection intro
+","EntryTicket intro
+Missing papers intro","EntryPermit/IdCard intro
+Fingerprint intro
+",Detain intro,"WorkPermit intro
+Suicide bomber","Search intro
+Bribe intro",Diplomatic intro,Prison Guard Intro,"Boss 1
+EZIC Handler A0",Forgery Intro,First Ezic result,IdSupplement Intro,Criminals,TimeBomb,Tranq Gun,"Friendly guard intro
+Denial Slip setup",Denial Slip,"No Imporians
+Poison",Boss 2,"Asylum Grant
+Bike attack",Rest,Sniper Gun,Limited Confiscation,No UnitedFed,"Vaccine cert
+Bike+Runner Attack","Access Permit
+Marked diplomat",Confiscation 2,Sergiu Goodbye,Kid Killer,Last,,Test day
+FEATURES,,+INSPECT,,+FINGERPRINT,+DETAIN,SUICIDE_BOMBER,+SEARCH,,,,+FORGERY,SUICIDE_BOMBER,,+CRIMINALS,,+SNIPING,,+DENIAL_REASON,+HARDER,,,,BORDER_TARGET,+FILER,,,,,+KEEP_ESCAPE_PASSPORTS,,,,
+RULES,"+RuleNeedPassport
+RuleArstotzkaOnly",+RuleNeedCurrentDocs,RuleNeedEntryTicket,"+RuleNeedIdCard
++RuleNeedEntryPermit",,+RuleNeedWorkPermit,"+RuleNoContraband
+RuleSearchKolechia","+RuleNeedDiplomaticAuth
+",,,,,+RuleNeedIdSupplement,,,,,,RuleNoImpor,,+RuleNeedAsylumGrant,,,,RuleNoUnitedFed,+RuleNeedVaccineCert,"-RuleNeedEntryPermit
+-RuleNeedIdSupplement
++RuleNeedAccessPermit",,,,,,
+ATTACK,,RUNNER,,,,,,,,,,,,,,RUNNERSHOT,,RUNNER,,,BIKE,,RUNNERSHOT,,,BIKERUNNER,,BIKESHOT,,,TRUCK,,
+TRAVELERS,"FINALLY_RETURN_HOME
+SMALL_CHECKPOINT
+WAITED_FOREVER
+FIRST_DAY
+KOLECHIAN_HATER","INSPECTION_FIRST
+INSPECTION_ERROR
+INSPECTION_DAY
+HURRY_UP
+INSPECTION_DAY
+BROTHEL0","ENTRYTICKET_FIRST
+ENTRYTICKET_HIDDEN
+BROTHEL1
+ENTRYTICKET_DAY
+GLAD_YOU_HAVE_JOB
+ENTRYTICKET_WRONGDATE
+ENTRYTICKET_DAY
+JORJI0","ENTRYPERMIT_IDCARD_FIRST
+ENTRYPERMIT_IDCARD_DAY
+TICKET_NOT_PERMIT
+ENTRYPERMIT_IDCARD_DAY
+VISIT_SON
+ENTRYPERMIT_IDCARD_DAY
+WRONG_NAME
+JORJI1
+ENTRYPERMIT_IDCARD_IDCARD","DETAIN_FIRST
+DETAIN_DAY
+KILLERATHLETE
+DETAIN_DAY
+HATE_COUNTRY
+DETAIN_DAY
+DETAIN_DAY
+HUSBAND_WIFE0
+HUSBAND_WIFE1","WORKPERMIT_FIRST
+BROTHEL2
+WORKPERMIT_DAY
+WORKPERMIT_DAY
+JORJI2
+WORKPERMIT_DAY
+BROTHEL3
+WORKPERMIT_DAY
+SUICIDE_BOMBER","SEARCH_FIRST
+SEARCH_DAY
+SEARCH_DAY
+SEARCH_CONFUSING_GENDER
+SEARCH_DAY
+SEARCH_DAY
+SEARCH_BRIBE_INTRO
+SEARCH_DAY
+SEARCH_DAY","DIPLOMAT_FIRST
+GENERIC
+JORJI3
+GENERIC
+EZIC_INTRO
+GENERIC
+GENERIC
+GENERIC
+EZIC_CORMAN","PRISON_GUARD0
+GENERIC
+GENERIC
+BUSTED_SPY
+GENERIC
+GENERIC
+BUSTED_SPY_FOLLOWER
+GENERIC
+EZIC_CORMAN","BOSS0
+GENERIC
+GENERIC
+RESISTER
+GENERIC
+GENERIC
+EZIC_HANDLER_PRE0
+GENERIC
+GENERIC","FORGERY_FIRST
+JORJI4
+FORGERY_DAY
+PRISON_GUARD1
+FORGERY_DAY
+EZIC_AGENT0
+FORGERY_DAY
+FORGERY_DAY
+EZIC_HANDLER_POST0","SECRET_POLICE_INTRO
+GENERIC
+GENERIC
+HIRING_ENGINEERS_START
+GENERIC
+WALLCOMMENT_PLAQUEONE
+GENERIC
+HIRING_ENGINEERS 
+SUICIDE_BOMBER2","IDSUPPLEMENT_FIRST
+GENERIC
+PRISON_GUARD2
+GENERIC
+GENERIC
+ARSKICKER0
+HIRING_ENGINEERS
+GENERIC
+IDSUPPLEMENT_COMPLAIN","CRIMINAL_FIRST
+GENERIC
+EZIC_HANDLER_PRE1
+HIRING_ENGINEERS
+GENERIC
+CRIMINAL
+TWO_PASSPORTS
+GENERIC
+EZIC_AGENT1","GENERIC
+TIME_BOMBER
+PRISON_GUARD_BOMB
+GENERIC
+HIRING_ENGINEERS 
+GENERIC
+EZIC_HANDLER_POST1
+GENERIC
+GENERIC","PRISON_GUARD3
+GENERIC
+GENERIC
+NEED_SURGERY
+GENERIC
+HIRING_ENGINEERS_END
+GENERIC
+","FRIENDLY_GUARD0
+GENERIC
+EZIC_HANDLER_EXT
+GENERIC 
+GENERIC
+GENERIC
+JOURNALIST_FIRST
+GENERIC
+EZIC_AGENT_EXT","DENIAL_REASON_FIRST
+DENIAL_REASON_DAY
+WALLCOMMENT_ARSKICKER
+DENIAL_REASON_DAY
+DENIAL_REASON_DAY
+OLD_INSPECTOR
+DENIAL_REASON_DAY","FRIENDLY_GUARD1
+NO_IMPORIANS_FIRST
+NO_IMPORIANS_DAY
+FAMILIAR_FACE
+NO_IMPORIANS_DAY
+NO_IMPORIANS_DAY
+NO_IMPORIANS_DAY
+JORJI_SMUGGLE0
+NO_IMPORIANS_DAY","BOSS1
+GENERIC
+EZIC_POISON_MESSENGER
+GENERIC
+GENERIC
+JOURNALIST
+GENERIC
+GENERIC
+EZIC_POISON_TARGET","NON_ASYLUM
+WHISTLEBLOWER
+GENERIC
+RED_STAMP
+GENERIC
+WATCH_GIVER0
+GENERIC","FRIENDLY_GUARD2
+GENERIC
+GENERIC
+ARSKICKER1
+GENERIC
+GENERIC
+JORJI_SMUGGLE1
+GENERIC
+WATCH_BUYER0","GENERIC
+EZIC_HANDLER_SNIPE
+GENERIC
+GENERIC
+WATCH_BUYER1
+WATCH_GIVER1
+GENERIC
+
+","CONFISCATION_DISTRICT_FIRST
+GENERIC
+GENERIC
+EZIC_HANDLER_POSTSNIPE
+GENERIC
+CONFISCATION_DISTRICT
+GENERIC
+JORJI_CRIMINAL
+GENERIC","FRIENDLY_GUARD3
+NO_UNITEDFED_FIRST
+WALLCOMMENT_SONDRAWING
+NO_UNITEDFED
+LOVE_SONG
+NO_UNITEDFED
+LOVE_SONG_LONELY
+CONFISCATION_DISTRICT
+BOSS_BUDDY","VACCINE_FIRST
+GENERIC
+ELISA
+VACCINE_MISSING
+STRICT_BORDER
+GENERIC
+CONFISCATION_DISTRICT","FRIENDLY_GUARD4
+ACCESSPERMIT_FIRST
+EZIC_HANDLER_DIPLO
+GENERIC_NODIPLO
+CONFISCATION_DISTRICT
+GENERIC_NODIPLO
+EZIC_DIPLO
+GENERIC_NODIPLO
+EZIC_DIPLO_FOLLOW","CONFISCATION_ALL_FIRST
+GENERIC
+ACCESSPERMIT_WRONG
+GENERIC
+GYM_INSTRUCTOR
+GENERIC","SECRET_POLICE_FINAL
+GENERIC
+JORJI_PASSPORTS
+GENERIC 
+GENERIC
+GENERIC_OBRISTAN
+GENERIC 
+KID_KILLER0
+GENERIC","BOSS2
+GENERIC_OBRISTAN
+KID_KILLER1
+GENERIC
+WALLCOMMENT_FAMILYPHOTO
+GENERIC
+KID_KILLER2
+GENERIC
+DESPERATE_BEFORECLOSE","GENERIC_OBRISTAN
+EZIC_FINAL
+GENERIC
+GENERIC
+JORJI_GOODBYE
+GENERIC
+GENERIC_OBRISTAN",,
+FILL,FIRST_DAY,INSPECTION_DAY,ENTRYTICKET_DAY,ENTRYPERMIT_IDCARD_DAY,DETAIN_DAY,SUICIDE_BOMBER,SEARCH_DAY,GENERIC,GENERIC_BOMBER,GENERIC,GENERIC_BOMBER,SUICIDE_BOMBER2,GENERIC_BOMBER,GENERIC_BOMBER,GENERIC_BOMBER,RUNNER_DISTRACTION,GENERIC,RUNNER_DISTRACTION,NO_IMPORIANS_DAY,GENERIC_BOMBER,RUNNER_DISTRACTION,GENERIC_BOMBER,RUNNER_DISTRACTION,GENERIC_BOMBER,NO_UNITEDFED,GENERIC,GENERIC_NODIPLO,RUNNER_DISTRACTION,GENERIC,GENERIC,GENERIC,,
+BPAGES,passporttut boothtut,correlatetut boothtut,missingtut boothtut,boothtut,boothtut,,ruletut contratut,,,,,,,,,guntut,guntut,guntut,guntut,,,,,filertut,,,,,,,,,
+RPAGE,,,,,,workpermit,,diplomaticauth,,,entrypermit,,idsupplement,,,,,,,,asylumgrant,,,confiscation,,vaccinecert,accesspermit,confiscation,,,,,
+DURATION,3,4,6,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,,500
+DURATION_SLOW,3,4,6,7,7,7,7,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,,500
+GUARDS,3,3,12340,12340,12340,12340,12340,12340,12340,12340,12340,12340,12340,12340,12340,12340J,12340JF,12340JF,12340JF,12340JF,12340JF,12340JF,12340JF,12340JF,12340JF,12340JF,12340JF,12340J,12340J,12340J,12340J,,01234JF
+PAPERS,,,,,,,,,,,,,,,,KeyTranq,,,,,,,,,,,,,,,,,
+NIGHTEVENTS,MANAGE_EXPENSES,PROGRESS_SAVED,,APARTMENT_RENT,BUY_UPGRADE0,,,,,,EZIC_PAYOUT,,EZIC_TAKESAVINGS,,,,"SON_BIRTHDAY
+",DETAIN_PAYOUT,,DETAIN_PAYOUT,NIECE,DETAIN_PAYOUT,,DETAIN_PAYOUT,,DETAIN_PAYOUT,,"TAKE_FAMILY_PASSPORTS
+DETAIN_PAYOUT","FAMILY_PICTURE
+ESCAPE","DETAIN_PAYOUT
+ESCAPE","DETAIN_PAYOUT
+SNEAK_HOME
+ESCAPE",,
+NEWS,FIRST_DAY,CHECKPOINT_SUCCESS,FIRST_TERRORISTS,BLACKMARKET_EXPLODES,KILLERATHLETE,WORKPERMIT_FIRST,AFTER_SUICIDE_BOMBER,KOLECHIA_COMPLAINS_SEARCH,BUSTED_SPY,,"FORGERY_NEWS
+WHISTLEBLOWER_SETUP0",SECRET_SOCIETY,IDSUPPLEMENT_INTRO,"CRIMINAL_ACTIVITY
+WHISTLEBLOWER_SETUP1",SURGERY_SETUP,LOSING_GUARDS,"RUNNER_AFTER_TRANQ
+WHISTLEBLOWER_SETUP2",IMPOR_UNHAPPY,IMPOR_SANCTIONS_START,IMPOR_SANCTIONS_END,WHISTLEBLOWER_COMING,BIKE_ATTACK,VIRUS_PRIMER,BORDER_TARGETED,VIRUS_BAN_UNITED_FED,VIRUS_REQUIRE_CERT,"BIKERUNNER_NEWS
+MARKED_DIPLOMAT",,SERIAL_KILLER,TALKS_BREAK_DOWN,BORDER_CLOSING,,
+CONFISCATE,,,,,,,,,,,,,,,,,,,,,,,,DistrictAltan,DistrictAltan,DistrictAltan,DistrictAltan,Native,Native,Native,Native,,Native
+LINE,100,100,100,100,100,100,100,100,100,100,100,100,100,90,90,90,90,90,80,80,80,70,70,70,60,60,50,50,40,80,100,,100
+CRIMFACE,,,,,,,,,,,,,,,,,,,,,,,,JORJI_CRIMINAL:M-1-1-4-4-0,,,,,KID_KILLER1:M-9-10-4-12,KID_KILLER1:M-9-10-4-12,,,
+"BULLETIN0
+","Welcome to your new position at Grestin Border Checkpoint.
+
+Stamp passport ENTRY VISA and return documents to entrant.
+
+Entry is restricted to Arstotzkan citizens only.
+
+Deny all foreigners.","From today, foreigners with a valid passport are permitted to enter.
+
+Your booth's INSPECTION hardware is now installed.
+
+Check all passport information carefully for discrepancies. Deny any entrant with inconsistent information.
+
+Continued...[PAGESNOTE]","Entry for non-citizens is now regulated. 
+
+All foreigners require a valid ENTRY TICKET.
+
+Verify information before stamping passport ENTRY VISA and returning all documents to entrant. [PAGESNOTE]","Stricter credential requirements have been instituted.
+
+Arstotzkan citizens must show their ID CARD.
+
+Foreigners must secure and present a valid ENTRY PERMIT.
+
+Entry tickets are no longer sufficient.
+
+Continued...","You are now authorized to detain suspicious individuals.
+
+Interrogate discrepancies to enable detention option.","The Ministry of Labor has instituted a special program to control immigrant labor.
+
+Travelers entering for work require a valid WORK PASS.","To facilitate more thorough inspections, a SEARCH scanner system has been installed in your booth.
+
+Kolechian extremists are suspected in yesterday's bombing. 
+
+Search all Kolechians before approving their entry.","The Kolechians have filed a formal complaint. 
+
+A diplomat will arrive today for high-level discussions.
+
+Automatic searches of Kolechian citizens are no longer authorized.
+
+Continued...[PAGESNOTE]","An undercover agent of the Ministry of Information has been compromised.
+
+The Ministry of Admission has offered its services as liaison. Expect a possible drop later today.","The divisional authority of East Grestin operations will visit today.
+
+Maintain your best behavior.","A break-in at M.O.A. offices may have compromised our document sealing plates.
+
+Nothing important was stolen but intelligence suggests counterfeiters have already begun forging official Arstotzkan documents.
+
+Continued...",,"The new director is unsatisfied with the level of scrutiny afforded to foreigners.
+
+From today forward, all foreign entrants must present a recent IDENTITY SUPPLEMENT listing weight, height, and appearance.
+
+The rulebook DOCUMENTS chapter has been updated.","The Ministry of Justice has requested our support.
+
+Daily bulletins will now contain a listing of the top 3 most wanted international criminals.
+
+Check faces against entrants and detain suspects immediately.[PAGESNOTE]",,"The Ministry of Justice has appropriated the outer guard detail. 
+
+You are now responsible for controlling trespasser activity.
+
+The provided key can be used to unlock the tranquilizer gun once an alarm has been raised.
+
+Continued...[PAGESNOTE]
+
+",,"Unfavorable international press has affected immigration protocol.
+
+All denials must be accompanied by a REASON FOR DENIAL stamp.
+
+A new computer inking system has been installed. Interrogate discrepancies to prime the REASON FOR DENIAL stamp.
+
+Continued...","Impor rejects all imported goods from Arstotzka.
+
+Under request from the Ministry of Trade, the Ministry of Admission will react to this violation.
+
+Deny all travelers from Impor.","Impor has relented on their faulty policy.
+
+Imporians are now permitted entry.
+
+The divisional authority of East Grestin operations will visit again today.","A special program for political asylum has been established.
+
+Those seeking asylum must carry a valid GRANT OF ASYLUM.
+
+Entrants with such a grant do not require an ENTRY PERMIT or an ID SUPPLEMENT.",,"Your position is important and your responsibilities are broad.
+
+Follow all protocols strictly.","Recent events have cast suspicion on the activities of Arstotzkan citizens in the ALTAN district.
+
+The Ministry of Information has requested our cooperation.
+
+A special drawer for confiscating documents has been installed in your booth.
+
+Continued...","United Federation citizens present a risk of spreading infectious disease.
+
+Deny all entrants from United Federation.
+
+Continue to confiscate Arstotzkan passports from residents living in ALTAN district.
+","The risk of disease is too great. A new protocol has been instituted.
+
+All entrants must carry a valid CERTIFICATE OF VACCINATION with an up-to-date POLIO vaccine.
+
+This requirement extends to natives, foreigners, diplomats, and asylum seekers.
+
+Continued...","In order to improve efficiency, the ENTRY PERMIT and ID SUPPLEMENT have been consolidated into a single ACCESS PERMIT.
+
+Foreigners are now required to present a valid ACCESS PERMIT.
+
+Continued...","In response to continued attacks, the Ministry of Information is expanding the passport confiscation program.
+
+Confiscate all Arstotzkan passports from native entrants.
+
+There are no exceptions.
+
+Do not confiscate foreign passports.","[NOTICE] All government workers are subject to a thorough information audit. Involvement with unauthorized groups is grounds for immediate arrest.
+
+Your audit is scheduled for: DECEMBER 24
+
+DO NOT LEAVE YOUR DESIGNATED REGION.
+
+Continued...","[NOTICE] All government workers are subject to a thorough information audit. Involvement with unauthorized groups is grounds for immediate arrest.
+
+Your audit is scheduled for: DECEMBER 24
+
+DO NOT LEAVE YOUR DESIGNATED REGION.
+
+Continued...","The Ministry of Admission is involved in discussions regarding the closure of this checkpoint.
+
+Until a decision is made, maintain your duties as ordered.
+
+Continued...",,
+"BULLETIN1
+",,"__________________________
+INSPECT MODE
+
+Enter INSPECT mode using the red button on your desk. While inspecting, highlight two pieces of discrepant information for further options.
+
+__________________________
+RULES & REGULATIONS
+
+This post is bound by Ministry of Admission rules and regulations. Study the rule book closely.",,"A new chapter detailing document features has been added to your rulebook.
+
+Check all information thoroughly.
+
+Deny any applicant with discrepant documents.
+
+Refer to the AUDIO TRANSCRIPT to correlate entrant's statements.",,,,"__________________________
+DIPLOMATS
+
+Diplomats require only a PASSPORT and valid DIPLOMATIC AUTHORIZATION to enter. 
+
+Refer to the rulebook for updated document information.",,,"__________________________
+FORGERIES
+
+Double-check that required documents contain valid seals. 
+
+Correlate missing or wrong seals against the appropriate entries in the DOCUMENTS chapter of your rulebook.",,,,,"__________________________
+COMPENSATION
+
+You will receive a bonus for stopping any trespasser. A smaller bonus is provided for firing on, but missing, your target.
+
+__________________________
+WEAPONS PROTOCOL
+
+Review instructional diagram on following page.",,"__________________________
+DENIAL PROTOCOL
+
+REASON FOR DENIAL stamp is activated on first interrogation.
+
+When denying entry, stamp both DENIED and REASON FOR DENIAL on passport.
+
+If applicant clarifies discrepancies sufficiently, approval is authorized even while REASON FOR DENIAL stamp remains available.
+",,,,,,"The rulebook has been updated with information regarding confiscation policy.
+
+Confiscate all Arstotzkan passports from residents living in ALTAN district.
+
+Travelers may still be granted entry if passport is confiscated and no other rules are violated.
+
+PASSPORT SEIZURE slips will be issued to allow entry or denial without a passport.",,"United Federation citizens are permitted entry with such certification.
+
+Continue to confiscate Arstotzkan passports from residents living in ALTAN district.","Yesterday's coordinated attack has prompted an emergency meeting. 
+
+An important Kolechian negotiator will arrive today to discuss issues at this checkpoint.
+
+Continue to confiscate Arstotzkan passports from residents living in ALTAN district.",,Continue to confiscate all Arstotzkan passports from native entrants.,Continue to confiscate all Arstotzkan passports from native entrants.,"You are scheduled for an information audit tomorrow morning.
+
+DO NOT LEAVE YOUR DESIGNATED REGION.
+
+Continue to confiscate all Arstotzkan passports from native entrants.",,

@@ -1,0 +1,3346 @@
+#------------------------------------------------------------------------------
+# Default responses
+#------------------------------------------------------------------------------
+DEFAULT
+	# Used for default responses. Unlike other traveler specifications, conditionals
+	# here are based on the current Env and can access all facts. Also, conditionals
+	# are evaluated at the moment when a response is needed, not when a traveler
+	# is created as with other specifications.
+	? Traveler/Nationality != Arstotzka
+		? Day/Rules has RuleNeedEntryPermit || Day/Rules has RuleNeedAccessPermit
+			? Traveler/Purpose == immigrate || Traveler/Purpose == diplomat
+				> Intro
+					" $ask-purpose
+					" $state-purpose
+			? Traveler/Purpose == asylum
+				> Intro
+					" $ask-purpose
+					" $state-purpose
+					@ Fingerprint
+			> Intro
+				" $ask-purpose
+				" $state-purpose
+				" $ask-duration
+				" $state-duration
+
+	? Traveler/PassportConfiscated != YES
+		> Approved
+			" $ask-approved
+	? Traveler/PassportConfiscated == YES
+		> Approved
+			" Where is my passport? ; My passport? ; Passport? ; What is this slip? Where is passport?
+			" @It is being confiscated.
+			" How will I travel? ; What should I do? ; Why? ; You cannot do this.
+			" @Contact number on slip.
+			"
+		> Denied
+			" Where is my passport? ; My passport? ; Passport? ; What is this slip? Where is passport?
+			" @It is being confiscated.
+			" How will I travel? ; What should I do? ; Why? ; You cannot do this.
+			" @Contact number on slip.
+			"
+
+#------------------------------------------------------------------------------
+# Test
+#------------------------------------------------------------------------------
+TEST
+	= nation Obristan
+	= purpose visit
+
+GENERIC_ERROR
+	= error
+		x 1 --
+		x 2 <generic> <speech> <missing>
+
+GENERIC_ERROR_RARE
+	= error
+		x 3 --
+		x 1 <generic> <speech> <missing>
+
+GENERIC_ERROR_HAVEPASSPORT 
+	# Same as GENERIC_ERROR, but with no chance to have missing passport
+	= error
+		x 1 --
+		x 2 <generic> <speech> ^(?!Passport).*<missing>
+
+GENERIC
+	INCLUDE GENERIC_ERROR
+
+BOMBER
+	= nation Arstotzka Kolechia Impor UnitedFed Obristan Republia Antegria
+	? Day/Rules !has RuleNeedIdSupplement && Day/Rules !has RuleNeedAccessPermit
+		# can't have a foreign bomber without id supplement
+		= nation Arstotzka	
+	= contrabandTypes bomb
+	= error <contraband>
+	> Approved
+		@ News GENERIC_BOMBER
+
+GENERIC_BOMBER
+	? RANDOM100 < 10
+		INCLUDE BOMBER
+		BREAK
+	INCLUDE GENERIC_ERROR
+
+FOREIGNER
+	= nation Kolechia Obristan Impor UnitedFed Antegria Republia
+
+GENERIC_NODIPLO
+	= nation Arstotzka Kolechia Impor UnitedFed Obristan Republia Antegria
+	? nation != Arstotzka
+		= purpose visit:2 transit:2 immigrate:1 work:1
+	INCLUDE GENERIC_ERROR
+
+#------------------------------------------------------------------------------
+# Order of the Ezic Star
+#------------------------------------------------------------------------------
+EZIC_INTRO
+	= test nopay
+	MANUALPAPERS
+	= nation Arstotzka
+	= face M-23-23-23-23-1-0
+	= test nopay
+	> Intro-Replace
+		" The Order awaits.
+		+ EzicIntro
+		@ Leave
+
+EZIC_CORMAN
+	? Game/Ezic == joined
+		INCLUDE GENERIC
+		BREAK
+	= nation Arstotzka
+	= name Corman-Drex
+	= want EzicIntro
+	( EzicIntroCorman
+		.*/Name
+		EzicIntro/Corman
+	> Intro-Before
+		= Game/Ezic-MetCorman YES
+	> Give-EzicIntro
+		" Very good.
+		= EzicNote/Message "ARSTOTZKA IS GREAT COUNTRY POISONED BY CORRUPT LEADERS\n\nWAR HAS MADE GOV'T GREEDY AND PARANOID - YOU HAVE SEEN FOR YOURSELF\n\nHELP US FREE ARSTOTZKA FROM ITS SHACKLES\n\n\n* THE ORDER OF THE EZIC STAR"
+		+ EzicNote
+		" Read quickly.
+	> LinkClicked-EzicNote-open
+		@ Want EzicNote
+	> Give-EzicNote
+		" Do not lose this.
+		+ EzicGrid
+		= Game/Ezic joined
+		? Traveler/Resisting == YES
+			@ Leave
+	? Game/Ezic-MetCorman != YES
+		> ApprovedDenied
+			? Game/StayingPapers has EzicNote
+				" You have something of mine.
+				@ Resist
+	? Game/Ezic-MetCorman == YES
+		> ApprovedDenied
+			? Game/StayingPapers has EzicIntro
+				" My name is Corman Drex.				
+				" You have something of mine.
+				@ Resist
+			? Game/StayingPapers has EzicNote
+				" Read the note then return it to me.
+				@ Resist
+
+EZIC_HANDLER
+	MANUALPAPERS
+	= nation Arstotzka
+	= face M-23-23-23-23-1-0
+
+EZIC_HANDLER_PRE0
+	INCLUDE EZIC_HANDLER
+	= test nopay
+	> Intro-Replace
+		= Game/EzicAgentsApproved 0
+		" Our agents are ready.
+		+ EzicHoles
+		" Starting tomorrow.
+		" Let them pass.
+		@ Leave
+
+EZIC_AGENT0
+	INCLUDE FOREIGNER
+	= purpose visit transit immigrate
+	= error Misc-AllMissing
+	= gender M
+	= name Mikhail-Saratov
+	> Approved
+		" The Order rises.
+		@ News EZIC_ATTACK0
+		= Game/EzicAgentsApproved ++1
+	> Denied
+		" The Order knows.
+	> Detain-Replace
+		" $ask-detain
+		" The Order knows.
+
+EZIC_HANDLER_POST0
+	= test nopay
+	? Game/EzicAgentsApproved == 1
+		= fallback GENERIC
+		BREAK
+	? Game/EzicAgentsApproved < 1
+		INCLUDE EZIC_HANDLER	
+		> Intro-Replace
+			= EzicNote/Message "FIRST AGENT WAS DENIED\n\nSECOND WILL COME IN THREE DAYS\n\nDO NOT MAKE SAME MISTAKE"
+			+ EzicNote
+		> LinkClicked-EzicNote-open
+			@ Want EzicNote
+		> Give-EzicNote
+			@ Leave
+
+EZIC_HANDLER_PRE1
+	? Night/EzicPayout != CONFISCATED
+		= fallback GENERIC
+		BREAK
+	? Night/EzicPayout == CONFISCATED
+		INCLUDE EZIC_HANDLER	
+		> Intro-Replace
+			= EzicNote/Message "LARGE GIFT WAS MISTAKE\n\nMINISTRY OF INFORMATION NOW INVESTIGATES YOUR CONNECTION TO EZIC\n\nNEXT AGENT COMES TODAY\n\nWILL SOLVE PROBLEM\n\nDENY AT OWN RISK"
+			+ EzicNote
+		> LinkClicked-EzicNote-open
+			@ Want EzicNote
+		> Give-EzicNote
+			@ Leave
+
+EZIC_AGENT1
+	= purpose visit transit immigrate
+	= error <obvious>
+	= gender F
+	= name Stepheni-Graire
+	> Approved
+		" For Arstotzka and the Order.
+		? Night/EzicPayout == CONFISCATED
+			@ News EZIC_ATTACK1_GIFT
+		? Night/EzicPayout != CONFISCATED
+			@ News EZIC_ATTACK1_NOGIFT
+		= Game/EzicAgentsApproved ++1
+	? Night/EzicPayout == CONFISCATED
+		> Denied
+			= Game/Ezic caught
+			@ Tomorrow SECRET_POLICE_CAUGHT
+		> Detain-After
+			= Game/Ezic caught
+			@ Tomorrow SECRET_POLICE_CAUGHT
+
+EZIC_HANDLER_POST1
+	= test nopay
+	INCLUDE EZIC_HANDLER
+	> Intro-Replace
+		? Game/EzicAgentsApproved < 1
+			= EzicNote/Message "BOTH AGENTS WERE DENIED\n\nWE CANNOT SUCCEED WITHOUT YOUR HELP\n\nWHEN ARSTOTZKA WAS BORN, THE ORDER FULFILLED SAME ROLE AS TODAY\n\nWHEN TYRANNY ENDS WE WILL DISAPPEAR AGAIN"
+		? Game/EzicAgentsApproved == 1
+			= EzicNote/Message "ONLY ONE AGENT APPROVED\n\nWE CANNOT SUCCEED WITHOUT YOUR HELP\n\nWHEN ARSTOTZKA WAS BORN ,THE ORDER FULFILLED SAME ROLE AS TODAY\n\nWHEN TYRANNY ENDS WE WILL DISAPPEAR AGAIN"
+		? Game/EzicAgentsApproved == 2
+			= EzicNote/Message "YOU HAVE DONE WELL\n\nBOTH AGENTS NOW OPERATING\n\nWHEN ARSTOTZKA WAS BORN, THE ORDER FULFILLED SAME ROLE AS TODAY\n\nWHEN TYRANNY ENDS WE WILL DISAPPEAR AGAIN"
+		" Give me the coded documents.
+		@ Want EzicHoles
+		@ Want EzicGrid
+	> Give-EzicHoles
+		? Game/StayingPapers has EzicGrid
+			" Both.
+		? Game/StayingPapers !has EzicGrid
+			"
+			+ EzicNote
+	> Give-EzicGrid
+		? Game/StayingPapers has EzicHoles
+			" Both.
+		? Game/StayingPapers !has EzicHoles
+			"
+			+ EzicNote
+	> LinkClicked-EzicNote-open
+		@ Want EzicNote
+	> Give-EzicNote
+		@ Leave
+
+EZIC_HANDLER_EXT
+	INCLUDE EZIC_HANDLER
+	> Intro-Replace
+		= EzicNote/Message "BORDER ATTACKS ARE NOT EZIC OPERATIONS\n\nUNKNOWN EXTREMIST GROUPS RESPONSIBLE\n\nTHE ORDER AIMS TO WEAKEN CORRUPT POWER CENTERS - NOT INJURE INNOCENTS - EZIC AGENT ARRIVES TODAY TO UNCOVER EXTREMISTS"
+		+ EzicNote
+	> LinkClicked-EzicNote-open
+		@ Want EzicNote
+	> Give-EzicNote
+		" Today.
+		+ EzicPort
+		@ Leave
+
+EZIC_AGENT_EXT
+	= error IdCard-Missing
+	= nation Arstotzka
+	= name Marie-Escalli # Last name must start with E
+	= idNumber L0I93-KU8CZ # ..I..-...C.
+	= gender F
+	> Approved
+		" For Arstotzka and the Order.
+		" The others do not agree, but I believe the man in red is not a threat.
+		" @What?
+		" Nevermind.
+		= Game/EzicAgentsApproved ++1
+		@ Night EZIC_REWARD
+
+EZIC_POISON_MESSENGER
+	= test nopay
+	INCLUDE EZIC_HANDLER
+	> Intro-Replace
+		= EzicNote/Message "ASSASSIN COMING FROM ANTEGRIA\n\nWILL TARGET IMPORTANT EZIC AGENT IN ARSTOTZKA\n\nMUST BE STOPPED\n\nHIS NAME IS KHALED ISTOM\n\nDO NOT FORGET"
+		+ EzicNote
+	> LinkClicked-EzicNote-open
+		@ Want EzicNote		
+	> Give-EzicNote
+		"
+		+ Poison
+		@ Leave
+
+EZIC_POISON_TARGET
+	= nation Antegria
+	= name Khaled-Istom
+	= gender M
+	> Intro-Before
+		= Game/AssassinPoisoned ""
+	> Approved
+		? Game/AssassinPoisoned == ""
+			= Game/AssassinPoisoned approved
+	> Denied
+		? Game/AssassinPoisoned == ""
+			= Game/AssassinPoisoned denied
+	> Poisoned
+		= Game/AssassinPoisoned poisoned
+		= Game/EzicAgentsApproved ++1
+		@ News POISONING
+		@ Night EZIC_REWARD
+
+EZIC_HANDLER_SNIPE
+	= test nopay
+	INCLUDE EZIC_HANDLER
+	> Intro-Replace
+		? Game/AssassinPoisoned == denied || Game/AssassinPoisoned == ""
+			= EzicNote/Message "KHALED IS RETURNING - HE NOW CARRIES INFORMATION ON ALL EZIC AGENTS\n\nCANNOT TAKE CHANCES - YOU MUST KILL HIM TODAY - MAN IN RED - WE WILL PROVIDE OPPORTUNITY\n\nIF SUCCEED, YOU WILL BE CAUGHT - MUST SACRIFICE SELF FOR ARSTOTZKA - FAMILY WILL BE SAFE"
+		? Game/AssassinPoisoned == approved
+			= EzicNote/Message "KHALED KILLED TWO EZIC AGENTS - ANOTHER ASSASSIN COMES - MAN IN RED - CARRIES INFO ON ALL EZIC IN ARSTOTZKA\n\nCANNOT TAKE CHANCES - YOU MUST KILL HIM TODAY - WE WILL PROVIDE OPPORTUNITY\n\nIF SUCCEED, YOU WILL BE CAUGHT - MUST SACRIFICE SELF FOR ARSTOTZKA - FAMILY WILL BE SAFE"
+		? Game/AssassinPoisoned == poisoned
+			= EzicNote/Message "KHALED DEALT WITH - ANOTHER ASSASSIN COMES - MAN IN RED - CARRIES INFO ON ALL EZIC IN ARSTOTZKA\n\nCANNOT TAKE CHANCES - YOU MUST KILL HIM TODAY - WE WILL PROVIDE OPPORTUNITY\n\nIF SUCCEED, YOU WILL BE CAUGHT - MUST SACRIFICE SELF FOR ARSTOTZKA - FAMILY WILL BE SAFE"
+		+ EzicNote
+	> LinkClicked-EzicNote-open
+		@ Want EzicNote		
+	> Give-EzicNote
+		" Shoot to kill.
+		+ KeyKill
+		@ Leave
+
+EZIC_HANDLER_POSTSNIPE
+	INCLUDE EZIC_HANDLER
+	> Intro-Replace
+		= EzicNote/Message "WE HAVE MISSED OUR CHANCE\n\nMAN IN RED SURVIVES\n\nHE NOW TARGETS EZIC AGENTS IN KOLECHIA\n\nOUR PLANS MUST ADAPT"
+		+ EzicNote
+	> LinkClicked-EzicNote-open
+		@ Want EzicNote
+	> Give-EzicNote
+		@ Leave
+
+EZIC_HANDLER_DIPLO
+	INCLUDE EZIC_HANDLER
+	> Intro-Replace
+		= EzicNote/Message "GOVERNMENT PLANS TO YIELD TO KOLECHIAN DEMANDS AND FURTHER CEDE GRESTIN\n\nNEGOTIATIONS MUST BE IMPEDED\n\nALLOW KOLECHIAN DIPLOMAT ENTRY BUT CONFISCATE PASSPORT FIRST\n\nEZIC AGENT WILL FOLLOW TO ASSUME IDENTITY"
+		+ EzicNote
+	> LinkClicked-EzicNote-open
+		@ Want EzicNote
+	> Give-EzicNote
+		@ Leave
+
+EZIC_DIPLO_APPEARANCE
+	= name Kordon-Kallo
+	= nation Kolechia
+	= purpose diplomat
+	= gender M
+	= face M-14-15-5-10
+	= idNumber B50J5-FD08W
+	= issuingCity Vedor	
+
+EZIC_DIPLO
+	INCLUDE EZIC_DIPLO_APPEARANCE
+	> Approved
+		= Day/EzicDiplomat approved
+		? Traveler/PassportConfiscated == YES
+			" $ask-approved
+			" I require my passport.
+			" @It has been confiscated.
+			" I am Kolechian diplomat here on government request.
+			" Return passport at once.
+			" @Call number on slip to recover.
+			" Barbarian.
+		? Traveler/PassportConfiscated != YES
+			" $ask-approved
+	> Denied
+		= Day/EzicDiplomat denied
+		" You cannot do this.
+		" I am Kolechian diplomat here on government request.
+		? Traveler/PassportConfiscated == YES
+			" I require my passport.
+			" @It has been confiscated.
+			" Barbarian.
+		? Traveler/PassportConfiscated =! YES
+			" Barbarian.
+
+EZIC_DIPLO_FOLLOW
+	? Day/EzicDiplomat == denied
+		INCLUDE GENERIC
+		BREAK
+	INCLUDE EZIC_DIPLO_APPEARANCE # So passport matches
+	= face M-5-15-5-3 # slightly different face (added mustache)
+	MANUALPAPERS
+	+ Passport
+	= slow true
+	* Misc-DiploFollower
+		! Passport/Exists
+			> Interrogate
+				" ask-missing-passport
+				" I am sent to collect diplomat's passport.
+	? Day/Confiscated has PASSPORT-KORDON-KALLO
+		> Intro-Replace
+			" I saw him enter.
+			" Give his passport to me.
+			@ Want PASSPORT-KORDON-KALLO.*
+		> Give-PASSPORT-KORDON-KALLO.*
+			" Ah good.
+			" I look much the same as him.
+			" Just need to shave my mustache.
+			" But we all must make sacrifices.
+			= Passport/Face M-10-15-5-8 # want passport face to look like diplo's
+			- Passport # remove Passport so it can be re-added with updated face
+			^ Passport/Exists # validate Exists so it will appear when re-added
+			+ Passport # add it!
+			" Appove the visa. # typo fixed in en.csv to avoid breaking localizations
+		> Approved
+			" For Arstotzka and the Order.
+			= Game/EzicAgentsApproved ++1
+			@ News DIPLOMAT_SWAPPED
+			@ Night EZIC_REWARD
+		> Denied
+			" This is not what was agreed on.
+			@ News DIPLOMAT_ORIGINAL
+	? Day/Confiscated !has PASSPORT-KORDON-KALLO
+		> Intro-Replace
+			" I am sent to collect diplomat's passport.
+			" @I do not have it.
+			@ News DIPLOMAT_ORIGINAL
+			@ Leave
+
+EZIC_FINAL
+	# There are 5 agents in all (including poisoning)
+	# Need to help at least 4 to get the EZIC ending
+	? Game/EzicAgentsApproved < 4
+		INCLUDE GENERIC
+		BREAK
+	? Game/EzicAgentsApproved >= 4
+		INCLUDE EZIC_HANDLER
+		> Intro-Replace
+			= Game/HelpedEzic YES
+			= EzicNote/Message "GRESTIN CHECKPOINT IS AT AN END\n\nTODAY WE BREAK THIS WALL DOWN\n\nYOU WILL BE SAFE\n\nHOLD YOUR FIRE\n\n* THE ORDER OF THE EZIC STAR"
+			+ EzicNote
+		> LinkClicked-EzicNote-open
+			@ Want EzicNote
+		> Give-EzicNote
+			@ Leave
+
+#------------------------------------------------------------------------------
+# Secret Police
+#------------------------------------------------------------------------------
+SECRET_POLICE_APPEARANCE
+	MANUALPAPERS
+	= special police
+	= gender M
+	= leaveDir right-police 
+	= face M-24-24-24-24-6-0
+
+SECRET_POLICE_INTRO
+	INCLUDE SECRET_POLICE_APPEARANCE
+	= slow true
+	? Game/EzicAgentsApproved > 0
+		> Intro-Replace
+			" Good morning, inspector.
+			" You are healthy today yes?
+			+ PoliceBadge
+			" I have just few questions for you.
+			"
+			" There was problem at Metro last night.
+			" Maybe you read about it in paper.
+			" Is very big news.
+			" We think it is not accident.
+			" We think it is caused by suspicious group.
+			" We think some members pass through this checkpoint.
+			" So we come talk to you.
+			" Have you seen anything like this?
+			+ PoliceEzic
+			"
+			" Is some kind of symbol for group.
+			" If you have any information, you give to us yes?
+			" Yes?
+			" @Yes.
+			" Very good.
+			@ Want PoliceBadge
+			@ Want PoliceEzic
+			@ Want Ezic.*
+			" Please return my badge and paper.
+	? Game/EzicAgentsApproved == "" || Game/EzicAgentsApproved == 0
+		> Intro-Replace
+			" Good morning, inspector.
+			" You are healthy today yes?
+			+ PoliceBadge
+			" I have just few questions for you.
+			"
+			" We think suspicious group attempts to stir trouble.
+			" We think some members enter this checkpoint.
+			" So we come talk to you.
+			" Have you seen anything like this?
+			+ PoliceEzic
+			" Is some kind of symbol for group.
+			" If you have any information, you give to us yes?
+			" Yes?
+			" @Yes.
+			" Very good.
+			@ Want PoliceBadge
+			@ Want PoliceEzic
+			@ Want Ezic.*
+			" Please return my badge and paper.
+	> Give-Police.*
+		= SECRET_POLICE/GiveCount ++1
+		? SECRET_POLICE/GiveCount == 1
+			@ Leave Right
+	> Give-Ezic.*
+		" What is this?
+		" Interesting.
+		" Yes, very interesting.
+		" I think it is best if you come with me.
+		"
+		@ End turned-over-ezic-docs
+	> Leave
+		" This group is very dangerous.
+		" If you see any curious thing, report immediately.
+
+SECRET_POLICE_CAUGHT
+	? Game/Ezic != caught
+		INCLUDE GENERIC
+		BREAK
+	INCLUDE SECRET_POLICE_APPEARANCE
+	> Intro-Replace
+		" Hello inspector.
+		" There is small discrepancy with your finances.
+		" The Ministry of Income was thoughtful enough to notify us.
+		" It is best if you come with me.
+		"
+		@ End caught-with-ezic-money
+
+SECRET_POLICE_FINAL
+	INCLUDE SECRET_POLICE_APPEARANCE
+	= slow true
+	> Intro-Replace
+		" Inspector.
+		" It has been some time.
+		" Read your bulletin carefully today.
+		" We will be speaking with many workers.
+		" Your audit comes soon.
+		" I will personally conduct it.
+		" There is nothing to fear.
+		" Work hard.
+		@ Leave Right
+
+#------------------------------------------------------------------------------
+# Mr Persistent
+#------------------------------------------------------------------------------
+JORJI_APPEARANCE
+	= nation Obristan
+	= name Jorji-Costava
+	= gender M
+	= face M-1-1-4-4-0
+	= purpose transit
+	= idNumber GCD7-FMBAR
+	= issuingCity Skal
+
+JORJI_BASE
+	? Game/Jorji != ""
+		= fallback GENERIC
+		BREAK
+	INCLUDE JORJI_APPEARANCE
+	> Approved
+		" All right! You the best!
+		" Arstotzka the best!
+		" Here, take this!
+		+ TokenObristan
+		= Game/Jorji smuggling
+
+JORJI0
+	= test nopay
+	INCLUDE JORJI_BASE
+	MANUALPAPERS
+	= error Misc-BoothCounter
+	> Intro-Replace
+		" Ok! Here we go!
+		" Glory to Arstotzka!
+		" The greatest country!
+	> ShutterClose
+		+ HintMissing
+	> Impatient
+		+ HintMissing
+	> Interrogate-Replace
+		" @Where is your passport?
+		" Passport!
+		" Arstotzka so great, passport not required.
+		" Right?
+		" @A passport is required.
+		" Ok, ok. I hear you.
+		" I come back again.
+		@ Leave
+
+JORJI1
+	INCLUDE JORJI_BASE
+	MANUALPAPERS
+	+ Pezpert
+	+ Passport
+	+ EntryPermit
+	* Misc-Pezpert
+		! Pezpert
+			> Interrogate
+				" @This passport is crude fake.
+				" Hey now! Is not true!
+				" Is pre-approved!
+		! Passport/Exists
+			> Interrogate
+				" @This passport is crude fake.
+				" Hey now! Is not true!
+				" Is pre-approved!				
+		! EntryPermit/Exists
+			> Interrogate
+				" ask-missing-entrypermit
+				" Arstotzka still best country for sure!
+	> Intro-Replace
+		" Ok! Hello again!
+		" Now I have passport!
+		" Arstotzka still best country for sure!
+	> Denied
+		" @ Cobrastan is not a real country.
+		" Ok, ok.
+		" You no like passport, I understand.
+		" I come back again with better one.
+
+JORJI2
+	INCLUDE JORJI_BASE
+	MANUALPAPERS
+	+ Passport
+	+ EntryPermit
+	= error EntryPermit-Missing
+	> Intro-Replace
+		" Old friend hello!
+		" I am back again!
+		" This time everything set.
+	> Interrogate-Replace
+		" @You are missing an entry permit.
+		" Oh man you funny guy!
+	> Denied
+		" @An entry permit is required.
+		" Wow, you run very strict border here.
+		" That is good. Do job right.
+		" I look for entry thing and come back.
+
+JORJI3
+	INCLUDE JORJI_BASE
+	MANUALPAPERS
+	+ Passport
+	+ EntryPermit
+	+ EntryTicket
+	= error EntryPermit-Missing
+	> Intro-Replace
+		" Hey it is me!
+		" Are you happy to see?
+		" I have everything you ask for now.
+	> Interrogate-Replace
+		" @Tickets are no longer accepted.
+		" Hey no! 
+		" Guy sold me ticket. Say is good!
+		" You check again maybe.
+	> Denied
+		" @Do not come back again.
+		" Haha! 
+		" You nice guy but I have business in Arstotzka.
+		" I get right papers and come see you.
+
+JORJI4
+	INCLUDE JORJI_BASE
+	> Intro-Replace
+		" Hello my guy!
+		" Ok. Today is day!
+		" Look at all good papers.
+		" Was not easy.
+		" Or cheap! Haha!
+	> Denied
+		" @I told you not to come back.
+		" This is crap.
+		" You know what? Forget it.
+		" Arstotzka worst country.
+		" You worst person.
+		= Game/Jorji done
+	> Approved
+		" Thank you so much!
+		" If I am honest to you, I was little nervous.
+		" Even with right papers is hard to say.
+		" Ok bye!
+
+# smuggling
+JORJI_SMUGGLING
+	INCLUDE JORJI_APPEARANCE
+	= contrabandTypes drugs
+	= error IdSupplement-ContrabandError
+	
+JORJI_SMUGGLE0
+	INCLUDE JORJI_SMUGGLING
+	= test bribe jorji-smuggle-none1 0
+	= test bribe jorji-smuggle-paid 10
+	> Intro-Replace
+		" Again I am here!
+		" Everything all set up now.
+		" I come through often to see you.
+		" We become good friends!
+	> Interrogate-Search-Replace
+		" @Your weight is different.
+		" Is sad story.
+		" My wife very bad cook.
+		" But if I do not eat, she get angry.
+		@ Search
+	> Search-After
+		" Uh oh, maybe you not like this!
+	> Interrogate-Detain-Replace
+		" @What is this?
+		" Is drugs!
+		" I have little side business here.
+		" You let me through and I give you something something.
+		" @Something what?
+		" Ten credits.
+		" I give you ten credits for just little stamp.
+		= JORJI_SMUGGLE0/GiveBribe YES
+		@ Detain
+	> Detain-Replace
+		" @Wait here Jorji.
+		" Is ok, I understand.
+		" Drugs are bad. Not good for kids.
+		" You do great work here still.
+		= Game/Jorji detained
+	> Approved
+		" Ok!
+		? JORJI_SMUGGLE0/GiveBribe == YES
+			+ Money10
+		" We go full speed!
+		= Game/Jorji approved
+	> Denied
+		? JORJI_SMUGGLE0/GiveBribe == YES
+			" Is ok, I understand.
+			" Drugs are bad. Not good for kids.
+		? JORJI_SMUGGLE0/GiveBribe != YES
+			" Hey what is problem?
+			" @I do not trust you.
+			" Ok, ok.
+			" You good guy so I win trust next time.
+		= Game/Jorji denied
+
+JORJI_SMUGGLE1
+	INCLUDE JORJI_SMUGGLING
+	= test bribe jorji-smuggle-none2 0
+	= test bribe jorji-smuggle-paid 10
+	? Game/Jorji == approved
+		> Intro-Replace
+			" Ok, I am back!
+			" Same procedure!
+		> Approved
+			" They told me this hard business.
+			" So far everything smooth like ice!
+			" Thanks to you!
+			? JORJI_SMUGGLE1/GiveBribe == YES
+				+ Money10
+				" Buy something happy for wife.			
+	? Game/Jorji == detained
+		> Intro-Replace
+			" Phew!
+			" Was tough one. Lucky for me, guard was easy.
+			" He asks for big money but is reasonable man.
+		> Detain-Replace
+			" Oh man, again!
+			" That guard have another good day.
+			" Not sure I keep this up with no sales!
+			= Game/Jorji detained
+	? Game/Jorji == denied
+		> Intro-Replace
+			" Ok, we try again!
+			" Sorry to bother you, but this my only job.
+	? Game/Jorji == approved || Game/Jorji == denied
+		> Detain-Replace
+			" @Wait here, Jorji.
+			" Is ok, I understand.
+			" Drugs are bad. Not good for kids.
+			" You do great work here still.
+			= Game/Jorji detained
+	> Interrogate-Search-Replace
+		" @I see a difference here.
+		" Is real mystery for sure.
+		@ Search
+	> Search-After
+		" Maybe things get too sexy in here.
+	> Interrogate-Detain-Replace
+		" @Drugs?
+		" Looks like good stuff right?
+		@ Detain
+	> Enable-Detain
+		" Wait! I give you 10 credits for ok stamp!
+		" Think about family!
+		" They can buy many happy things with these credits.
+		" Just for little harmless drugs!
+		= JORJI_SMUGGLE1/GiveBribe YES
+	? Game/Jorji == denied || Game/Jorji == detained
+		> Approved
+			" This much better, see?
+			? JORJI_SMUGGLE1/GiveBribe == YES
+				+ Money10
+				" Buy something happy for wife.
+	> Denied
+		" Wow, you really stand-up guy.
+		" Maybe is not so good for me when I think about.
+		= Game/Jorji denied
+
+JORJI_CRIMINAL
+	INCLUDE JORJI_APPEARANCE
+	= error Traveler-Criminal
+	> Intro-Replace
+		" Is good to see you again!
+		" Today I come just for short visit.
+		" Everything is definitely ok with me.
+		" For sure I am not in criminal bulletin or anything!
+	> Interrogate-Replace
+		" @Your face is in wanted bulletin.
+		" What! I pay police like crazy!
+		" They promise no bulletin. All clear they say.
+		" I think twice about trusting friendly people.
+		@ Detain
+	> Approved
+		" Hey I really like you.
+		" I know is risky to help me like this.
+		" I try to make it up for you.
+		= Game/Jorji approved
+	> Denied
+		" Ah, is ok.
+		" At least you do not arrest me.
+		" Thanks anyways.
+		= Game/Jorji denied
+	> Detain-Replace
+		" @Sorry Jorji.
+		" Ah, is ok. Most police know me now.
+		" I have little talk with them again.
+		" Anyway, you have tough job.
+		" I rather sell drugs!
+		= Game/Jorji detained
+
+JORJI_PASSPORTS
+	INCLUDE JORJI_APPEARANCE
+	> Intro-Replace
+		" I read newspaper.
+		" @Hello Jorji.
+		" Things getting little crazy in Arstotzka.
+		" Maybe you think about going away for a bit.
+		" Obristan is good place.
+		" Right next door up north.
+		" @Our passports have been confiscated.
+		" @We cannot leave.
+		" Hey that not good sign.
+		" Hold on.
+		" I know a guy.
+		+ ForgeryFlyer
+		"
+		"
+		" Just give him real passports to work with.
+		" He changes info to match for you.
+		" I learn that in hard way.
+	> Approved
+		" Thanks again!
+	> Denied
+		" Bah! Maybe you right.
+		" Better to take little break.
+	> ApprovedDenied
+		? Traveler/PassportConfiscated == YES
+			" Hey what the hell?
+			" You take my passport!
+			" You can see it was expensive!
+			" @You said I need real Obristan passports.
+			" Man. Fine.
+			" I get another but little unhappy about it.
+			"
+			" Memorize flyer and give back.
+			@ Want ForgeryFlyer
+			@ Resist
+		? Traveler/PassportConfiscated != YES
+			" Hey you know what.
+			"
+			" Take my passport.
+			" I get another one no problem.
+			+ Passport	# Give right before Resist so it hides to confiscation drawer immediately
+			@ Resist
+			"
+			" Now memorize flyer and give back if you finish reading.
+			" Do not want to get in trouble!
+			@ Want ForgeryFlyer
+	> Give-ForgeryFlyer
+		" Obristan really great this time of year.
+		" Lots of snow.
+		" Not sure where you get more passports for family.
+		" But you smart guy.
+		" Probably figure it out!
+		" Good luck.
+		@ Leave
+
+JORJI_GOODBYE
+	INCLUDE JORJI_APPEARANCE
+	MANUALPAPERS
+	= test bribe jorji-goodbye 40
+	> Intro-Replace
+		" Ho boy! I make big score!
+		" Huge! You have no idea!
+		" Anyway. I just want to say thank you.
+		" I wait in line just for that!
+		" Maybe I quit now.
+		" Haha!
+		+ Money20
+		+ Money20
+		@ Leave
+
+#------------------------------------------------------------------------------
+# Brothel
+#------------------------------------------------------------------------------
+BROTHEL0
+	= nation Arstotzka
+	= gender F
+	> Intro-Replace
+		" Hello handsome.
+		" You look bored.
+		" If you want good time, come see us.
+		+ BrothelFlyer
+		= Game/Brothel step2
+	> Approved
+		" I will be around couple months.
+		" Don't forget to visit.
+BROTHEL1
+	= nation Impor
+	= gender F
+	= name Ava-
+	= purpose work
+	= job food-service
+	= duration 3
+	> Intro-Replace
+		" Hey there.
+		" I can make you happy any time.
+		+ BrothelFlyer
+		= Game/Brothel step3
+	> Approved
+		" Come to Pink Vice. Ask for Ava.
+
+BROTHEL2
+	= nation Obristan
+	= gender F
+	= purpose work
+	= job food-service
+	= duration 6
+	= face F-0-0-4-4
+	> Intro-After
+		" Oh. Here.
+		+ BrothelFlyer
+	> Leave
+		" Please help me.
+		+ BrothelHelp
+		= Game/Brothel step4
+
+BROTHEL3
+	= nation Arstotzka
+	= name Dari-Ludum
+	= gender M
+	= want BrothelHelp
+	= error BrothelHelp
+	= face M-11-12-8-5
+	( PimpName
+		.*/Name
+		BrothelHelp
+	> Intro-Replace
+		" Hello friend.
+		+ BrothelFlyer
+		" You come down, I give you good girl.
+		= Game/Brothel done
+	> Give-BrothelHelp
+		" That little bitch.
+		" I break her in two.
+		@ Detain
+	> Interrogate-Replace
+		" @You are Dari Ludum?
+		" Of course, it says on passport.
+		@ Detain
+	> Detain-Replace
+		" @One moment.
+		" What is this shit?
+		" Give my papers back.
+		@ News PIMP_BUSTED
+	> ApprovedDenied
+		@ News PIMP_ESCAPED
+
+#------------------------------------------------------------------------------
+# Killer athlete
+#------------------------------------------------------------------------------
+KILLERATHLETE
+	= nation Republia
+	= gender M
+	= name Vince-Lestrade
+	= face M-3-3-10-10
+	+ Passport
+	+ EntryPermit
+	= purpose transit
+	* Bulletin-NewsKA
+		! Bulletin/NewsKA0
+			> Interrogate
+				# response is handled manually by traveler	
+		! Bulletin/NewsKA1
+			> Interrogate
+				# response is handled manually by traveler				
+	( KillerName0
+		.*/Name
+		.*/Face
+		Bulletin/NewsKA0
+	( KillerName1
+		.*/Name
+		.*/Face
+		Bulletin/NewsKA1
+	> Interrogate-Replace
+		" @You are Vince Lestrade?
+		" Damn.
+		" Look, I did not kill her. I was set up.
+		" Do not believe the Republian lies. 
+		" Let me through.
+		@ Detain
+	> Detain-After
+		" Shit.
+		@ News KILLERATHLETE_DETAINED
+	> Approved
+		@ News KILLERATHLETE_APPROVED
+	> Denied
+		@ News KILLERATHLETE_DENIED
+		
+
+#------------------------------------------------------------------------------
+# Husband and wife traveling together
+#------------------------------------------------------------------------------
+HUSBAND_WIFE0
+	= nation Antegria
+	= gender M
+	= name Pyotr-Vostok
+	= purpose immigrate
+	> Intro-Replace
+		" $ask-purpose
+		" Today is beautiful day, my friend.
+		" We finally become free from Antegrian tyranny!
+	> Approved
+		" Thank you so much!
+		" Please be kind to my wife, she is just after me.
+		= Day/HusbandWifeTeam husband-approved
+	> Denied
+		" No! They will kill us!
+		" Please, I beg you.
+		" Let my wife pass. She is coming to you next.
+		= Day/HusbandWifeTeam husband-denied
+
+HUSBAND_WIFE1	
+	= nation Antegria
+	= gender F		
+	= name Katya-Vostok
+	? Day/HusbandWifeTeam == husband-approved
+		= error EntryPermit-Missing
+		> Intro-Replace
+			" Did you see my husband?
+			" He made it through, yes?
+		> Interrogate-Replace
+			" @Where is your entry permit?
+			" Please, I beg you.
+			" They would not give me permit. I have no choice.
+			" I will be killed if I return to Antegria.
+		> Approved
+			" Thank you.
+			" We will not forget.
+			+ TokenAntegria
+		> Denied
+			" Why?
+			" You have doomed me.
+	?  Day/HusbandWifeTeam == husband-denied
+		MANUALPAPERS
+		> Intro-Replace
+			" Why did you turn my husband away?
+			" I will not leave him to die.
+			" You have doomed us both.
+			@ Leave
+
+#------------------------------------------------------------------------------
+# Hiring Engineers
+#------------------------------------------------------------------------------
+HIRING_ENGINEER_APPEARANCE
+	= nation Arstotzka
+	= name Messof-Anegovych
+	= face M-12-6-2-9-5
+	= gender M
+	= idNumber 9PKFM-AMGS3
+	= issuingCity Orvech-Vonor
+	= district Vescillo
+
+HIRING_ENGINEERS_START
+	INCLUDE HIRING_ENGINEER_APPEARANCE
+	> Give-IdCard
+		? Trav/Chatted != YES
+			= Trav/Chatted YES
+			" You see many people, yes?
+			" I am looking for engineers.
+	> Give-Passport
+		? Trav/Chatted != YES
+			= Trav/Chatted YES
+			" You see many people, yes?
+			" I am looking for engineers.
+	> Approved
+		" Do me a favor.
+		" Give my card to any engineers you meet.
+		+ BizCard
+		+ BizCard
+		+ BizCard
+		+ BizCard
+		" I come back in few days.
+		" Pay you 5 credits for each engineer that calls me.
+		= Game/EngineersMet 0
+		= Game/EngineersHired 0
+	> Denied
+		" You make a mistake but I let you fix it.
+		" Give my card to any engineers you meet.
+		+ BizCard
+		+ BizCard
+		+ BizCard
+		+ BizCard
+		" I come back in few days.
+		" Pay you 5 credits for each engineer that calls me.
+		= Game/EngineersMet 0
+		= Game/EngineersHired 0	
+
+HIRING_ENGINEERS
+	= nation Obristan Kolechia Impor UnitedFed Antegria Republia
+	? Game/Rules has RuleNoImpor
+		= nation Obristan Kolechia UnitedFed Antegria Republia		
+	= purpose work
+	= job engineering
+	= error
+		x 4 --
+		x 1 WrongDuration
+	= preventAdditionalError true # normally Speech errors can tack on additional errors
+	= want BizCard
+	> Intro-Before
+		= HIRING_ENGINEERS/GaveBizCard 0
+		= Game/EngineersMet ++1
+	> Give-BizCard
+		? HIRING_ENGINEERS/GaveBizCard == 0
+			" What is this?
+			" Oh. Huh. ; Huh. ; They are hiring?
+			= HIRING_ENGINEERS/GaveBizCard ++1
+			= Game/EngineersHired ++1
+		? HIRING_ENGINEERS/GaveBizCard == 1
+			" I have already.
+			= HIRING_ENGINEERS/GaveBizCard ++1
+			+ BizCard
+		? HIRING_ENGINEERS/GaveBizCard == 2
+			" Stop giving to me.
+			= HIRING_ENGINEERS/GaveBizCard ++1
+			+ BizCard
+		? HIRING_ENGINEERS/GaveBizCard == 3
+			@ Reject BizCard
+			" Forget it, take them both. I don't want.
+			= HIRING_ENGINEERS/GaveBizCard ++1
+			= Game/EngineersHired --1
+			+ BizCard
+			+ BizCard
+
+HIRING_ENGINEERS_END
+	INCLUDE HIRING_ENGINEER_APPEARANCE
+	= want BizCard
+	= test bribe engineers0 0
+	= test bribe engineers1 5
+	= test bribe engineers2 10
+	= test bribe engineers3 15
+	= test bribe engineers4 20
+	> Give-BizCard
+		" Is good card, yes? ; Thanks ; These were not cheap you know. ;
+	> Intro-Replace
+		" I am back.
+		" How many engineers did you meet?
+		? Game/EngineersHired == 0
+			" I got no calls.
+			" You gave my cards to no one.
+			" Thank you for nothing.				
+		? Game/EngineersHired == 1
+			" I get only one call.
+			" I'm lucky that he is good lead.
+			" Here is what I promised.
+			+ Money5
+		? Game/EngineersHired == 2
+			" I got two calls.
+			" One guy, he was good.
+			" Other one not so much.
+			" Thanks anyways.
+			+ Money10
+		? Game/EngineersHired == 3
+			" I got three calls.
+			" Two guys were good.
+			" Last one was a fool. Didn't know basics.
+			" But is ok. I appreciate.
+			+ Money10
+			+ Money5
+		? Game/EngineersHired == 4
+			" I got four calls.
+			" Three were civil engineers. Useless.
+			" I need mechanicals. I told you.
+			" Anyway, is ok. Last guy very sharp.
+			" Thanks for the help.
+			+ Money20
+			+ TokenArstotzka
+	> Leave
+		# It's not safe to remove multipapers like this.
+		# It only works b/c we know BizCard has been restored from idWithIndex 0
+		# as there's noone else to give it to on this day.
+		- BizCard
+		- BizCard_1
+		- BizCard_2
+		- BizCard_3
+
+#------------------------------------------------------------------------------
+# Friendly Guard
+#------------------------------------------------------------------------------
+FRIENDLY_GUARD_APPEARANCE
+	? Game/FriendlyGuardDead == YES
+		= fallback GENERIC
+		BREAK
+	MANUALPAPERS
+	= nation Arstotzka
+	= gender M
+	= name Sergiu-Volda
+	= face M-21-21-21-21-3-0
+	= special guardright
+	= slow true
+
+FRIENDLY_GUARD0
+	INCLUDE FRIENDLY_GUARD_APPEARANCE
+	> Intro-Replace
+		" Hello.
+		" I heard that you are from Nirsk?
+		" I grew up there but I have not been back in many years.
+		" @It is still a shit-hole. As before.
+		" Haha, of course. This is what I remember too.
+		" I am Sergiu. It is good to meet you.
+		" I will do my best to keep you safe.
+		@ Leave Right
+
+FRIENDLY_GUARD1
+	INCLUDE FRIENDLY_GUARD_APPEARANCE
+	> Intro-Replace
+		" Thank you for yesterday.
+		" My aim is not like before.
+		@ Leave Right
+
+FRIENDLY_GUARD2
+	INCLUDE FRIENDLY_GUARD_APPEARANCE
+	> Intro-Replace
+		" There is more action at this checkpoint than in the war.
+		" I fought in Kolechia for 5 years.
+		" If you think it is bad in Arstotzka, it is ten times worse in Kolechia.
+		" I do not blame them for coming here.
+		" Anyways, you are doing well. Keep it up.
+		@ Leave Right
+
+FRIENDLY_GUARD3
+	INCLUDE FRIENDLY_GUARD_APPEARANCE
+	> Intro-Replace
+		" Friend, how are you?
+		" I have a small favor to ask.
+		" During the war, I met a beautiful girl.
+		" I think about her every moment.
+		" Yesterday I receive word that she is finally coming here.
+		" Please, let her pass and I will be in your debt.
+		" Her name is Elisa.
+		+ Locket
+		@ Leave Right
+
+FRIENDLY_GUARD4
+	INCLUDE FRIENDLY_GUARD_APPEARANCE
+	? Game/FriendlyGuardElisa == APPROVED
+		? Game/StayingPapers has Locket
+			= want Locket
+			> Intro-Replace
+				" Thank you for everything.
+				" Elisa is so happy here.
+				" She says our first son will have your name.
+				" This is fine but I told her I want a daughter first!
+				" I would like to show the locket to her.
+				" Do you still have it?				
+			> Give-Locket
+				" Ah, I missed not having this with me.
+				" It is not much, but we have found a small way to thank you.
+				" Elisa will deliver it to your home. I hope that it helps.
+				" Tomorrow I am transferred to another post.
+				" Stay safe my friend.				
+				= Game/FriendlyGuard done
+				@ Night FRIENDLY_GUARD_PAYOUT
+				@ Leave Right
+		? Game/StayingPapers !has Locket			
+			> Intro-Replace
+				" Thank you for everything.
+				" Elisa is so happy here.
+				" She says our first son will have your name.
+				" This is fine but I told her I want a daughter first!
+				" It is not much, but we have found a small way to thank you.
+				" Elisa will deliver it to your home. I hope that it helps.
+				" Tomorrow I am transferred to another post.
+				" Stay safe my friend.
+				= Game/FriendlyGuard done
+				@ Night FRIENDLY_GUARD_PAYOUT
+				@ Leave Right
+	? Game/FriendlyGuardElisa != APPROVED
+		= want Locket		
+		> Intro-Replace
+			" Elisa did not come.
+			" @She arrived, but her papers were not in order.
+			" @Tell her to try again with the correct documents.
+			" You know this is impossible.
+			" If you have the locket, give it back to me.
+		> Give-Locket
+			= Game/FriendlyGuard done
+			@ Leave Right
+
+ELISA
+	= nation Kolechia
+	= gender F
+	= face F-4-4-4-4-3-0
+	= name Elisa-Katsenja
+	= want Locket
+	= slow true	
+	= purpose immigrate
+	= error Misc-AllMissing
+	= leaveDir right-elisa
+	> Intro-Replace
+		" Do you know Sergiu?
+		" He said you were friend. That you would help.
+		" Please, my family is gone.
+		" I have only Sergiu left.
+	> Interrogate-Replace
+		" @You do not have the required documentation.
+		" I tried for so long.
+		" They would not allow me to leave.
+	
+	? Game/FriendlyGuardDead != YES
+		# Sergiu is alive
+		> Denied
+			" I am denied?
+			" I understand.
+			" Please, tell Sergiu I will always love him.
+			" We will be together in another life.
+			? Game/StayingPapers !has Locket
+				" Return this for him to remember me.
+				+ Locket
+			= Game/FriendlyGuardElisa DENIED
+		> Approved
+			" Thank you so much.
+			" I will never forget your kindness.
+			= Game/FriendlyGuardElisa APPROVED
+		> Give-Locket
+			" @He is waiting for you.
+			" My love.
+			" I miss him.
+
+	? Game/FriendlyGuardDead == YES
+		# Sergiu is dead
+		= forceDeny true
+		> Denied
+			" @I am sorry. Sergiu was killed.
+			" My Sergiu.
+			" We will be together in another life.
+		> Approved
+			" @I am sorry. Sergiu was killed.
+			" My Sergiu.
+			" Thank you for your kindness.
+			" There is nothing for me here any more.
+		> Give-Locket
+			" @I am sorry. Sergiu was killed.
+			" My Sergiu.
+			" Thank you.
+			@ Leave
+
+#------------------------------------------------------------------------------
+# Prison Guard
+#------------------------------------------------------------------------------
+PRISON_GUARD_APPEARANCE
+	? Game/PrisonGuardDead == YES
+		= fallback GENERIC
+		BREAK
+	MANUALPAPERS
+	= gender M
+	= face M-22-22-22-22-1-0
+	= nation Arstotzka
+	= special guardleft
+
+PRISON_GUARD_REPORTDETAINS
+	? Game/NumDetains == 0
+		" You detained nobody.
+	? Game/NumDetains == 1
+		" You detained only one person.
+	? Game/NumDetains > 1
+		" You detained ${Game/NumDetains} people.
+
+PRISON_GUARD0
+	INCLUDE PRISON_GUARD_APPEARANCE
+	= slow true
+	> Intro-Replace
+		" Hello.
+		" @Are you the spy?
+		" What? No.
+		" I am guard here. My name is Calensk.
+		" They told me I get good position, then send me here.
+		" This is thanks I get.
+		" Now they pay me almost nothing.
+		" @They pay us all as much.
+		" Yes. But look.
+		" I get small bonus when you detain people.
+		" More you detain, more they give me for processing.
+		" But this is not fair, right? You should get something too.
+		" So I fix this problem.
+		" I give you 5 credits from my bonus for every two people you detain.
+		" Sounds like good deal to me.
+		" I give money to you after I get paid.
+		" Let us make the best of this.
+		= Game/NumDetains 0
+		= Game/PrisonGuard steady-1
+		@ Leave
+
+PRISON_GUARD1
+	INCLUDE PRISON_GUARD_APPEARANCE
+	= slow true
+	= test bribe prison-guard-1a 0
+	= test bribe prison-guard-1b 5
+	= test bribe prison-guard-1c 10
+	INCLUDE PRISON_GUARD_PAYOUT
+
+PRISON_GUARD2
+	INCLUDE PRISON_GUARD_APPEARANCE
+	= slow true
+	= test bribe prison-guard-2a 0
+	= test bribe prison-guard-2b 5
+	= test bribe prison-guard-2c 10
+	INCLUDE PRISON_GUARD_PAYOUT
+
+PRISON_GUARD3
+	INCLUDE PRISON_GUARD_APPEARANCE
+	= test bribe prison-guard-3a 0
+	= test bribe prison-guard-3b 5
+	= test bribe prison-guard-3c 10
+	> Intro-Replace
+		INCLUDE PRISON_GUARD_REPORTDETAINS
+		? Game/NumDetains > 0 && Game/NumDetains < 4
+			" Here.
+			+ Money10
+			" For bonus and selling bomb parts.
+		? Game/NumDetains >= 4
+			" Here.
+			+ Money10
+			" For bonus and selling bomb parts.
+			+ Money5
+		" They move our station to prison.
+		" We still get bonus so keep detaining.~
+		" I stop visiting you here.
+		" I will drop off money at your home instead.
+		" Every other night.
+		= Game/NumDetains 0
+		@ Leave
+
+PRISON_GUARD_PAYOUT
+	? Game/NumDetains == 0 || Game/NumDetains == ""
+		> Intro-Replace
+			" What is going on?
+			" I am getting nothing because of you.
+			" Detain more people and we will both benefit.
+			@ Leave
+	? Game/NumDetains == 1
+		> Intro-Replace
+			" Good morning.
+			" You are not detaining enough people.
+			" I have nothing to give you.
+			" Detain more to share part of my bonus.
+			@ Leave
+	? Game/NumDetains >= 2 && Game/NumDetains < 4
+		> Intro-Replace
+			" Good morning.
+			INCLUDE PRISON_GUARD_REPORTDETAINS
+			+ Money5
+			" Bonus is good, they pay ok.
+			" It is not much though.
+			" Maybe you detain more people and we do better.
+			= Game/NumDetains 0
+			@ Leave
+	? Game/NumDetains >= 4 && Game/PrisonGuard != steady-2 && Game/PrisonGuard != steady-3
+		> Intro-Replace
+			" Good morning.
+			INCLUDE PRISON_GUARD_REPORTDETAINS
+			+ Money5
+			" Bonus is good, they pay ok.
+			" @This is not enough.
+			" Yes, I know.
+			" My wife sick now. Neighbor spreads the flu.
+			" This is what is left after medicine.
+			" I give you rest next time.
+			" Maybe you detain more people to make it easier.
+			= Game/NumDetains 0
+			= Game/PrisonGuard steady-2
+			@ Leave
+	? Game/NumDetains >= 4 && Game/PrisonGuard == steady-2
+		> Intro-Replace
+			" Good morning.
+			INCLUDE PRISON_GUARD_REPORTDETAINS
+			+ Money10
+			" Here is your cut.
+			" @There is more from last time.
+			" This is all I have now but soon I make up rest.
+			= Game/NumDetains 0
+			= Game/PrisonGuard steady-3
+			@ Leave
+	? Game/NumDetains >= 4 && Game/PrisonGuard == steady-3
+		> Intro-Replace
+			" Good morning.
+			INCLUDE PRISON_GUARD_REPORTDETAINS
+			+ Money10
+			" Again it is a little short.
+			" Keep detaining and I pay you back soon.
+			= Game/NumDetains 0
+			= Game/PrisonGuard steady-2
+			@ Leave
+
+PRISON_GUARD_BOMB
+	INCLUDE PRISON_GUARD_APPEARANCE
+	> Intro-Replace
+		" What is going on?
+		" Oh. Hah.
+		" What is this amateur shit?
+		" @Should we evacuate?
+		" For that little thing? No of course not.
+		" Just disable it. Open the cover.
+		@ Custom UnsealTimeBomb
+	> TimeBomb-Opened
+		" Stupid fucking terrorist.
+		" Could not even add a display.
+		" @What should I do now?
+		" This is poorest bomb I ever see. A simple mind created this.
+		" Just cut the wires in order.
+	> TimeBomb-Disarmed
+		" Ok, all done. Back to work.
+		" @We should close the checkpoint.
+		" Bullshit. I need to earn money today.
+		" Give bomb to me.
+		" I sell materials and give you cut.
+		@ Want TimeBomb
+	> Give-TimeBomb
+		" What a piece of shit.
+		" I doubt it is even worth much.
+		" Call the next immigrant.
+		@ Leave
+
+TIME_BOMBER
+	MANUALPAPERS
+	= leaveDir left-timebomber
+	> Intro-Replace
+		" DEATH TO ARSTOTZKA!
+		+ TimeBomb
+		@ Custom StartTimeBomb
+		@ Leave
+
+#------------------------------------------------------------------------------
+# Boss
+#------------------------------------------------------------------------------
+BOSS_REPORTCITATIONS
+	? Game/NumCitations == 0 || Game/NumCitations == ""
+		" You have received no citations.
+	? Game/NumCitations == 1
+		" You have received one citation.
+	? Game/NumCitations > 1
+		" You have received ${Game/NumCitations} citations.
+
+BOSS_APPEARANCE
+	MANUALPAPERS
+	= nation Arstotzka
+	= gender M
+	= face M-20-20-20-20-0-0
+	= special boss
+
+BOSS0
+	INCLUDE BOSS_APPEARANCE
+	> Intro-Replace
+		" So.~
+		" You are inspector here.~
+		" That makes you my responsibility.~
+		INCLUDE BOSS_REPORTCITATIONS
+		? Game/NumCitations == 0 || Game/NumCitations == ""
+			= Game/PlaqueOneTitle Excellence
+			+ PlaqueOne
+			" You make Arstotzka proud.~
+			" Hang it on wall here.
+			" I return in 10 days.~
+			" Maintain your diligence.
+			" Glory to Arstotzka.
+			= Game/NumCitations 0
+		? Game/NumCitations > 0 && Game/NumCitations <= 20
+			" Perhaps it was mistake to rely on lottery.
+			= Game/PlaqueOneTitle Sufficience
+			+ PlaqueOne
+			" Let this motivate you.~
+			" Hang it on wall here.
+			" I return in 10 days.~
+			" Do not embarrass me.
+			" Glory to Arstotzka.
+			= Game/NumCitations 0
+		? Game/NumCitations > 20
+			" It makes me look like fool to trust lottery.~
+			= Game/PlaqueOneTitle Presence
+			+ PlaqueOne
+			" Let this motivate you to improve.~
+			" Hang it on wall here.
+			" I return in 10 days.~
+			" Do not embarrass me further.
+			" Glory to Arstotzka.
+			= Game/NumCitations 0
+		@ Leave Right
+
+BOSS1
+	INCLUDE BOSS_APPEARANCE
+	> Intro-Replace
+		" It is too early to come all the way out here.
+		" The smell at this checkpoint makes me sick.
+		"
+		? Game/MountedPapers == ""
+			" Where is plaque I gave you?
+			" Why is it not on wall?
+			"			
+		? Game/MountedPapers != "" && Game/MountedPapers != PlaqueOne
+			" What is other shit hanging here?
+			" These walls are for official plaques only.
+			" Your pay will be docked for violation.
+			" @It will not happen again.
+			= Game/WarnedHangings YES
+			@ Night HANGINGS_PENALTY
+			"
+		? Game/NumCitations == 0
+			" At least you are performing well.
+			INCLUDE BOSS_REPORTCITATIONS
+			= Game/PlaqueTwoTitle Excellence
+			+ PlaqueTwo
+			" Continue this honorable service.
+			= Game/NumCitations 0	
+		? Game/NumCitations > 0 && Game/NumCitations <= 20
+			" At least your performance is not terrible.
+			INCLUDE BOSS_REPORTCITATIONS
+			= Game/PlaqueTwoTitle Sufficience
+			+ PlaqueTwo
+			" Do not slip further.
+			= Game/NumCitations 0
+		? Game/NumCitations > 20
+			" And your performance is terrible.
+			INCLUDE BOSS_REPORTCITATIONS
+			= Game/PlaqueTwoTitle Presence
+			+ PlaqueTwo
+			" Maybe you have forgotten what your job is.
+			" There are many more who can take your place.
+			= Game/NumCitations 0
+		"
+		" Now.
+		" I have old friend coming through.
+		" Approve her entry.
+		" She is Shae Piersovska.~
+		" I do not want to hear of any trouble to her.
+		" Glory to Arstotzka.
+		@ Leave Right
+
+BOSS2
+	INCLUDE BOSS_APPEARANCE
+	> Intro-Replace
+		? Game/BossBuddy == denied
+			" You little bastard.~
+			" Shae thinks I am powerless fool now.
+			" It was made very clear to let her through.
+			" Now I must think about the consequences for you.~
+		? Game/BossBuddy == approved
+			" Maybe this place not so bad.
+			" With everything going on, checkpoint visit is nice break.~
+		? Game/MountedPapers == ""
+			" You still do not hang the plaques.
+		? Game/MountedPapers == "PlaqueOne" || Game/MountedPapers == "PlaqueTwo"
+			" Why do you not hang both plaques?
+		? Game/MountedPapers != "" && Game/MountedPapers != "PlaqueOne" && Game/MountedPapers != "PlaqueTwo" && Game/MountedPapers != "PlaqueOne;PlaqueTwo" && Game/MountedPapers != "PlaqueTwo;PlaqueOne"
+			? Game/WarnedHangings == YES
+				" But again you have unauthorized items on wall.
+				" I warned before.~
+				@ End stuff-on-walls
+			? Game/WarnedHangings != YES
+				" But what is other shit hanging here?
+				" These walls are for official plaques only.
+				" Your pay will be docked for violation.
+				" @It will not happen again.
+				@ Night HANGINGS_PENALTY
+		"
+		INCLUDE BOSS_REPORTCITATIONS
+		"
+		" There are no more plaques.
+		@ Leave Right
+
+BOSS_BUDDY
+	= nation Kolechia
+	= gender F
+	= face F-13-13-12-2
+	= name Shae-Piersovska
+	= purpose diplomat
+	= error DiplomaticAuth-WrongAccessNations
+	> Intro-After
+		" How is Dimitri?
+		" I hear he runs checkpoint now.
+		" It looks like somewhere he would fit in.
+		" I bet he is still terrible boss.
+	> Denied
+		" You know, Dimitri asked me to come.
+		" Said I would get through.
+		" But I guess he is not so much in control.
+		= Game/BossBuddy denied
+	> Approved
+		" I hope Dimitri tires more easily now.
+		" I do not want to stay long in Arstotzka.
+		= Game/BossBuddy approved
+	> Enable-Detain
+		" Ah, I would not do that.
+		" Dimitri is not forgiving person.
+	> Detain-Replace
+		" $ask-detain
+		" I am no fool.
+		" This is inconvenience, but I am not worried for myself.
+		" Tell Dimitri I said hello.
+		= Game/BossBuddy detained
+		@ Tomorrow BOSS_ANGRY
+
+BOSS_ANGRY
+	INCLUDE BOSS_APPEARANCE
+	> Intro-Replace
+		" You worthless urchin.~
+		" I had to pull many strings to get Shae out.
+		" It was made very clear to let her through.~
+		" My patience with you has run out.~
+		@ End arrested-boss-buddy
+
+#------------------------------------------------------------------------------
+# Kid Killer and Parent
+#------------------------------------------------------------------------------
+KID_KILLER_APPEARANCE
+	= gender M
+	= name Simon-Wens
+	= face M-9-10-4-12-4-0
+	= nation Arstotzka
+	= district Gennistora
+	= idNumber 5CNQF-93XMF
+	= issuingCity Orvech-Vonor
+
+KID_KILLER_PARENT_APPEARANCE
+	= face M-4-4-3-13-2-0
+
+KID_KILLER0
+	MANUALPAPERS
+	INCLUDE KID_KILLER_PARENT_APPEARANCE
+	= gender M
+	> Intro-Replace
+		+ VictimPhoto
+		" Look at it.~
+		" Simon Wens took her from me.~
+		" I follow him for many weeks.
+		" I know he comes here soon.~
+		" It is big favor I ask, but is important.
+		" Let him through if you see him.
+		" But take his passport first.~
+		" I come back.
+		" You give me his passport and I track him down.~
+		"
+		" I make him suffer like he did to Julia.~
+		@ Leave
+
+KID_KILLER1
+	INCLUDE KID_KILLER_APPEARANCE
+	= leaveDir left-killer
+	= want VictimPhoto
+	= error Traveler-Criminal
+	> Give-VictimPhoto
+		"
+		" What the fuck!
+		@ Leave Left
+	> Approved
+		= Day/KidKiller approved
+	> Denied
+		# override default, which may talk about passport confiscation
+	> Detain-After
+		= Day/KidKiller detained
+
+KID_KILLER2
+	MANUALPAPERS
+	INCLUDE KID_KILLER_APPEARANCE # so passport matches killer
+	INCLUDE KID_KILLER_PARENT_APPEARANCE # so face is different
+	? Day/KidKiller == approved
+		# Guaranteed to have VictimPhoto (otherwise killer would've run off without being approved)
+		? Day/Confiscated has PASSPORT-SIMON-WENS
+			> Intro-Replace
+				" Did you see him?
+				" Give his passport to me.
+				@ Want PASSPORT-SIMON-WENS.*
+			> Give-PASSPORT-SIMON-WENS.*
+				" Hmmm.~
+				" I know this city.
+				" He will be easily found.
+				" Let me through.
+				= Passport/Face M-9-10-4-12-4-0 # want passport face to look like killer's
+				@ NoFiler Passport
+				+ Passport
+			> Approved
+				# has no passport at the start, can only get here if player gives passport
+				" Thank you.
+				" Now please, give back my daughter's photo.
+				" I show it to him while he suffers.
+				@ Want VictimPhoto
+				@ Resist
+			> Denied
+				# has no passport at the start, can only get here if player gives passport
+				" You heartless scum.
+				" Give back my daughter's photo.
+				@ Want VictimPhoto
+				@ Resist
+			> Give-VictimPhoto
+				# can only get here after approval/denial and @ Want VictimPhoto
+				" My Julia.~
+				? Traveler/Approval has APPROVED
+					" Read the news tomorrow.
+					+ TokenUnitedFed
+					@ News SERIAL_KILLER_MURDERED
+					@ Leave
+				? Traveler/Approval has DENIED
+					" She was just little girl.
+				? Traveler/Resisting == YES
+					@ Leave	
+		? Day/Confiscated !has PASSPORT-SIMON-WENS
+			> Intro-Replace
+				" Did you see him?
+				" @I do not know what you are talking about.
+				" Damnit.
+				" Give back my daughter's photo.
+				@ Want VictimPhoto
+			> Give-VictimPhoto
+				" She was just a little girl.
+				@ Leave					
+	? Day/KidKiller != approved
+		# may or may not have VictimPhoto
+		? Game/StayingPapers has VictimPhoto
+			> Intro-Replace
+				" Did you see him?
+				? Day/KidKiller == detained
+					" @Yes. He has been arrested.
+					" What? I asked you to let him pass.
+					" There will be no true justice now.
+				? Day/KidKiller != detained					
+					? Day/Confiscated has PASSPORT-SIMON-WENS
+						" @Yes. He ran off.
+						" Ran off? Which way?
+						" @I do not know. Back into Kolechia.
+					? Day/Confiscated !has PASSPORT-SIMON-WENS
+						" @I do not know what you are talking about.
+				" Damnit.
+				" Give back my daughter's photo.
+				@ Want VictimPhoto
+			> Give-VictimPhoto
+				" She was just a little girl.
+				@ Leave			
+		? Game/StayingPapers !has VictimPhoto
+			# Gave photo to killer, he ran off
+			> Intro-Replace
+				" Did you see him?
+				? Day/Confiscated has PASSPORT-SIMON-WENS
+					" @Yes. He ran off.
+					" Ran off? Which way?
+					" @I do not know. Back into Kolechia.
+				? Day/Confiscated !has PASSPORT-SIMON-WENS
+					" @I do not know what you are talking about.
+				" Damn it.
+				" Give back my daughter's photo.
+				" @I have no photos.
+				" Heartless bastard.
+				" She was just a little girl.
+				@ Leave
+
+#------------------------------------------------------------------------------
+# Resister
+#------------------------------------------------------------------------------
+RESISTER
+	INCLUDE FOREIGNER
+	= purpose visit
+	= error Passport-Missing EntryPermit-Missing
+	> Denied
+		" No.
+		" I am not leaving.
+		@ Resist
+		@ Detain
+	> Detain-Replace
+		" @You are delaying the line.
+		" I refuse!
+		" You fools better to not touch me.
+		" I will explode like wild tiger.
+		" I have every right to enter Arstotzka.
+		" You think I am joking but tiger does not joke.
+		" Let me through!
+		#" This place will be covered in tiger hair from my extreme actions.
+		#" It will be over in a single eye blink.
+
+#------------------------------------------------------------------------------
+# Journalist with press pass
+#------------------------------------------------------------------------------
+JOURNALIST_FIRST
+	= nation UnitedFed
+	+ PressPass
+	= purpose journalist
+	= error Misc-AllMissing
+	> Intro-Replace
+		" $ask-purpose
+		" I write report on conditions in Arstotzka.
+		" $ask-duration
+		" As long as it takes.		
+	> Interrogate-Replace
+		" @You are missing required papers.
+		" I am journalist.
+		" You have my pass there.
+	> Denied
+		" This is outrage!
+		" Why am I denied?
+		" @Your press pass is worthless for entry.
+		" This is violation of rights.
+		" I will not lay down for your corrupt abuses.
+		" Expect to read about this!
+		@ News NOSY_JOURNALIST_DENIED
+	> Approved
+		" You are slowest inspector I have ever seen.
+		" No wonder Arstotzka is screwed.
+		@ News NOSY_JOURNALIST_APPROVED
+
+JOURNALIST
+	INCLUDE FOREIGNER
+	+ PressPass
+	= purpose journalist
+	= error Misc-AllMissing
+	> Intro-Replace
+		" $ask-purpose
+		" I cover big story.
+		" $ask-duration
+		" I cannot say.
+		" Maybe few days, maybe few weeks.
+	> Interrogate-Replace
+		" @You are missing required papers.
+		" I am reporter and have right to enter.
+		" Give me visa stamp.
+	> Denied
+		" @This pass means nothing.
+		" Fascist!
+	> Approved
+		" Such inefficiency is stunning.
+
+#------------------------------------------------------------------------------
+# Familiar face
+#------------------------------------------------------------------------------
+FAMILIAR_FACE
+	= gender F
+	= face F-14-7-1-7
+	= nation Arstotzka
+	> Intro-After
+		" Hey I know you.
+		" You are from Nirsk?
+		" I worked with your father for many years.
+		"
+		" You were such a little brat.
+	> Approved
+		" I go back to Nirsk and tell them you are doing well here.
+		"
+	> Denied
+		" You are still brat.
+		" Just not so little any more.
+
+#------------------------------------------------------------------------------
+# WatchGiver
+#------------------------------------------------------------------------------
+WATCH_GIVER_APPEARANCE
+	= nation Republia
+	= purpose visit
+	= gender M
+	= face M-9-9-9-9-4-0
+	= want Watch
+	= idNumber 5XH34-E485A
+	= issuingCity Lesrenadi
+	= district Gennistora
+	= name Danic-Lorun
+
+WATCH_GIVER0
+	INCLUDE WATCH_GIVER_APPEARANCE
+	MANUALPAPERS
+	= test bribe watchgiver-meet 5
+	+ Passport
+	+ EntryPermit
+	+ IdSupplement
+	= error Misc-AllMissing
+	> Intro-Replace
+		" I have only passport but hear me out.~
+		" There is little time. I must enter today.
+		" I come back in 3 days with right papers.~
+		" To prove, I give you something important.
+		" Is special family treasure.~
+		+ Watch
+		"
+		" Fully digital.~
+		" You hold as collateral.
+		" I will be back to pick it up.~
+		+ Money5
+		" And take this.
+		" All for green stamp.
+	> Interrogate-Replace
+		" @You are missing some papers.
+		" Yes I told you this.
+	> Give-Watch
+		? Game/WatchGiver == denied
+			" Arstotzkan bastard.
+			@ Leave
+		? Game/WatchGiver != denied
+			" I am telling to you.
+			+ Watch
+			" Keep watch as promise.
+			" I get it back in few days.
+	> Detain-Replace
+		" You crook!
+		" All Arsotzkans are same. # typo fixed in English localization
+		" Liars and cheats!
+		" I will not leave without watch.
+		" Is expensive gift from cousin!
+		" Only needs new battery.
+		" Tell guards to keep away.
+		" Give back my watch!
+		= Game/WatchGiver denied
+		@ Night SELL_WATCH
+	> Approved
+		" Thank you.
+		" I come back in few days to pick up watch.
+	> Denied
+		" Damnit.
+		" Fine. Give watch back.
+		= Game/WatchGiver denied
+		@ Resist
+		@ Detain
+
+WATCH_BUYER0
+	= test bribe watchbuyer-none0 0
+	= test bribe buywatch 10
+	= name Kaevink-Caullinski
+	= gender M
+	? Game/StayingPapers !has Watch
+		= fallback GENERIC
+		BREAK
+	INCLUDE GENERIC_ERROR_RARE
+	> Intro-After
+		" I used to have watch like that.
+		" Sell it to me.
+		" @It is held for someone.
+		" Give me break.
+		" For sure he is not coming back.
+		" Let me take it off your hands.
+		" 10 credits for it.
+		@ Want Watch
+	> Give-Watch
+		" Ah!
+		" All digital!
+		" Is very nice.
+		+ Money10
+
+WATCH_BUYER1
+	= test bribe watchbuyer-none1 0
+	= test bribe buywatch 10
+	? Game/StayingPapers !has Watch
+		= fallback GENERIC
+		BREAK
+	INCLUDE GENERIC_ERROR_RARE
+	> Intro-After
+		" That watch.~
+		" Guy behind me in line would not shut up about it.
+		" On and on about how important is to family.~
+		" Look.
+		" Is good watch, I can see.
+		" I give you 20 credits for it right now.
+		" He say he pay you back only 10 credits.
+		" Is good deal here I offer you.
+		@ Want Watch
+	> Give-Watch
+		" Ah!
+		" All digital!
+		" Is very nice.
+		+ Money20
+
+WATCH_GIVER1
+	= test bribe watchgiver-denied 0
+	= test bribe buywatch 10
+	? Game/WatchGiver == denied
+		= fallback GENERIC
+		BREAK
+	INCLUDE WATCH_GIVER_APPEARANCE
+	? Game/StayingPapers has Watch
+		> Intro-Replace
+			" As promised, I am back with right papers now.
+			" You have my watch?
+		> Give-Watch
+			? Traveler/Approval has DENIED
+				" Arstotzkan bastard.
+				" I was to give you nice reward.
+				@ Leave
+			? Traveler/Approval !has DENIED
+				" Ah she is beautiful!
+				" Here.
+				+ Money10
+				" Now I just need battery.
+				" Hey!
+				" There is new scratch here!
+				" Give money back!
+				= WATCH_GIVER1/Want10 YES
+				@ Want Money10
+				@ Detain
+		> Give-Money10
+			" Wow. You are pretty honest person.
+			" You know, I cannot take this.
+			" Scratch was there before actually.
+			+ Money10
+			" Here.
+			@ Reject Money10
+			= WATCH_GIVER1/Want10 ""
+			? Traveler/Approval has APPROVED
+				+ TokenRepublia
+				@ Leave
+		> Approved
+			? Game/StayingPapers has Watch
+				" Thank you.
+				" Now please give watch back.
+				@ Resist
+				@ Detain
+			? Game/StayingPapers !has Watch && WATCH_GIVER1/Want10 != YES
+				" Thank you.
+				" I start to think maybe all Arstotzkans are not so bad.
+				+ TokenRepublia
+			? Game/StayingPapers !has Watch && WATCH_GIVER1/Want10 == YES
+				" Ah forget it.
+				" You keep money.
+		> Denied
+			? Game/StayingPapers has Watch
+				" But all papers are good!
+				" Are you blind?
+				" Fine.
+				" Give watch back.
+				= Game/WatchGiver denied
+				@ Resist
+				@ Detain
+			? Game/StayingPapers !has Watch
+				" But all papers are good!
+				" Are you blind?
+		> Detain-Replace
+			" You crook!
+			" All Arsotzkans are same.
+			" Liars and cheats!
+			? Traveler/Resisting == YES && Game/StayingPapers has Watch
+				" I will not leave without watch.
+				" Is expensive gift from cousin!
+				" Only needs new battery.
+				" Tell guards to keep away.
+				" Give back my watch!
+			? Traveler/Resisting == YES && Game/StayingPapers !has Watch
+				" I will not leave without money.
+				" You ruin my good watch.
+				" Only needs new battery.
+				" Tell guards to keep away.
+				" Give back my money!
+	? Game/StayingPapers !has Watch
+		> Intro-Replace
+			" As promised, I am back with right papers now.
+			" Where is my watch?
+			" @I sold it.
+			" What!
+			" I give you watch to hold.
+			" Put trust in you!
+		> Leave
+			" Watch was gift from cousin.
+			" I hope you got good money for it.
+			" Damn Arstotzkan crook.
+
+#------------------------------------------------------------------------------
+# ArsKicker
+#------------------------------------------------------------------------------
+ARSKICKER_APPEARANCE
+	= nation Arstotzka
+	= gender M
+	= name Filipe-Hasse
+	= face M-10-9-7-7-4-0
+	= idNumber RTGQ6-LC4F6
+	= issuingCity Paradizna
+	= district Fardesto
+
+ARSKICKER0
+	INCLUDE ARSKICKER_APPEARANCE
+	= error IdCard-Missing
+	> Intro-Replace
+		" Hey man.
+		" I lost id card.
+		" I think someone stole it from locker room.
+		" But we won match!
+		" Can't wait to get home.~
+		+ Arskickers
+		" I have carried this for years, maybe you take it.
+	> Interrogate-Replace
+		" @Your Arstotzkan id card is missing.
+		" I know man. I told you.
+		" It was stolen.
+		" C'mon let me through.
+	> Approved
+		" Thanks bud, is good to be home!
+	> Denied
+		" Hey bullshit!
+		" I gave you pennant even!
+		" Gonna tell coach about this crap.
+
+ARSKICKER1
+	= test bribe arskicker-give 10
+	INCLUDE ARSKICKER_APPEARANCE
+	> Intro-Replace
+		" Hi again.
+		" Remember me?
+		" Go Arskickers!
+		" I give you that great banner.~
+		" Listen, I tell my coach about this.
+		" He get very upset.
+		" Say if I do not get banner back, I lose front seat on team bus.~
+		" All seats good, but front seat definitely best.
+		" So I really just need banner back.
+		@ Want Arskickers
+		+ Money10
+		" What you say?
+	> Give-Arskickers
+		? Traveler/Resisting == YES && Traveler/Approval has DENIED
+			" Lousy fan!
+			@ Leave
+		? Traveler/Resisting == YES && Traveler/Approval has APPROVED
+			" Ah thanks!
+			" Do not forget to root for us!
+			@ Leave
+		? Traveler/Resisting != YES
+			" Ah good.
+			" It is more beaten up than I remember.
+			" Even there is big tear here.
+			" What did you do?
+			" Oh well. Coach should be happy.
+	> Approved
+		? Game/StayingPapers has Arskickers
+			" Alright that is great yeah.
+			" But where is banner?
+			@ Resist
+			@ Detain
+		? Game/StayingPapers !has Arskickers
+			" Thanks bud!
+			" Do not forget to root for us at regionals.
+	> Denied
+		? Game/StayingPapers has Arskickers
+			" Ok. Well.
+			" That is messed up.
+			" At least you give banner back right?
+			@ Resist
+			@ Detain
+		? Game/StayingPapers !has Arskickers
+			" Ok. Well.
+			" That is messed up.
+			" At least you give banner back.
+	> Detain-Replace
+		@ Unresist
+		" @The banner is mine now.
+		" Oh boy.
+		" Such an asshole here.
+		" If guards do not kill me, coach will.
+
+#------------------------------------------------------------------------------
+# Busted spy and his trailer
+#------------------------------------------------------------------------------
+BUSTED_SPY
+	MANUALPAPERS
+	> Intro-Replace
+		" I have not much time.
+		+ SpyDocs
+		" You must hold on to these.
+		"
+		" Keep them safe today.
+		" I am being followed by an imposter.
+		"
+		" They pretend to be from the Ministry of Information but it is a lie.
+		"
+		" If they ask for documents, give these instead.
+		+ SpyDocsFake
+		"
+		" Do not mix them up.
+		@ Leave
+
+BUSTED_SPY_FOLLOWER
+	MANUALPAPERS
+	= test bribe spyfollower 10
+	= want SpyDocs.*
+	> Intro-Replace
+		" 
+		"
+		" @Your papers?
+		" I am from the Ministry of Information.
+		" You have something to give us.
+		+ Money10
+	> Give-SpyDocs
+		" Perfect.
+		@ News BUSTED_SPY_GAVEREALDOCS
+		@ Leave
+	> Give-SpyDocsFake
+		" Perfect.
+		@ News BUSTED_SPY_GAVEFAKEDOCS
+		@ Leave
+
+#------------------------------------------------------------------------------
+# Gym instructor
+#------------------------------------------------------------------------------
+GYM_INSTRUCTOR
+	= nation Arstotzka
+	= gender M
+	= weight 80
+	INCLUDE GENERIC_ERROR_RARE
+	> Intro-After
+		" You are skin and bones.
+		" Bet you have no real strength.
+		" Come to gym, I make you big.
+		+ GymFlyer
+	> Approved
+		" I guarantee you get big at Get Big Town.
+		" Is what we do.
+		"
+	> Denied
+		" Denied? Hah.
+		" This is what I expect from skinny weakling.
+
+#------------------------------------------------------------------------------
+# Old inspector
+#------------------------------------------------------------------------------
+OLD_INSPECTOR
+	= nation UnitedFed
+	= error -- EntryPermit-Missing
+	> Intro-After
+		"
+		" I used to be an inspector like you.
+		" Many years ago. Back in United Fed.~
+		" We denied most people.~
+		" It is all done by computers now.
+		" They can deny much faster that way.
+	> Approved
+		" $ask-approved
+		" Good luck.
+		" I do not miss it.
+	? error == --
+		> Denied
+			" What? Why am I denied?~
+			" So this is what it feels like.~
+	? error == EntryPermit-Missing
+		> Interrogate-Replace
+			" @Where is entry permit?
+			" Eh, it does not matter what I say.
+			" Just deny the visa and I will go.
+		> Denied
+			" So this is what it feels like.~
+	
+#------------------------------------------------------------------------------
+# Red stamp
+#------------------------------------------------------------------------------
+RED_STAMP
+	= nation UnitedFed
+	= purpose work
+	= job manufacturing
+	= gender M
+	= test bribe redstamp-approve 0
+	= test bribe redstamp-deny 10
+	> Intro-Replace
+		" Red stamp.
+		" @What?
+		" Give me red stamp.
+		" I am serious.
+		" I have better job offer in Impor.
+		" Red stamp and I can break contract in Arstotzka.
+		" 10 credits for you.
+	> Approved
+		" Damn it.
+		" I am sure you deny people all day.
+		" Why not now?
+		" I figure something else out.
+		@ Leave Left
+	> Denied
+		" Ok, now I get free from this bad job.
+		" Thanks.
+		+ Money10
+
+#------------------------------------------------------------------------------
+# Need surgery
+#------------------------------------------------------------------------------
+NEED_SURGERY
+	= nation Kolechia
+	= purpose visit
+	= error Misc-AllMissing
+	= test bribe surgery-paid 10
+	> Intro-Replace
+		" $ask-purpose
+		" I come for medical reasons.
+		" @Your papers are missing.
+		" Please.
+		+ Money10
+		" Surgery I need is outlawed in Kolechia.
+		" Even so, I do not trust doctors there.
+		" Only Arstotzka have skilled surgeons.
+	> Interrogate-Replace
+		" @You do not have the right documents.
+		" Yes. 
+		" They will not give papers for surgery.
+	> Approved
+		" Thank you. I will not forget this.
+	> Denied
+		" I expected this.
+		" I do not know how long I survive.
+		" But you do not care.~
+		" I hope you are not in same place as me.
+
+#------------------------------------------------------------------------------
+# Love song
+#------------------------------------------------------------------------------
+LOVE_SONG
+	#= nation Kolechia
+	#= gender F
+	#= face F-15-11-13-11-5-9
+	= purpose visit
+	= error Misc-AllMissing
+	> Intro-Replace
+		" 
+		" I will leave this here.
+		+ LoveSong
+	> Approved
+		? Traveler/Resisting != YES
+			" Great!
+			" You really super guy!~
+			" Can I have note back now?
+			" I need it for next inspector.
+			@ Want LoveSong
+			@ Detain
+			@ Resist
+	> Denied
+		" But I give you such lovely note!
+	> Give-LoveSong
+		" Thanks and like I say, you super guy.
+		" Do not forget.
+		@ Leave
+	> Detain-Replace
+		@ Unresist
+		" Is too much?
+		" @Yes.
+		" Is too much. I can see that now.
+		" Next time I make couple copies first.
+
+LOVE_SONG_LONELY
+	= nation Kolechia
+	= purpose transit
+	INCLUDE GENERIC_ERROR_RARE
+	> Intro-After
+		"
+		" Life sucks.
+		" Nobody loves me.
+		@ Want LoveSong
+	> Give-LoveSong
+		= LOVE_SONG_LONELY/GaveLoveSong YES
+		" For me?
+		"
+		" Like fire?
+		" Object of desire?
+		"
+		" Wow, nobody say such nice things!
+		" Part about visa is confusing but rest is very powerful.
+		+ TokenKolechia
+		" Thank you!
+	> Approved
+		? LOVE_SONG_LONELY/GaveLoveSong == YES
+			" Thank you again!
+		? LOVE_SONG_LONELY/GaveLoveSong != YES
+			" Thanks I guess.
+	> Denied
+		? LOVE_SONG_LONELY/GaveLoveSong == YES
+			" No problem!
+			" Today is good day anyway!
+		? LOVE_SONG_LONELY/GaveLoveSong != YES
+			" Even you hate me.
+			" Some guy I do not even know.
+
+#------------------------------------------------------------------------------
+# First Day
+#------------------------------------------------------------------------------
+FIRST_DAY
+	= nation Arstotzka:3 Republia:1 Impor:1 Kolechia:1
+	> Intro-Replace
+		# no dialog on first day
+	> Denied
+		" $ask-nativesonly
+
+KOLECHIAN_HATER
+	= nation Kolechia
+	= gender M
+	= test nopay
+	MANUALPAPERS
+	> Intro-Replace
+		" It was a mistake to open this checkpoint.
+		@ Leave
+
+FINALLY_RETURN_HOME
+	= nation Arstotzka
+	> Intro-Replace
+		" Finally I can return home.
+	> Denied
+		" $ask-nativesonly
+		" You bastard.
+	> Approved
+		" $ask-approved
+		" Thank you.
+
+SMALL_CHECKPOINT
+	= nation Impor
+	> Intro-Replace
+		" This checkpoint is smaller than I expected.
+	> Denied
+		" $ask-nativesonly
+
+WAITED_FOREVER
+	= nation Republia
+	> Intro-Replace
+		" I have waited in this damn line since for 8 hours.
+		" I hope it was worth it.
+	> Denied
+		" $ask-nativesonly
+		" Unbelievable. Go to hell.
+
+#------------------------------------------------------------------------------
+# Inspection intro
+#------------------------------------------------------------------------------
+INSPECTION_FIRST
+	= nation Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+
+INSPECTION_ERROR
+	= nation Antegria
+	= error Passport-WrongExpiration
+
+INSPECTION_DAY
+	= error
+		x 1 --
+		x 2 <generic>
+
+HURRY_UP
+	= nation Arstotzka
+	> Intro-Replace
+		" Hurry up.
+		" I am meeting bus soon.
+	> Denied
+		" What is this?
+	> Approved
+		" Finally.
+
+#------------------------------------------------------------------------------
+# EntryTicket intro
+#------------------------------------------------------------------------------
+ENTRYTICKET_FIRST
+	= nation Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+
+ENTRYTICKET_HIDDEN
+	= nation Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+	= error EntryTicket-Hidden
+
+ENTRYTICKET_WRONGDATE
+	= nation Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+	= error EntryTicket-WrongUseDate
+
+ENTRYTICKET_DAY
+	= nation Arstotzka:1 Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+	= error
+		x 1 --
+		x 2 EntryTicket <generic>
+
+GLAD_YOU_HAVE_JOB
+	= nation Arstotzka:1 Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+	> Intro-Replace
+		" I heard about terrorist attack.
+		" You are lucky to have a job still.
+	> Approved
+		" Be safe.
+
+#------------------------------------------------------------------------------
+# EntryPermit & IdCard intro
+#------------------------------------------------------------------------------
+ENTRYPERMIT_IDCARD_FIRST
+	= nation Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+
+ENTRYPERMIT_IDCARD_DAY
+	= nation Arstotzka:1 Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+	= error
+		x 1 --
+		x 2 <generic> <missing> <speech>
+
+ENTRYPERMIT_IDCARD_IDCARD
+	= nation Arstotzka
+	= error
+		x 1 --
+		x 2 <generic> <missing> <speech>
+
+WRONG_NAME
+	= nation Republia:1 Impor:1 Kolechia:1 Antegria:1 Obristan:1 UnitedFed:1
+	= error EntryPermit-WrongName
+
+TICKET_NOT_PERMIT
+	INCLUDE FOREIGNER
+	MANUALPAPERS
+	+ Passport
+	+ EntryTicket
+	+ EntryPermit # need to give it then take it away with error
+	= error EntryPermit-Missing
+	> Intro-Replace
+		" $ask-purpose
+		" What? I do not know. To visit?
+		" $ask-duration
+		" A few days maybe.
+	> Interrogate-Replace
+		" $ask-missing-entrypermit
+		" Entry permit? I have ticket here.
+		" Let me through.
+	> Denied
+		" @Ticket is not enough any more.
+		" @Get a permit.
+		" Bullshit!
+		" I paid good money for ticket.
+
+VISIT_SON
+	= nation Impor
+	= purpose visit
+	= gender F
+	= duration 6
+	= error EntryPermit-Expired
+	> Intro-Replace
+		" $ask-purpose
+		" I am so happy that the border has opened.
+		" I will visit my son. I have not seen him in six years. [Speech/Purpose]
+		" $ask-duration
+		" 6 months. [Speech/Duration]
+	> Interrogate-Replace
+		" $ask-expired-paper
+		" Please, let me pass. My son is waiting.
+		= Day/InterrogateVisitSon yes
+	> Approved
+		" Thank you.
+		? Day/InterrogateVisitSon == yes
+			+ TokenImpor
+	> Denied
+		" Curse you.
+
+#------------------------------------------------------------------------------
+# Detain intro
+#------------------------------------------------------------------------------
+DETAIN_FIRST
+	= nation Antegria
+	= error EntryPermit-WrongId
+	> Enable-Detain
+		" Hey wait.
+		" Do not arrest me, please.
+		" Just deny my passport and I will go away.
+
+DETAIN_DAY
+	= nation Arstotzka:1 Kolechia:1 Republia:1 Impor:1 Antegria:1 Obristan:1 UnitedFed:1
+	= error
+		x 1 --
+		x 2 <generic> <speech> <missing>
+
+HATE_COUNTRY
+	= nation UnitedFed
+	= purpose transit
+	= duration 0.07
+	> Intro-Replace
+		" $ask-purpose
+		" It is not my choice. I hate this damn country.
+		" I am just passing through. [Speech/Purpose]
+		" $ask-duration
+		" As little as possible. 2 days. [Speech/Duration]
+	> Approved
+		" Ugh.
+	> Denied
+		" Just as well.
+
+#------------------------------------------------------------------------------
+# WorkPermit intro
+#------------------------------------------------------------------------------
+WORKPERMIT_FIRST
+	INCLUDE FOREIGNER
+	= purpose work
+
+WORKPERMIT_DAY
+	= nation Arstotzka Kolechia Republia Impor Antegria Obristan UnitedFed
+	? nation != Arstotzka
+		= purpose work:2 transit immigrate visit
+	= error
+		x 1 --
+		x 2 <generic> <speech> <missing>
+
+SUICIDE_BOMBER
+	? Day/FirstSuicideBomber == approved
+		= fallback GENERIC
+		BREAK
+	= nation Kolechia
+	? Day/FirstSuicideBomber == denied
+		INCLUDE FOREIGNER	
+	= contrabandTypes bomb
+	# error is not set since we're not supposed to detect this bomber
+	> Approved
+		= Day/FirstSuicideBomber approved
+	> Denied
+		= Day/FirstSuicideBomber denied
+	> Detain-After
+		= Day/FirstSuicideBomber denied
+
+SUICIDE_BOMBER2
+	INCLUDE SUICIDE_BOMBER
+	INCLUDE FOREIGNER
+	= error
+
+#------------------------------------------------------------------------------
+# Search intro
+#------------------------------------------------------------------------------
+SEARCH_FIRST
+	= nation Kolechia
+	= gender F
+	= purpose visit
+	= error Rules-SearchKolechiaClear
+
+SEARCH_DAY
+	= nation Arstotzka:1 Kolechia:2 Republia:1 Impor:1 Antegria:1 Obristan:1 UnitedFed:1
+	INCLUDE GENERIC_ERROR
+	? nation == Kolechia
+		= error Rules-SearchKolechia
+
+SEARCH_CONFUSING_GENDER
+	= nation Arstotzka
+	= gender M
+	= error Traveler-ConfusingGender
+
+SEARCH_BRIBE_INTRO
+	= nation Kolechia
+	= gender M
+	= name Shaddy-Safadi
+	= face M-11-11-11-11-0
+	= error Rules-SearchKolechiaContraband
+	= contrabandTypes drugs
+	= test bribe bribeintro-none 0
+	= test bribe bribeintro-paid 10
+	> Enable-Detain
+		" Slow down my friend.
+		" I have only harmless medicine.
+		" I give you 10 credits to let me through.
+		= Day/BribeIntro offered
+	> Approved
+		? Day/BribeIntro != offered
+			" $ask-approved
+		? Day/BribeIntro == offered
+			" Excellent.
+			" As I promised.
+			+ Money10
+	> Denied
+		? Day/BribeIntro != offered
+		? Day/BribeIntro == offered
+			" Why you turn down good money?
+			" @You are lucky to escape arrest.
+			" @Do not come back.
+	> Detain-Replace
+		" @You cannot bribe an officer of Arstotzka.
+		" They must pay well for such obedience, dog.
+
+#------------------------------------------------------------------------------
+# Forgery intro
+#------------------------------------------------------------------------------
+FORGERY_FIRST
+	= nation Kolechia:1 Republia:1 Impor:1 Antegria:1 Obristan:1 UnitedFed:1
+	= purpose visit
+	= error WrongSeal
+
+FORGERY_DAY
+	= nation Arstotzka Kolechia Republia Impor Antegria Obristan UnitedFed
+	? nation != Arstotzka
+		= purpose visit:2 immigrate:1 transit:2 work:1
+		= error 
+			x 1 --
+			x 1 WrongSeal
+			x 1 <generic> <speech> <missing>
+	? nation == Arstotzka
+		= error
+			x 1 --
+			x 2 <.*>
+
+#------------------------------------------------------------------------------
+# Diplomat intro
+#------------------------------------------------------------------------------
+DIPLOMAT_FIRST
+	= nation Kolechia
+	= purpose diplomat
+
+DIPLOMAT
+	= nation Kolechia Impor UnitedFed Obristan Republia Antegria
+	= purpose diplomat
+
+DIPLOMAT_ERROR
+	= nation Kolechia Impor UnitedFed Obristan Republia Antegria
+	= purpose diplomat
+	= error Diplomat.*<deny>
+
+TWO_PASSPORTS
+	= nation Arstotzka
+	MANUALPAPERS
+	+ Passport
+	+ IdCard
+	+ SecondPassport
+	= face M-7-12-16-19-0-3
+	= gender M
+	= name Nathan-Cykelek
+	= error Misc-TwoPassports
+	> Intro-After
+		" Shit!
+		" I make small mistake.
+		" Please give documents back.
+		@ Detain
+		@ Want Passport
+		@ Want IdCard
+		@ Want SecondPassport
+	> Interrogate-Replace
+		" @Why do you have two passports?
+		" Is funny story.
+		" I tell you everything.
+		" First, you give papers back to me.
+	> Give-Passport
+		= TWO_PASSPORTS/GaveDoc ++1
+		? TWO_PASSPORTS/GaveDoc == ""
+			" And the others?
+		? TWO_PASSPORTS/GaveDoc == 1
+			" Last one please.
+		? TWO_PASSPORTS/GaveDoc == 2
+			@ Leave
+	> Give-SecondPassport
+		= TWO_PASSPORTS/GaveDoc ++1
+		? TWO_PASSPORTS/GaveDoc == ""
+			" And the others?
+		? TWO_PASSPORTS/GaveDoc == 1
+			" Last one please.
+		? TWO_PASSPORTS/GaveDoc == 2
+			@ Leave
+	> Give-IdCard
+		= TWO_PASSPORTS/GaveDoc ++1
+		? TWO_PASSPORTS/GaveDoc == ""
+			" And the others?
+		? TWO_PASSPORTS/GaveDoc == 1
+			" Last one please.
+		? TWO_PASSPORTS/GaveDoc == 2
+			@ Leave
+
+#------------------------------------------------------------------------------
+# IdSupplement intro
+#------------------------------------------------------------------------------
+IDSUPPLEMENT_FIRST
+	INCLUDE FOREIGNER
+	= purpose transit visit
+
+IDSUPPLEMENT_COMPLAIN
+	INCLUDE FOREIGNER
+	= purpose visit transit immigrate
+	INCLUDE GENERIC_ERROR
+	> Intro-After
+		" This id supplement is total pain.
+		" Was not easy to get and only lasts few days.
+		" You Arstotzkans just make it harder and harder.
+		" Why even have open border?
+	> Approved
+		" Bah.
+		" Would be better to spend money on bribe.
+		" Less trouble and faster.
+	> Denied
+		" Bah.
+		" I knew it would not even work.
+		" Would be better to spend money on bribe.
+
+#*
+IDSUPPLEMENT_DAY
+	INCLUDE GENERIC
+	BREAK
+	= nation Arstotzka Impor UnitedFed Kolechia Obristan Antegria Republia
+	? nation == Arstotzka
+		INCLUDE GENERIC
+		BREAK
+	= error 
+		x 1 --
+		x 1 WrongSeal
+		x 1 <generic> <speech> <missing>
+*#
+
+#------------------------------------------------------------------------------
+# Criminal intro
+#------------------------------------------------------------------------------
+CRIMINAL_FIRST
+	= error Traveler-Criminal
+	> Detain-Replace
+		" @Funny to see you here.
+		" @Just when starting to look for criminals.
+		" Criminals?
+		" What are you saying?
+
+CRIMINAL
+	= error Traveler-Criminal
+
+#------------------------------------------------------------------------------
+# Denial reason intro
+#------------------------------------------------------------------------------
+DENIAL_REASON_FIRST
+	= error <obvious>
+	> Denied
+		? Traveler/Approval has REASON
+			" Denied?
+			" For what reason?
+			" @It is clearly stamped there.
+			" Oh.~
+			" Screw you anyways.
+			= Day/DenialReason denied
+
+DENIAL_REASON_DAY
+	? Day/DenialReason != denied
+		INCLUDE DENIAL_REASON_FIRST
+		BREAK
+	INCLUDE GENERIC
+
+#------------------------------------------------------------------------------
+# No Imporians
+#------------------------------------------------------------------------------
+NO_IMPORIANS_FIRST
+	= nation Impor
+	> Denied
+		" @Imporians are prohibited from entering.
+		= Day/ImporianDenied YES
+
+NO_IMPORIANS_DAY
+	INCLUDE GENERIC
+	= nation Impor:2 Antegria Republia Arstotzka UnitedFed Obristan Kolechia
+	? nation == Impor
+		INCLUDE GENERIC_ERROR_HAVEPASSPORT
+		> Denied
+			? Day/ImporianDenied != YES
+				" @Imporians are prohibited from entering.
+				= Day/ImporianDenied YES
+	? nation != Impor
+		INCLUDE GENERIC
+
+#------------------------------------------------------------------------------
+# No United Fed
+#------------------------------------------------------------------------------
+NO_UNITEDFED_FIRST
+	INCLUDE GENERIC_ERROR_HAVEPASSPORT
+	= nation UnitedFed
+	> Denied
+		= Day/UnitedFedComplained YES
+		" @Do not bring your sickness to Arstotzka.
+		" What?
+		" I am perfectly healthy.
+		" It is so easy to deny entry.
+		" All this paperwork is wasted.
+
+NO_UNITEDFED
+	= nation UnitedFed:2 Impor Antegria Republia Arstotzka Obristan Kolechia
+	? nation == UnitedFed
+		INCLUDE GENERIC_ERROR_HAVEPASSPORT
+		? Day/UnitedFedComplained == YES
+			> Denied
+				" $ask-wrong-nation
+		? Day/UnitedFedComplained != YES
+			> Denied
+				= Day/UnitedFedComplained YES
+				" @Do not bring your sickness to Arstotzka.
+				" What?
+				" I am perfectly healthy.
+				" It is so easy to deny entry.
+				" All this paperwork is wasted.
+	? nation != UnitedFed
+		INCLUDE GENERIC
+
+#------------------------------------------------------------------------------
+# Vaccine cert intro
+#------------------------------------------------------------------------------
+VACCINE_FIRST
+	# ensure it's not diplomat
+	= purpose visit
+
+VACCINE_MISSING
+	= error VaccineCert-Missing
+
+#------------------------------------------------------------------------------
+# Confiscation (district) intro
+#------------------------------------------------------------------------------
+CONFISCATION_DISTRICT_FIRST
+	= nation Arstotzka
+	= district Altan
+	> Approved
+		? Traveler/PassportConfiscated == YES
+			" Thank you. It is good to be back home.
+			" I am leaving for trip soon so I just need my passport back.
+			" @It is being confiscated.
+			" What do you mean?
+			" @Contact number on slip for recovery.
+			" You can just hand it back.
+			" @It has been filed. I cannot give it back.
+			" I am not leaving without passport.
+			@ Resist
+			@ Detain	
+	> Denied
+		? Traveler/PassportConfiscated == YES
+			" Where is my passport?
+			" @It is being confiscated.
+			" You deny entry and take passport?
+			" What am I supposed to do?
+			" @Contact number on slip.
+			" I am not leaving without passport.
+			" @It has been filed. I cannot give it back.
+			@ Resist
+			@ Detain
+	> Detain-After
+		" You cannot do this to me!
+		" I am Arstotzkan citizen.
+		" I have right to travel freely.
+
+CONFISCATION_DISTRICT
+	= nation Arstotzka
+	= district Altan
+
+CONFISCATION_ALL_FIRST
+	= nation Arstotzka
+	= district Lendiforma
+
+#------------------------------------------------------------------------------
+# Asylum intro
+#------------------------------------------------------------------------------
+NON_ASYLUM
+	INCLUDE GENERIC
+	= purpose native visit transit work immigrate
+
+WHISTLEBLOWER
+	= nation Antegria
+	= gender F
+	= face F-12-12-8-8
+	= purpose asylum
+	( InTheNews
+		.*/Name
+		.*/Face
+		Bulletin/NewsWB0
+	> Approved
+		" Thank you.
+		" I hope that things are better here.
+		@ News WHISTLEBLOWER_IN
+	> Denied
+		" What? I was promised asylum here.
+		" I have nowhere else to go.
+		" @This is not my problem.
+		@ News WHISTLEBLOWER_OUT
+
+#------------------------------------------------------------------------------
+# AccessPermit intro 
+#------------------------------------------------------------------------------
+ACCESSPERMIT_FIRST
+	INCLUDE FOREIGNER
+	= purpose visit
+	> Intro-After
+		" You Arstotzkans keep changing rules here.
+		" My sister came through last week with different documents.
+		" Now I need new access permit.
+		" Costs twice as much as before.
+
+ACCESSPERMIT_WRONG
+	INCLUDE FOREIGNER
+	+ EntryPermit
+	+ IdSupplement
+	= purpose visit
+	= error AccessPermit-Missing
+	> Interrogate-Replace
+		" $ask-missing-accesspermit
+		" What the hell is access permit?
+		" Do you mean entry permit?
+		" I have it there.
+		" @I mean access permit.
+		" Never heard of it. Sounds stupid.
+	> Denied
+		" @Entry permit and supplement are no longer accepted.
+		" @Access permit replaces them.
+		" @Makes my job easier.
+		" I do not care about your job.
+		" Damnit.
+
+#------------------------------------------------------------------------------
+# 
+#------------------------------------------------------------------------------
+STRICT_BORDER
+	INCLUDE FOREIGNER
+	INCLUDE GENERIC_ERROR_RARE
+	> Intro-After
+		" I've heard this is very strict checkpoint.
+		" I am glad my papers are in order.
+
+GENERIC_OBRISTAN
+	= nation Obristan
+	INCLUDE GENERIC_ERROR
+
+DESPERATE_BEFORECLOSE
+	= nation Obristan
+	= purpose immigrate
+	= error AccessPermit-Missing
+	> Intro-After
+		" I have heard the border will close.
+		" My access permit will not arrive in time.
+		" Please have mercy.
+	> Interrogate-Replace
+		" $ask-missing-accesspermit
+		" Yes I know. I just told you that.
+		" I am afraid the border will close before I can enter.
+
+RUNNER_DISTRACTION
+	INCLUDE FOREIGNER
+	= purpose work
+	INCLUDE GENERIC_ERROR
+
+#------------------------------------------------------------------------------
+# Wall comments
+#------------------------------------------------------------------------------
+WALLCOMMENT_PLAQUEONE
+	INCLUDE GENERIC
+	? Game/MountedPapers !has PlaqueOne
+		BREAK
+	> Intro-After
+		"				
+		? Game/PlaqueOneTitle == Presence
+			" What is this plaque on the wall?
+			" You are recognized for presence?
+			" Way to go.
+		? Game/PlaqueOneTitle == Sufficience
+			" What is this on the wall?
+			" Recognized for sufficience?
+			" Impressive. Why even bother with plaque?
+		? Game/PlaqueOneTitle == Excellence
+			" What is this on the wall?
+			" You are recognized for excellence?
+			" I hope they give you raise and not just plaque.
+	> Approved
+		" Find a better plaque.
+		" This one looks like cheap shit.
+	> Denied
+		" Figures.
+		" You are like this plaque.
+		" Cheap shit.
+	> Detain-Replace
+		" $ask-detain
+		" What the hell?
+		" Figures.
+		" You are like this plaque.
+		" Cheap shit.
+
+WALLCOMMENT_ARSKICKER
+	INCLUDE GENERIC
+	? Game/MountedPapers !has Arskickers
+		BREAK
+	= nation Arstotzka
+	> Intro-After
+		"		
+		" Nice banner!
+		" I remember that game.
+		" Intense.
+	> Approved
+		" Go Arskickers!
+	> Denied
+		" What the hell?
+		" I thought we have Arskickers connection.
+	> Detain-Replace
+		" $ask-detain
+		" What the hell?
+		" I thought we have Arskickers connection.
+
+WALLCOMMENT_SONDRAWING
+	INCLUDE GENERIC
+	? Game/MountedPapers !has SonDrawing
+		BREAK
+	> Intro-After
+		"
+		" What is this drawing on the wall?
+		" My dog can do better.
+		" @It is from my son.
+		" Oh.~
+		" Maybe he should try sports.
+	> Approved
+		" Thanks.
+		" The drawing is not so bad really.
+		" I was just in rough mood. Sorry.
+	> Denied
+		" Huh?
+		" You deny me for comment about drawing, right?
+		" @The exit is to your right.
+		"
+	> Detain-Replace
+		" $ask-detain
+		" What are you doing?
+		" Is this because I make fun of drawing?
+		" I take it back!
+		" Picture should be in museum!
+
+WALLCOMMENT_FAMILYPHOTO
+	INCLUDE GENERIC
+	? Game/MountedPapers !has FamilyPhoto
+		BREAK
+	> Intro-After
+		"
+		" I like picture on wall here.
+		" Reminds me of how my family was.
+	> Approved
+		" Thank you.
+		" Take care of your family.
+		" It is too easy to lose them.
+
+
+#------------------------------------------------------------------------------
+# Presskit Screenshots
+#------------------------------------------------------------------------------
+
+PRESSKIT_BOOTH
+	INCLUDE FIRST_DAY
+	= TESTDAY 1
+	= nation Arstotzka
+	= gender M
+	= face M-6-2-14-16-0-1
+	= name Maciej-Wikiel
+	= idNumber ANJWJ-SC5P3
+
+PRESSKIT_WEAPON
+	= contrabandTypes $Gun0
+	= error <contraband>
+	= gender F
+	= face F-9-5-19-9-5-0
+	= name Hannah-Gardener
+	= idNumber NWGN6-8WVSV
+	= nation Kolechia
+	= purpose visit
+	= duration 2
+
+PRESSKIT_BROTHEL
+	INCLUDE BROTHEL1
+	= TESTDAY 6
+	= face F-0-0-4-4-1-0
+	= name Ava-Milovna
+	= idNumber 7PQFH-2VQ1H
+	= nation Obristan
+
+PRESSKIT_CRIMINAL
+	INCLUDE CRIMINAL_FIRST
+	= TESTDAY 14
+	= face M-5-5-5-5-2-1
+	= gender M
+	= name Alexander-Zaterlia
+	= nation UnitedFed
+	= idNumber CUB6P-3BJAD
+	= purpose visit
+
+PRESSKIT_PERMIT
+	= TESTDAY 8
+	= gender M
+	= face M-9-8-19-3-2-1
+	= purpose visit
+	= error EntryPermit-Expired
+	= nation Obristan
+	= name Wester-Leonae
+
+PRESSKIT_DOCUMENTS
+	= TESTDAY 26
+	= gender M
+	= nation Antegria
+	= idNumber 1SDL1-JAQV0
+	= face M-1-14-2-10-0-0
+	= name Andreas-Askopolous
+
+PRESSKIT_STAMP
+	= TESTDAY 3
+	= gender F
+	= name Krista-Mullins
+	= face F-11-11-11-11-3-0
+	= nation Republia
+	= idNumber 7LUN4-QEF1B
+
+PRESSKIT_RIFLE
+	= TESTDAY 16
+	= gender F
+	= nation UnitedFed
+
+PRESSKIT_EZIC
+	INCLUDE EZIC_HANDLER_POST0
+	= TESTDAY 11
+
+PRESSKIT_BOSS
+	INCLUDE BOSS_APPEARANCE
+	= TESTDAY 10
+	> Intro-Replace
+		= Game/PlaqueOneTitle Sufficience
+		+ PlaqueOne
+
+PRESSKIT_FINGERPRINT
+	= TESTDAY 8
+	= gender F
+	= face F-5-17-3-14-1-0
+	= name Nina-Karlstrom
+	= idNumber 7TSD1-EA3BX
+	= nation Obristan
+	= purpose transit
+	= error Passport-WrongFaceError
+	> Intro-Replace
+		+ IdentityRecord
+		+ Fingerprints
+
+POSTER_DEFAULT
+
+POSTER_WRONGFACE
+	= error Passport-WrongFaceError
+
+FEATURE_FACE
+	#= gender M
+	#= face M-2-1-13-13-3-1
+	#= name Oscar-Smith
+	= gender F
+	= face F-7-7-4-12-3-1
+	= name Olivia-Smith
+	= nation Kolechia
+
+DEVLOG_GRAB
+	INCLUDE GENERIC_NODIPLO
+	= TESTDAY 13
+	= gender F
+	= face F-1-1-1-13-3-1
+	= name Olivia-Smith
+	= nation Kolechia

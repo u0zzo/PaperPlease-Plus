@@ -1,0 +1,440 @@
+ask-purpose
+	What is the purpose of your trip?	
+state-purpose	Speech/Purpose
+	=visit		Visiting.
+	=visit		Just visiting.
+	=visit 		I am visiting relatives.
+	=visit 		Visiting friends.
+	=visit 		I come for visit.
+	=visit 		Only to visit.
+	=visit  	I will visit friends.
+	=transit 	Transit.
+	=transit	I pass through.
+	=transit 	Transit through the country.
+	=transit 	I am transiting to elsewhere.
+	=transit 	Transit through Arstotzka.
+	=transit	Passing through.
+	=transit 	I am in transit.
+	=work 		Work.
+	=work		I come to work.
+	=work 		I have job here.
+	=work 		I plan to work.
+	=immigrate	Immigrating.
+	=immigrate	I am immigrating to Arstotzka.
+	=immigrate 	I will move here.
+	=immigrate	?Passport/Gender==F I am coming to live with my husband.
+	=immigrate	?Passport/Gender==M I am coming to live with my wife.
+	=diplomat 	I am diplomatic envoy.
+	=diplomat 	I was called to diplomatic discussions.
+	=diplomat 	My presence was requested.
+	=asylum 	I am seeking asylum.
+	=asylum 	I come for political asylum.
+	=asylum 	Asylum.	
+
+ask-wrong-purpose EntryPermit/Purpose
+	=work 		This entry permit is for work.
+	=transit 	You are authorized for transit only.
+	=visit 		You have only a visitors entry permit.
+	=immigrate	This entry permit is for immigrating.
+	Your entry purpose does not match up.
+	This entry permit purpose does not match.
+mistake-prefix
+	Right.
+	I make mistake.
+	Yes, of course.
+	Apologies.
+wrong-purpose Traveler/Purpose
+	=visit 		$mistake-prefix I am just visiting.
+	=transit 	$mistake-prefix I just pass through.
+	=work 		$mistake-prefix I have come to work.
+	=immigrate 	$mistake-prefix I move here permanently.
+
+ask-duration
+	Duration of stay?
+random-stay
+	I stay
+	I remain for
+	It will be
+state-duration	Speech/Duration
+	=0		$random-stay forever.
+	=0		$random-stay until I die.
+	=0		I don't plan to leave.
+	=0.07	$random-stay just 2 days.
+	=0.07	$random-stay couple days.
+	=0.5	$random-stay just 14 days.
+	=0.5	$random-stay couple weeks.
+	=0.5	$random-stay only two weeks.
+	=1		$random-stay 30 days.
+	=1		$random-stay a few weeks.
+	=1		$random-stay one month.
+	=2		$random-stay 60 days.
+	=2		$random-stay 8 weeks.
+	=2		$random-stay couple months.
+	=2		$random-stay two months.
+	=3		$random-stay 90 days.
+	=3		$random-stay 12 weeks.
+	=3		$random-stay three months.
+	=3		$random-stay a few months.
+	=6		$random-stay six months.
+	=6		$random-stay half a year.
+	=12		$random-stay one year.
+	=12		$random-stay full year.
+	=12		$random-stay a year.
+
+ask-wrong-duration
+	The length of your stay is different.
+wrong-duration	Traveler/Duration
+	$mistake-prefix $state-duration
+
+ask-forgery-missing
+	This document is missing its seal.
+	There is no seal here.
+	I do not see the required seal here.
+ask-forgery-wrong
+	This document is forged.
+	This is a forgery.
+ask-forgery-entrypermit	EntryPermit/Emblem/MinistryOfAdmission
+	=NONE $ask-forgery-missing
+	$ask-forgery-wrong		
+ask-forgery-workpermit	WorkPermit/Emblem/MinistryOfLabor
+	=NONE $ask-forgery-missing
+	$ask-forgery-wrong
+ask-forgery-idcard
+	This card contains false information.
+ask-forgery-diplo
+	=NONE $ask-forgery-missing
+	This seal is forged.
+	This seal is not correct.	
+ask-forgery-asylumgrant	WorkPermit/Emblem/MinistryOfAdmission
+	=NONE $ask-forgery-missing
+	This seal is forged.
+	This grant is not sealed properly.
+ask-forgery-accesspermit	AccessPermit/Emblem/MinistryOfAdmission
+	=NONE $ask-forgery-missing
+	$ask-forgery-wrong
+
+ask-wrong-birthdate
+	These dates do not match.	
+forgery
+	I have no idea what you are talking about.
+	I do not know anything about that.
+	I do not understand.
+missing-seal
+	$forgery
+wrong-seal
+	$forgery
+
+ask-expired-paper
+	This document has expired.
+	You cannot enter using an expired document.
+expired-permit
+	I could not come until now.
+	I was busy.
+expired-passport
+	What? That is mistake. I just renewed it.
+	That must be a typographical error.
+	$default 
+expired-idsupplement
+	$expired-permit
+expired-asylumgrant
+	There was nothing I could do.
+	My travel was difficult.
+	Please, have mercy.
+ask-missing-passport
+	Where is passport?
+	A passport is required.
+missing-passport
+	They took away my passport.
+	What is passport?
+
+ask-missing-entrypermit
+	Where is the entry permit?
+	You have no entry permit.
+	The entry permit is missing.
+missing-permit
+	I was not able to get one.
+	What is that?
+	Do I need one?
+	Is required?
+	I lost it.
+	I did not know it was required.
+missing-entrypermit
+	$missing-permit
+
+ask-missing-workpermit
+	Where is the work pass?
+	You have no work pass.
+	The work pass is missing.
+missing-workpermit
+	I will get one after I enter.
+	$missing-permit
+
+ask-missing-idcard
+	Where is your id card?
+	I need your id card.
+missing-idcard
+	I never got one.
+	I left before they were issued.
+	I lost it.
+
+ask-missing-idsupplement
+	You must carry an id supplement.
+	Where is your id supplement?
+missing-idsupplement
+	I never got one.
+	What is a supplement?
+	This was not provided to me.
+
+ask-missing-asylumgrant
+	You have no grant for asylum.
+	Where is your asylum grant?
+missing-asylumgrant
+	I could not secure one in time.
+	I have none.
+	What is that?
+
+ask-missing-accesspermit
+	Where is the access permit?
+	You have no access permit.
+	The access permit is missing.
+missing-accesspermit
+	$missing-permit
+
+ask-wrong-name
+	These names do not match.
+wrong-name Speech/Name
+	I have two different names.
+	I have multiple names.
+	My name was changed recently.
+
+ask-wrong-workend
+	You are not authorized to work this long.
+	This work pass expires before your visit.
+wrong-workend
+	I will renew the pass soon.
+	I am planning to renew it.
+	My entry permit is longer than I need.
+
+ask-wrong-idnumber
+	These numbers do not match.
+	There is a discrepancy here.
+	There are two different numbers here.
+wrong-idnumber
+	It must be a mistake. The document is valid.
+	Check again.
+	$default
+
+ask-wrong-face
+	This does not look like you.
+	Your picture. It is different.
+	Your appearance has changed.
+wrong-face
+	It is an old picture.
+	I had surgery.
+	The years have been cruel.
+	I do not know what to say. It is me.
+
+ask-wrong-issuingcity
+	This issuing city is incorrect.
+	Your passport has false information.
+wrong-issuingcity
+	$forgery
+
+ask-wrong-gender Passport/Gender
+	=M You are a man?
+	=M It says here that you are male.
+	=F You are a woman?
+	=F Your passport says you are female.
+	Are you a woman or a man?
+	You are male or female?
+wrong-gender	Passport/Gender
+	The passport is correct.
+	Why do you ask?
+	As the document says.
+	What is this question?
+
+ask-wrong-gender-busted Passport/Gender
+	There is a problem with your documentation.
+wrong-gender-busted
+	$default
+
+ask-approved
+	?Traveler/Nationality==Arstotzka 	Glory to Arstotzka.
+	?Traveler/Nationality!=Arstotzka 	Cause no trouble.
+
+ask-nativesonly
+	?Traveler/Nationality==Arstotzka 	Try again.
+	?Traveler/Nationality!=Arstotzka 	Arstotzkans only.
+
+ask-wrong-nation
+	?Traveler/Nationality==Obristan 	No entry from Obristan.
+	?Traveler/Nationality==Kolechia 	No entry from Kolechia.
+	?Traveler/Nationality==UnitedFed 	No entry from United Federation.
+	?Traveler/Nationality==Antegria	 	No entry from Antegria.
+	?Traveler/Nationality==Republia	 	No entry from Republia.
+	?Traveler/Nationality==Arstotzka	No entry from Arstotzka.
+	?Traveler/Nationality==Impor		No entry from Impor.
+
+ask-search
+	Face the scanner.
+	Turn towards the scanner.
+
+ask-detain
+	Wait here.
+	One moment please.
+detain Traveler/Purpose
+	What are you doing?
+	What is happening?
+	What is this?
+	=asylum You cannot do this!
+	=asylum What will happen to me?
+	=diplomat Who do you think you are?
+	=diplomat You have no authority for this!
+	=diplomat You are a fool!
+
+ask-search-enabled
+	You have been selected for a random search.
+
+ask-wrong-entryticket-date
+	This ticket is for another day.
+	You cannot enter today.
+	The date on this ticket is wrong.
+wrong-entryticket-date
+	It is my mistake.
+	Oh?
+	$default
+
+ask-missing-entryticket
+	You cannot enter without a ticket.
+	Foreigners must present an entry ticket.
+	Where is your entry ticket?
+missing-entryticket
+	I do not know what that is.
+	I have none.
+	It was lost.
+
+ask-wrong-identity
+	I cannot verify your identity.		
+	Your identity does not match.
+
+ask-wrong-alias
+	There is no record of this name.
+	I cannot verify your alias.
+	$ask-wrong-identity
+wrong-alias
+	$default
+
+ask-wrong-fingerprints
+	Your fingerprints do not match our records.
+	I cannot verify your fingerprints.
+	$ask-wrong-identity
+wrong-fingerprints
+	$default
+
+ask-contraband
+	?Traveler/Contraband==drugs There is zero tolerance for contraband.
+	You have made a mistake coming here.
+contraband
+	You can see that?
+	What?
+	I know nothing.
+	Is it so obvious?
+	$default
+
+ask-wrong-information
+	This information does not look correct.
+	This is incorrect.
+
+ask-wrong-height
+	Your height is different.
+	$ask-wrong-information
+wrong-height
+	Perhaps my shoes are different.
+	It is a natural difference.
+	$default
+
+ask-wrong-weight
+	Your weight is different.
+	$ask-wrong-information
+wrong-weight
+	I am wearing different clothes.
+	My weight has changed naturally.
+	$default
+
+ask-criminal
+	You have interesting face.
+	Maybe you should not have come.
+	We have some questions for you.
+criminal
+	I have nothing to say.
+	Let me through or you will regret it.
+	I do not like your tone.
+
+ask-wrong-description
+	This does not sound like you.
+	You do not match this description.
+wrong-description
+	I have changed.
+	How can you say for sure?
+	Is that good or bad?
+
+hidden-paper
+	Here it is.
+	Sorry. I have it here.
+	I have it here.
+	Here.
+
+ask-wrong-thumbprint
+	Your thumb print does not match.
+	This print does not match.
+wrong-thumbprint
+	$default
+
+ask-wrong-diplonation
+	$ask-wrong-information
+wrong-diplonation
+	$default
+
+ask-wrong-diploaccess
+	Your diplomatic authorization does not cover Arstotzka.
+	You have no diplomatic rights here.
+	This authorization does not include Arstotzka.
+wrong-diploaccess
+	Nonsense.
+	Check with your superiors.
+	I have full authorization.
+
+ask-missing-vaccinecert
+	Where is the vaccine certification?
+	Where is your proof of vaccination?
+	All entrants must be vaccinated.
+missing-vaccinecert
+	I do not believe in vaccines.
+	I could not afford certification.
+	$default
+
+ask-vaccine-expired
+	This vaccine has expired.
+	This vaccine is no longer active.
+vaccine-expired
+	$default
+
+ask-vaccine-wrongdrugs
+	You are missing the required vaccination.
+	This vaccine certificate is insufficient.
+vaccine-wrongdrugs
+	$default
+
+trade-fingerprints
+	Here.
+	Is this ok?
+	Here are my fingerprints.
+	Now I have ink everywhere.
+
+default
+	Please let me through.
+	What are you talking about?
+	I know nothing about this.
+	I do not know what to say.
+	Oh?
+

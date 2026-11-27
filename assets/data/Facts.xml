@@ -1,0 +1,1052 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<facts>
+	<nations>
+		<nation name="Obristan" cities="Skal;Lorndaz;Mergerous" citizen="Obrista"/>
+		<nation name="Antegria" cities="St. Marmero;Glorian;Outer Grouse" citizen="Antegrian"/>
+		<nation name="Republia" cities="True Glorian;Lesrenadi;Bostan" citizen="Republian"/>
+		<nation name="UnitedFed" cities="Great Rapid;Shingleton;Korista City" citizen="Federal"/>
+		<nation name="Impor" cities="Enkyo;Haihan;Tsunkeido" citizen="Imporian"/>
+		<nation name="Kolechia" cities="Yurko City;Vedor;West Grestin" citizen="Kolechian"/>
+		<nation name="Arstotzka" cities="Orvech Vonor;East Grestin;Paradizna" citizen="Arstotzkan"/>
+	</nations>
+
+	<purposes>
+		<purpose val="native" nations="Arstotzka"/>
+		<purpose val="visit" chance="2.5" nations="Obristan Antegria Republia UnitedFed Impor Kolechia"/>
+		<purpose val="transit" chance="2" nations="Obristan Antegria Republia UnitedFed Impor Kolechia"/>
+		<purpose val="work" chance="1" nations="Obristan Antegria Republia UnitedFed Impor Kolechia"/>
+		<purpose val="immigrate" chance="1" nations="Obristan Antegria Republia UnitedFed Impor Kolechia" chooseforinvalid="false"/>
+		<purpose val="diplomat" chance="0.5" rule="RuleNeedDiplomaticAuth" nations="Obristan Antegria Republia UnitedFed Impor Kolechia" chooseforinvalid="false"/>
+		<purpose val="asylum" chance="0.5" rule="RuleNeedAsylumGrant" nations="Obristan Antegria Republia UnitedFed Impor Kolechia" chooseforinvalid="false"/>
+		<!-- <purpose val="journalist"/> --> <!-- set manually only -->
+	</purposes>
+
+	<autopapers>
+		<autopaper id="Passport"/>
+		<autopaper id="IdCard" rule="RuleNeedIdCard" purposes="native"/>
+		<autopaper id="EntryTicket" rule="RuleNeedEntryTicket" purposes="visit transit work immigrate journalist"/>
+		<autopaper id="EntryPermit" rule="RuleNeedEntryPermit" purposes="visit transit work immigrate journalist"/>
+		<autopaper id="AccessPermit" rule="RuleNeedAccessPermit" purposes="visit transit work immigrate journalist"/>
+		<autopaper id="WorkPermit" rule="RuleNeedWorkPermit" purposes="work"/>
+		<autopaper id="IdSupplement" rule="RuleNeedIdSupplement" purposes="visit transit work immigrate journalist"/>
+		<autopaper id="DiplomaticAuth" rule="RuleNeedDiplomaticAuth" purposes="diplomat"/>
+		<autopaper id="VaccineCert" rule="RuleNeedVaccineCert"/>
+		<autopaper id="AsylumGrant" rule="RuleNeedAsylumGrant" purposes="asylum"/>
+	</autopapers>
+
+	<durations>
+		<duration val="0.07" text="2 DAYS" purposes="transit diplomat"/>
+		<duration val="0.5" text="14 DAYS" purposes="visit transit diplomat"/>
+		<duration val="1" text="1 MONTH" purposes="visit work diplomat"/>
+		<duration val="2" text="2 MONTHS" purposes="visit work diplomat"/>
+		<duration val="3" text="3 MONTHS" purposes="visit work diplomat"/>
+		<duration val="6" text="6 MONTHS" purposes="work diplomat"/>
+		<duration val="12" text="1 YEAR" purposes="work diplomat"/>
+		<duration val="0" text="FOREVER" purposes="immigrate native journalist asylum"/>
+	</durations>
+
+	<districts>
+		<district val="Altan"/>
+		<district val="Vescillo"/>
+		<district val="Burnton"/>
+		<district val="Octovalis"/>
+		<district val="Gennistora"/>
+		<district val="Lendiforma"/>
+		<district val="Wozenfield"/>
+		<district val="Fardesto"/>
+	</districts>
+
+	<jobs>
+		<job val="dentistry"/>
+		<job val="health-care"/>
+		<job val="general-labor"/>
+		<!--<job val="engineering"/>--> <!-- set manually only -->
+		<job val="sports"/>
+		<job val="architecture"/>
+		<job val="food-service"/>
+		<job val="aviation"/>
+		<job val="accounting"/>
+		<job val="fishing"/>
+		<job val="drafting"/>
+		<job val="research"/>
+		<job val="fine-arts"/>
+		<job val="agriculture"/>
+		<job val="manufacturing"/>
+		<job val="construction"/>
+		<job val="surveying"/>
+		<job val="statistics"/>
+	</jobs>
+
+	<vaccines>
+		<!-- <vaccine val="POLIO"/> --> <!-- added automatically -->
+		<vaccine val="HPV"/>
+		<vaccine val="COWPOX"/>
+		<vaccine val="TETANUS"/>
+		<vaccine val="YEL.FEV."/>
+		<vaccine val="CHOLERA"/>
+		<vaccine val="RUBELLA"/>
+		<vaccine val="HEP-B"/>
+		<vaccine val="MEASLES"/>
+		<vaccine val="TUBERC."/>
+	</vaccines>
+
+	<confiscations>
+		<confiscation 
+			id="DistrictAltan" 
+			when="Traveler/Nationality == Arstotzka && Traveler/District == Altan"
+			desc="CONFISCATE ARSTOTZKAN PASSPORTS BELONGING TO ALTAN RESIDENTS."
+			error="Passport not confiscated"
+		/>
+		<confiscation 
+			id="Native" 
+			when="Traveler/Nationality == Arstotzka"
+			desc="CONFISCATE ALL ARSTOTZKAN PASSPORTS. NO EXCEPTIONS." 
+			error="Passport not confiscated"
+		/>		
+	</confiscations>
+
+	<misc 
+		hiddenAdditionalErrorPerc="0.33" 
+		speechAdditionalErrorPerc="0.33"
+		tokenOrder="Impor Antegria Obristan Arstotzka Republia Kolechia UnitedFed"
+	/>
+
+	<rulebook>
+		<page id="home"/>
+		<page id="basic"/>
+		<page id="map"/>
+		<page id="region-an"/>
+		<page id="region-ar"/>
+		<page id="region-im"/>
+		<page id="region-ko"/>
+		<page id="region-ob"/>
+		<page id="region-re"/>
+		<page id="region-un"/>
+		<page id="booth"/>
+		<page id="docs" rule="RuleNeedIdCard"/>		
+		<page id="entrypermit" rule="RuleNeedEntryPermit"/>
+		<page id="idcard" rule="RuleNeedIdCard"/>
+		<page id="idsupplement" rule="RuleNeedIdSupplement"/>
+		<page id="workpermit" rule="RuleNeedWorkPermit"/>
+		<page id="diplomaticauth" rule="RuleNeedDiplomaticAuth"/>
+		<page id="accesspermit" rule="RuleNeedAccessPermit"/>
+		<page id="asylumgrant" rule="RuleNeedAsylumGrant"/>
+		<page id="vaccinecert" rule="RuleNeedVaccineCert"/>
+		<page id="confiscation" confiscation="DistrictAltan"/>
+		<page id="confiscation" confiscation="Native"/>
+		<page id="last"/>
+	</rulebook>
+
+	<locs>
+		<!-- misc -->
+		<loc id="cite" val="$paper: Invalid $fact" section="misc"/>
+		<loc id="missing" val="Missing $paper"/>
+		<loc id="district" val="$0 DISTRICT"/>
+
+		<!-- plaques -->
+		<loc id="Presence" val="Presence" section="plaques"/>
+		<loc id="Sufficience" val="Sufficience"/>
+		<loc id="Excellence" val="Excellence"/>
+
+		<!-- nations -->
+		<loc id="Obristan" val="Obristan" section="nations"/>
+		<loc id="Antegria" val="Antegria"/>
+		<loc id="Republia" val="Republia"/>
+		<loc id="UnitedFed" val="UnitedFed"/>
+		<loc id="Impor" val="Impor"/>
+		<loc id="Kolechia" val="Kolechia"/>
+		<loc id="Arstotzka" val="Arstotzka"/>
+
+		<!-- cities -->
+		<loc id="Skal" val="Skal" section="cities"/>
+		<loc id="Lorndaz" val="Lorndaz"/>
+		<loc id="Mergerous" val="Mergerous"/>
+		<loc id="St. Marmero" val="St. Marmero"/>
+		<loc id="Glorian" val="Glorian"/>
+		<loc id="Outer Grouse" val="Outer Grouse"/>
+		<loc id="True Glorian" val="True Glorian"/>
+		<loc id="Lesrenadi" val="Lesrenadi"/>
+		<loc id="Bostan" val="Bostan"/>
+		<loc id="Great Rapid" val="Great Rapid"/>
+		<loc id="Shingleton" val="Shingleton"/>
+		<loc id="Korista City" val="Korista City"/>
+		<loc id="Enkyo" val="Enkyo"/>
+		<loc id="Haihan" val="Haihan"/>
+		<loc id="Tsunkeido" val="Tsunkeido"/>
+		<loc id="Yurko City" val="Yurko City"/>
+		<loc id="Vedor" val="Vedor"/>
+		<loc id="West Grestin" val="West Grestin"/>
+		<loc id="Orvech Vonor" val="Orvech Vonor"/>
+		<loc id="East Grestin" val="East Grestin"/>
+		<loc id="Paradizna" val="Paradizna"/>
+
+		<!-- papers -->
+		<loc id="Passport" val="Passport" section="papers"/>
+		<loc id="EntryTicket" val="Entry Ticket"/>
+		<loc id="EntryPermit" val="Entry Permit"/>
+		<loc id="WorkPermit" val="Work Pass"/>
+		<loc id="IdCard" val="Id Card"/>
+		<loc id="IdSupplement" val="Id Supplement"/>
+		<loc id="AccessPermit" val="Access Permit"/>
+		<loc id="DiplomaticAuth" val="Diplomatic Auth"/>
+		<loc id="AsylumGrant" val="Asylum Grant"/>
+		<loc id="VaccineCert" val="Vaccine Cert"/>
+		<loc id="IdentityRecord" val="Identity Record"/>
+		<loc id="Fingerprints" val="Fingerprints"/>
+
+		<!-- facts -->
+		<loc id="Name" val="Name" section="facts"/>
+		<loc id="IdNumber" val="Id Number"/>
+		<loc id="ExpirationDate" val="Expiration Date"/>
+		<loc id="IssuingCity" val="Issuing City"/>
+		<loc id="BirthDate" val="Birth Date"/>
+		<loc id="Alias" val="Alias"/>
+		<loc id="Fingerprints" val="Fingerprints"/>
+		<loc id="Height" val="Height"/>
+		<loc id="Weight" val="Weight"/>
+		<loc id="Description" val="Description"/>
+		<loc id="Thumbprint" val="Thumbprint"/>
+		<loc id="UseDate" val="Date"/>
+		<loc id="Purpose" val="Purpose"/>
+		<loc id="Duration" val="Duration"/>
+		<loc id="Face" val="Face"/>
+		<loc id="District" val="District"/>
+		<loc id="Gender" val="Gender"/>
+		<loc id="WorkEndDate" val="Work End Date"/>
+
+		<!-- districts -->
+		<loc id="Altan" val="Altan" section="districts"/>
+		<loc id="Vescillo" val="Vescillo"/>
+		<loc id="Burnton" val="Burnton"/>
+		<loc id="Octovalis" val="Octovalis"/>
+		<loc id="Gennistora" val="Gennistora"/>
+		<loc id="Lendiforma" val="Lendiforma"/>
+		<loc id="Wozenfield" val="Wozenfield"/>
+		<loc id="Fardesto" val="Fardesto"/>
+
+		<!-- jobs -->
+		<loc id="dentistry" val="DENTISTRY" section="jobs"/>
+		<loc id="health-care" val="HEALTH-CARE"/>
+		<loc id="general-labor" val="GENERAL-LABOR"/>
+		<loc id="engineering" val="ENGINEERING"/>
+		<loc id="sports" val="SPORTS"/>
+		<loc id="architecture" val="ARCHITECTURE"/>
+		<loc id="food-service" val="FOOD-SERVICE"/>
+		<loc id="aviation" val="AVIATION"/>
+		<loc id="accounting" val="ACCOUNTING"/>
+		<loc id="fishing" val="FISHING"/>
+		<loc id="drafting" val="DRAFTING"/>
+		<loc id="research" val="RESEARCH"/>
+		<loc id="fine-arts" val="FINE-ARTS"/>
+		<loc id="agriculture" val="AGRICULTURE"/>
+		<loc id="manufacturing" val="MANUFACTURING"/>
+		<loc id="construction" val="CONSTRUCTION"/>
+		<loc id="surveying" val="SURVEYING"/>
+		<loc id="statistics" val="STATISTICS"/>
+
+		<!-- vaccines -->
+		<loc id="POLIO" val="POLIO" section="vaccines"/>
+		<loc id="HPV" val="HPV"/>
+		<loc id="COWPOX" val="COWPOX"/>
+		<loc id="TETANUS" val="TETANUS"/>
+		<loc id="YEL.FEV." val="YEL.FEV."/>
+		<loc id="CHOLERA" val="CHOLERA"/>
+		<loc id="RUBELLA" val="RUBELLA"/>
+		<loc id="HEP-B" val="HEP-B"/>
+		<loc id="MEASLES" val="MEASLES"/>
+		<loc id="TUBERC." val="TUBERC."/>
+
+		<!-- durations -->
+		<loc id="2 DAYS" val="2 DAYS" section="durations"/>
+		<loc id="14 DAYS" val="14 DAYS"/>
+		<loc id="1 MONTH" val="1 MONTH"/>
+		<loc id="2 MONTHS" val="2 MONTHS"/>
+		<loc id="3 MONTHS" val="3 MONTHS"/>
+		<loc id="6 MONTHS" val="6 MONTHS"/>
+		<loc id="1 YEAR" val="1 YEAR"/>
+		<loc id="FOREVER" val="FOREVER"/>
+
+		<!-- purposes -->
+		<loc id="visit" val="visit" section="purposes"/>
+		<loc id="transit" val="transit"/>
+		<loc id="work" val="work"/>
+		<loc id="immigrate" val="immigrate"/>
+
+	</locs>
+
+	<!-- Rules -->
+	<paper id="Rules" stay="day">
+		<fact id="RuleNeedPassport" val="Entrant must have a passport"/>
+		<fact id="RuleNeedEntryPermit" val="Foreigners require an entry permit"/>
+		<fact id="RuleNeedEntryTicket" val="Foreigners require an entry ticket"/>
+		<fact id="RuleNeedCurrentDocs" val="All documents must be current"/>
+		<fact id="RuleNeedWorkPermit" val="Workers must have a work pass"/>
+		<fact id="RuleNeedIdCard" val="Citizens must have an id card"/>
+		<fact id="RuleNeedIdSupplement" val="Foreigners require an id supplement"/>
+		<fact id="RuleArstotzkaOnly" val="Arstotzkan citizens only"/>
+		<fact id="RuleNoAntegria" val="No entry from Antegria"/>
+		<fact id="RuleNoKolechia" val="No entry from Kolechia"/>
+		<fact id="RuleNoObristan" val="No entry from Obristan"/>
+		<fact id="RuleNoImpor" val="No entry from Impor"/>
+		<fact id="RuleNoUnitedFed" val="No entry from United Federation"/>
+		<fact id="RuleNoContraband" val="No weapons or contraband"/>
+		<fact id="RuleSearchKolechia" val="All Kolechians must be searched"/>
+		<fact id="RuleNeedDiplomaticAuth" val="Diplomats require authorization"/>
+		<fact id="RuleNeedVaccineCert" val="Entrant must have polio vaccine cert"/>
+		<fact id="RuleNeedAsylumGrant" val="Asylum seekers must have a grant"/>
+		<fact id="RuleNeedAccessPermit" val="Foreigners require an access permit"/>
+		
+		<!--
+		<fact id="RuleDetainKolechia" val="Detain all Kolechians"/>
+		<fact id="RuleFingerprintKolechia" val="Fingerprint all Kolechians"/>
+		<fact id="RuleNeedWorkPermit" val="Foreigners must be 18 or older"/>
+		<fact id="RuleNeedIdCard" val="Workers must have a work permit"/>
+		<fact id="Rule5" val="Goods must have a customs permit"/>
+		<fact id="Rule6" val="No entry for foreign military"/>
+		<fact id="Rule7" val="No entry from United Federation"/>
+		<fact id="Rule8" val="Maximum visit of 14 days"/>
+		-->
+
+		<fact id="[NATIONS]-Passport0" val="PassportOuter[NATIONS].png"/>
+		<fact id="[NATIONS]-IssuingCities" val="[ISSUINGCITIES]"/>
+
+		<fact id="Arstotzka-Districts" val="[DISTRICTS]"/>
+
+		<fact id="IssuingCity" val="RuleIssuingCity.png"/>
+		<fact id="DiploAccess" val="RuleDiploAccess.png"/>
+
+		<!-- Moved to code -->
+		<fact id="SealsMoa" val=""/>
+		<fact id="SealsMol" val=""/>
+
+		<fact id="SealRequired" val="RuleSealRequired.png"/>
+		<fact id="SealRequired-EntryPermit"/>
+		<fact id="SealRequired-WorkPermit"/>
+		<fact id="SealRequired-AccessPermit"/>
+		<fact id="SealRequired-AsylumGrant"/>
+		<fact id="SealRequired-DiplomaticAuth"/>
+		
+		<fact id="DiploSealsObristan" val="DiploSealsObristan.png"/>
+		<fact id="DiploSealsAntegria" val="DiploSealsAntegria.png"/>
+		<fact id="DiploSealsRepublia" val="DiploSealsRepublia.png"/>
+		<fact id="DiploSealsImpor" val="DiploSealsImpor.png"/>
+		<fact id="DiploSealsKolechia" val="DiploSealsKolechia.png"/>
+		<fact id="DiploSealsUnitedFed" val="DiploSealsUnitedFed.png"/>	
+	</paper>
+
+	<!-- Traveler -->
+	<paper id="Traveler">
+		<fact id="Nationality">
+			<invalidate when="Antegria" path="Rules/RuleNoAntegria"/>
+			<invalidate when="Obristan" path="Rules/RuleNoObristan"/>
+			<invalidate when="UnitedFed" path="Rules/RuleNoUnitedFed"/>
+			<invalidate when="Kolechia" path="Rules/RuleNoKolechia"/>
+			<invalidate whennot="Arstotzka" path="Rules/RuleArstotzkaOnly"/>
+			<invalidate when="Impor" path="Rules/RuleNoImpor"/>
+			<cite when="Antegria" val="No entry from Antegria"/>
+			<cite when="Arstotzka" val="No entry from Arstotzka"/>
+			<cite when="Republia" val="No entry from Republia"/>
+			<cite when="UnitedFed" val="No entry from United Fed"/>
+			<cite when="Obristan" val="No entry from Obristan"/>
+			<cite when="Impor" val="No entry from Impor"/>
+			<cite when="Kolechia" val="No entry from Kolechia"/>
+		</fact>
+		<fact id="Job"/>
+		<fact id="Purpose"/>
+		<fact id="Duration"/>
+		<fact id="Gender"/>
+		<fact id="District"/>
+		<fact id="Contraband" cite="Possible Smuggler Admitted">
+			<!-- Only facts with generated contraband will appear, so it's ok to invalidate all of them -->
+			<invalidate path="Photo/ContrabandBack"/>
+			<invalidate path="Photo/ContrabandBackLegL"/>
+			<invalidate path="Photo/ContrabandBackLegR"/>
+			<cite when="*bomb" val="Possible Terrorist Admitted"/>
+		</fact>
+	</paper>
+	
+	<!-- Booth -->
+	<paper id="Booth">
+		<fact id="Counter" val="VALID" cite="Missing documents"/>
+		<fact id="Clock" val="VALID"/>
+		<fact id="Face" val="VALID"/>
+		<fact id="Weight"/>
+		<fact id="Height"/>
+		<fact id="Criminal0" cite=""/>
+		<fact id="Criminal1" cite=""/>
+		<fact id="Criminal2" cite=""/>
+	</paper>
+
+	<!-- Bulletin -->
+	<paper id="Bulletin" stay="day">
+		<fact id="NowDate"/>
+		<fact id="News0" noticeerrors="false"/>
+		<fact id="News1" noticeerrors="false"/>
+		<fact id="News2" noticeerrors="false"/>
+		<fact id="News3" noticeerrors="false"/>
+		<fact id="PagesNote"/>
+		<fact id="Criminal0" cite="Wanted criminal admitted"/>
+		<fact id="Criminal1" cite="Wanted criminal admitted"/>
+		<fact id="Criminal2" cite="Wanted criminal admitted"/>
+	</paper>
+
+	<!-- Photo -->
+	<paper id="Photo">
+		<fact id="BodyFront"/>
+		<fact id="BodyBack"/>
+		<fact id="HeadFront"/>
+		<fact id="HeadBack"/>
+		<fact id="ContrabandBack"/>
+		<fact id="ContrabandBackLegL"/>
+		<fact id="ContrabandBackLegR"/>
+		<fact id="GenderProxy" cite=""/>
+		<clearconfusion path="Passport/Gender"/>
+		<clearconfusion path="Rules/RuleSearchKolechia"/>
+		<clearconfusion path="IdCard/Weight"/>
+		<clearconfusion path="IdSupplement/Weight"/>
+		<clearconfusion path="AsylumGrant/Weight"/>
+		<clearconfusion path="AccessPermit/Weight"/>
+	</paper>
+
+	<!-- Keys -->
+	<paper id="KeyTranq" stay="game">
+		<fact id=""/>
+	</paper>
+
+	<paper id="KeyKill" stay="game">
+		<fact id=""/>
+	</paper>
+
+	<!-- Speech -->
+	<paper id="Speech">
+		<fact id="Purpose" cite="Incorrect purpose response">
+			<invalidate when="work" path="Rules/RuleNeedWorkPermit"/>
+			<invalidate when="diplomat" path="Rules/RuleNeedDiplomaticAuth"/>
+			<invalidate when="asylum" path="Rules/RuleNeedAsylumGrant"/>
+		</fact>
+		<fact id="Duration" cite="Incorrect visit duration response"/>
+		<fact id="Name"/> <!-- Used for correlation only. Can never be directly invalid. -->
+	</paper>
+
+	<paper id="Transcript" stay="day">
+		<fact id="NextPage0"/>
+		<fact id="NextPage1"/>
+	</paper>
+
+	<!-- Passport -->
+	<paper id="Passport">
+		<fact id=""/><!-- cite="Forbidden Nationality"/> -->
+		<fact id="Exists"><invalidate path="Rules/RuleNeedPassport"/></fact>		
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedPassport"/></fact>		
+		<fact id="Name" format="Last, First"/>
+		<fact id="IdNumber"/>
+		<fact id="Face" cite="Passport: Non-matching photo"/>
+		<fact id="ExpirationDate" range="120 720"/>
+		<fact id="IssuingCity">
+			<invalidate when="Skal"         path="Rules/Obristan-IssuingCities"/>
+			<invalidate when="Lorndaz"      path="Rules/Obristan-IssuingCities"/>
+			<invalidate when="Mergerous"    path="Rules/Obristan-IssuingCities"/>
+			<invalidate when="St. Marmero"  path="Rules/Antegria-IssuingCities"/>
+			<invalidate when="Glorian"      path="Rules/Antegria-IssuingCities"/>
+			<invalidate when="Outer Grouse" path="Rules/Antegria-IssuingCities"/>
+			<invalidate when="True Glorian" path="Rules/Republia-IssuingCities"/>
+			<invalidate when="Lesrenadi"    path="Rules/Republia-IssuingCities"/>
+			<invalidate when="Bostan"       path="Rules/Republia-IssuingCities"/>
+			<invalidate when="Great Rapid"  path="Rules/UnitedFed-IssuingCities"/>
+			<invalidate when="Shingleton"   path="Rules/UnitedFed-IssuingCities"/>
+			<invalidate when="Korista City" path="Rules/UnitedFed-IssuingCities"/>
+			<invalidate when="Enkyo"        path="Rules/Impor-IssuingCities"/>
+			<invalidate when="Haihan"       path="Rules/Impor-IssuingCities"/>
+			<invalidate when="Tsunkeido"    path="Rules/Impor-IssuingCities"/>
+			<invalidate when="Yurko City"   path="Rules/Kolechia-IssuingCities"/>
+			<invalidate when="Vedor"        path="Rules/Kolechia-IssuingCities"/>
+			<invalidate when="West Grestin" path="Rules/Kolechia-IssuingCities"/>
+		</fact> 
+		<fact id="BirthDate"/>
+		<fact id="Gender"/>
+	</paper>
+
+	<!-- Second Passport -->
+	<paper id="SecondPassport" cite="Entrant Holds Conflicting Passports">
+		<fact id=""/>
+		<fact id="Face"/>
+		<fact id="BirthDate"/>
+		<fact id="Gender"/>
+		<fact id="ExpirationDate" range="120 720"/>
+	</paper>
+
+	<!-- Entry Ticket -->
+	<paper id="EntryTicket">
+		<fact id=""/>
+		<fact id="Exists"><invalidate path="Rules/RuleNeedEntryTicket"/></fact>
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedEntryTicket"/></fact>
+		<fact id="UseDate"/>
+	</paper>
+
+	<!-- Entry Permit -->
+	<paper id="EntryPermit">
+		<fact id=""/>
+		<fact id="Exists">
+			<invalidate path="Rules/RuleNeedEntryPermit"/>
+			<!-- This allows correlation with rule when carrying ticket instead of required permit -->
+			<invalidate path="Rules/RuleNeedEntryTicket"/>
+		</fact>
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedEntryPermit"/></fact>
+		<fact id="Name" format="FIRST LAST">
+			<!--<invalidate path="IdentityRecord/Alias"/>-->
+		</fact>
+		<fact id="IdNumber"/>
+		<fact id="Purpose"/>
+		<fact id="Duration"/>
+		<fact id="ExpirationDate" range="10 30"/>
+		<fact id="Emblem/MinistryOfAdmission" cite="Forged Entry Permit">
+			<invalidate when="NONE" path="Rules/SealRequired-EntryPermit"/>
+		</fact>
+	</paper>
+
+	<!-- Work Permit -->
+	<paper id="WorkPermit">
+		<fact id=""/>
+		<fact id="Exists"><invalidate path="Rules/RuleNeedWorkPermit"/></fact>
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedWorkPermit"/></fact>
+		<fact id="Name" format="FIRST LAST"/>
+		<fact id="Job"/>
+		<fact id="WorkEndDate"/>
+		<fact id="Emblem/MinistryOfLabor" cite="Forged Work Pass">
+			<invalidate when="NONE" path="Rules/SealRequired-WorkPermit"/>
+		</fact>
+	</paper>
+
+	<!-- Id Card -->
+	<paper id="IdCard">
+		<fact id=""/>
+		<fact id="Exists" ><invalidate path="Rules/RuleNeedIdCard"/></fact>
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedIdCard"/></fact>		
+		<fact id="Name" format="LAST,/FIRST"/>
+		<fact id="Face" cite="Id Card: Non-matching photo"/>
+		<fact id="BirthDate"/>
+		<fact id="District"/>
+		<fact id="Height"/>
+		<fact id="Weight"/>
+	</paper>
+
+	<!-- Id Supplement -->
+	<paper id="IdSupplement">
+		<fact id=""/>
+		<fact id="Exists" ><invalidate path="Rules/RuleNeedIdSupplement"/></fact>
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedIdSupplement"/></fact>		
+		<fact id="Height"/>
+		<fact id="Weight"/>
+		<fact id="Description"/>
+		<fact id="Thumbprint"/>
+		<fact id="ExpirationDate" range="1 14"/>
+	</paper>
+
+	<!-- Access Permit -->
+	<paper id="AccessPermit">
+		<fact id=""/>
+		<fact id="Exists"><invalidate path="Rules/RuleNeedAccessPermit"/></fact>
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedAccessPermit"/></fact>
+		<fact id="Name" format="FIRST LAST"/>
+		<fact id="Nation"/>
+		<fact id="IdNumber"/>
+		<fact id="Purpose"/>
+		<fact id="Duration"/>
+		<fact id="Height"/>
+		<fact id="Weight"/>
+		<fact id="Description"/>
+		<fact id="ExpirationDate" range="5 30"/>
+		<fact id="Emblem/MinistryOfAdmission" cite="Forged Access Permit">
+			<invalidate when="NONE" path="Rules/SealRequired-AccessPermit"/>
+		</fact>
+	</paper>
+
+	<!-- Diplomatic Auth -->
+	<paper id="DiplomaticAuth">
+		<fact id=""/>
+		<fact id="Exists">
+			<invalidate path="Rules/RuleNeedDiplomaticAuth"/>
+		</fact>
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedDiplomaticAuth"/></fact>
+		<fact id="Name" format="FIRST LAST"/>
+		<fact id="Nation"/>
+		<fact id="IdNumber"/>
+		<fact id="AccessNations" cite="No Diplomatic Access to Arstotzka"/>
+		<fact id="Emblem/DiplomaticAuth" cite="Forged Diplomatic Auth">
+			<invalidate when="NONE" path="Rules/SealRequired-DiplomaticAuth"/>
+		</fact>
+	</paper>
+
+	<!-- AsylumGrant -->
+	<paper id="AsylumGrant">
+		<fact id=""/>
+		<fact id="Exists">
+			<invalidate path="Rules/RuleNeedAsylumGrant"/>
+		</fact>
+		<fact id="Visible" editable="true">
+			<invalidate path="Rules/RuleNeedAsylumGrant"/>
+		</fact>
+		<fact id="Name" format="FIRST/LAST"/>
+		<fact id="Face"/>
+		<fact id="Nation"/>
+		<fact id="IdNumber"/>
+		<fact id="BirthDate"/>
+		<fact id="Height"/>
+		<fact id="Weight"/>
+		<fact id="Fingerprints" format="28"/>
+		<fact id="ExpirationDate" range="1 14"/>
+		<fact id="Emblem/MinistryOfAdmission" cite="Forged Asylum Grant Seal">
+			<invalidate when="NONE" path="Rules/SealRequired-AsylumGrant"/>
+		</fact>			
+	</paper>
+
+	<!-- VaccineCert -->
+	<paper id="VaccineCert">
+		<fact id=""/>
+		<fact id="Exists">
+			<invalidate path="Rules/RuleNeedVaccineCert"/>
+		</fact>
+		<fact id="Visible" editable="true">
+			<invalidate path="Rules/RuleNeedVaccineCert"/>
+		</fact>
+		<fact id="Name" format="FIRST LAST"/>
+		<fact id="IdNumber"/>
+		<fact id="VaccineDates" cite="Necessary vaccine expired"/>
+		<fact id="VaccineDrugs" cite="Missing necessary vaccine"/>
+	</paper>
+
+	<!-- IdentityRecord -->
+	<paper id="IdentityRecord">
+		<fact id="Name" format="First Last" cite="Name does not match record"/>
+		<fact id="Alias" cite="Alias does not match record"/>
+		<fact id="Fingerprints" cite="Fingerprints do not match record"/>
+		<clearconfusion path="EntryPermit/Name"/>
+		<clearconfusion path="WorkPermit/Name"/>
+		<clearconfusion path="IdCard/Name"/>
+		<clearconfusion path="VaccineCert/Name"/>
+		<clearconfusion path="DiplomaticAuth/Name"/>
+		<clearconfusion path="AsylumGrant/Name"/>
+		<clearconfusion path="AccessPermit/Name"/>
+		<clearconfusion path="IdCard/Name"/>
+	</paper>
+
+	<!-- Fingerprints -->
+	<paper id="Fingerprints" saytrade="trade-fingerprints">
+		<fact id="Fingerprints"/>
+		<clearconfusion path="Rules/RuleFingerprintKolechia"/>
+		<clearconfusion path="Passport/Face"/>
+		<clearconfusion path="IdCard/Face"/>
+		<clearconfusion path="IdCard/Height"/>
+		<clearconfusion path="IdSupplement/Height"/>
+		<clearconfusion path="IdSupplement/Description"/>
+		<clearconfusion path="AsylumGrant/Height"/>
+		<clearconfusion path="AsylumGrant/Face"/>
+		<clearconfusion path="AccessPermit/Height"/>
+		<clearconfusion path="AccessPermit/Description"/>
+		<clearconfusion path="Photo/HeadFront"/>
+	</paper>
+	
+	<!-- Ezic -->
+	<paper id="EzicIntro" stay="game">
+		<fact id="Corman" val="Corman Drex"/>
+	</paper>
+	<paper id="EzicNote" stay="game">
+		<fact id="Message"/>
+	</paper>
+	<paper id="EzicGrid" stay="game"/>
+	<paper id="EzicHoles" stay="game"/>
+	<paper id="EzicPort" stay="day"/>
+	
+	<!-- Misc -->
+	<paper id="BrothelHelp" stay="day" noticeerrors="false">
+		<fact id=""/>
+	</paper>
+
+	<paper id="Pezpert">
+		<fact id="" cite="Cobrastan is not a real country"/>
+		<fact id="Face"/>
+	</paper>
+	
+	<paper id="SeizureSlip"/>
+	<paper id="VisaSlip"/>
+	<paper id="PoliceBadge"/>
+	<paper id="PoliceEzic"/>
+	<paper id="BrothelFlyer" stay="day" multi="true"/>
+	<paper id="Money5" stay="day" multi="true" money="5"/>
+	<paper id="Money10" stay="day" multi="true" money="10"/>
+	<paper id="Money20" stay="day" multi="true" money="20"/>
+	<paper id="Citation" stay="day" multi="true"/>
+	<paper id="FilerEnvelope" stay="day" multi="true"/>
+	<paper id="SpyDocs" stay="day"/>
+	<paper id="SpyDocsFake" stay="day"/>
+	<paper id="GymFlyer" stay="day"/>
+	<paper id="ForgeryFlyer" stay="day"/>
+	<paper id="TokenArstotzka" stay="day" achieve="ACH_TOKEN_ARSTOTZKA"/>
+	<paper id="TokenKolechia" stay="day" achieve="ACH_TOKEN_KOLECHIA"/>
+	<paper id="TokenAntegria" stay="day" achieve="ACH_TOKEN_ANTEGRIA"/>
+	<paper id="TokenObristan" stay="day" achieve="ACH_TOKEN_OBRISTAN"/>
+	<paper id="TokenImpor" stay="day" achieve="ACH_TOKEN_IMPOR"/>
+	<paper id="TokenUnitedFed" stay="day" achieve="ACH_TOKEN_UNITEDFED"/>
+	<paper id="TokenRepublia" stay="day" achieve="ACH_TOKEN_REPUBLIA"/>
+	<paper id="PlaqueOne" stay="game"/>
+	<paper id="VictimPhoto" stay="game"/>
+	<paper id="PlaqueTwo" stay="game"/>
+	<paper id="FamilyPhoto" stay="game"/>
+	<paper id="SonDrawing" stay="game"/>
+	<paper id="Arskickers" stay="game"/>
+	<paper id="LoveSong" stay="day"/>
+	<paper id="Poison" stay="day">
+		<fact id="Powder1" val="PoisonPowder1.png"/>
+		<fact id="Powder2" val="PoisonPowder2.png"/>
+	</paper>
+	<paper id="BizCard" stay="game" multi="true"/>
+	<paper id="Locket" stay="game"/>
+	<paper id="Watch" stay="game"/>
+
+	<paper id="PressPass">
+		<fact id="Face"/>
+		<fact id="Name"/>
+	</paper>
+
+	<paper id="TimeBomb" stay="day">
+		<fact id="Screw0" val="TimeBombScrew.png"/>
+		<fact id="Screw1" val="TimeBombScrew.png"/>
+		<fact id="Screw2" val="TimeBombScrew.png"/>
+		<fact id="Screw3" val="TimeBombScrew.png"/>
+		<fact id="Wire0" val="TimeBombWire0.png"/>
+		<fact id="Wire1" val="TimeBombWire1.png"/>
+		<fact id="Wire2" val="TimeBombWire2.png"/>
+		<fact id="Wire3" val="TimeBombWire3.png"/>
+	</paper>
+
+	<!-- Groups -->
+	<groups>
+		<group id="FaceGender">
+			<path val=".*/Gender"/>
+			<path val=".*/Face"/>
+			<path val="Photo/HeadFront"/>
+		</group>
+		<group id="FaceDescription">
+			<path val=".*/Description"/>
+			<path val=".*/Face"/>
+			<path val="Photo/HeadFront"/>
+		</group>		
+		<group id="Name">
+			<path val=".*/Name"/>
+			<path val="IdentityRecord/Alias"/>
+		</group>
+		<group id="IdNumber">
+			<path val=".*/IdNumber"/>
+		</group>
+		<group id="BirthDate">
+			<path val=".*/BirthDate"/>
+		</group>
+		<group id="Height">
+			<path val="Booth/Face"/>
+			<path val=".*/Height"/>
+		</group>		
+		<group id="Weight">
+			<!--<path val="Booth/Face"/>-->
+			<path val=".*/Weight"/>
+		</group>
+		<group id="Fingerprints">
+			<path val=".*/Fingerprints"/>
+			<path val="IdSupplement/Thumbprint"/>
+		</group>
+		<group id="Nation">
+			<path val=".*/Nation"/>
+			<path val="Passport"/>
+		</group>
+
+		<!-- Rules -->
+		<group id="ProhibitedCountry">
+			<path val="Passport"/>
+			<!-- Safe to put all these here since only one such rule appears at a time -->
+			<path val="Rules/RuleArstotzkaOnly"/>
+			<path val="Rules/RuleNoImpor"/>
+			<path val="Rules/RuleNoUnitedFed"/>
+		</group>
+		<group id="MustDetain">
+			<path val="Passport"/>
+			<path val="Rules/RuleDetainKolechia"/>			
+		</group>
+		<!--
+		<group id="MustFingerprint">
+			<path val="Passport"/>
+			<path val="Rules/RuleFingerprintKolechia"/>
+		</group>
+		-->
+		<group id="SuspicousKolechia">
+			<path val="Rules/RuleSearchKolechia"/>
+			<path val="Passport"/>
+		</group>		
+		<group id="SuspicousKolechia2">
+			<path val="Rules/RuleSearchKolechia"/>
+			<path val="Booth/Face"/>
+			<path val="Photo/HeadFront"/>
+		</group>		
+
+		<!-- IdCard -->
+		<group id="IdCard-District">
+			<path val="Rules/Arstotzka-Districts"/>
+			<path val="IdCard/District"/>
+		</group>		
+
+		<!-- EntryPermit -->
+		<group id="EntryPermit-Required">
+			<path val="Rules/RuleNeedEntryPermit"/>
+			<path val="Booth/Counter"/>
+			<path val="EntryPermit"/>
+			<!-- This allows correlation with rule when carrying ticket instead of required permit -->
+			<path val="EntryTicket"/>
+		</group>		
+		<group id="EntryPermit-Duration">
+			<path val="Speech/Duration"/>
+			<path val="Traveler/Duration"/>
+			<path val="EntryPermit/Duration"/>
+		</group>
+		<group id="EntryPermit-Purpose">
+			<path val="Speech/Purpose"/>
+			<path val="Traveler/Purpose"/>
+			<path val="EntryPermit/Purpose"/>
+		</group>
+		<group id="EntryPermit-Seal">
+			<path val="EntryPermit/Emblem/MinistryOfAdmission"/>
+			<path val="Rules/SealsMoa"/>
+		</group>
+		<group id="EntryPermit-SealRequired">
+			<path val="EntryPermit"/>
+			<path val="Rules/SealRequired" proxy="Rules/SealRequired-EntryPermit"/>
+		</group>
+		<group id="EntryPermit-SealRequired2">
+			<path val="EntryPermit"/>
+			<path val="Rules/SealsMoa" proxy="Rules/SealRequired-EntryPermit"/>
+		</group>
+		<group id="EntryPermit-Exp">
+			<path val="Booth/Clock"/>
+			<path val="Bulletin/NowDate"/>
+			<path val="EntryPermit/ExpirationDate"/>
+			<path val="Rules/RuleNeedCurrentDocs"/>
+		</group>		
+
+		<!-- AccessPermit -->
+		<group id="AccessPermit-Required">
+			<path val="Rules/RuleNeedAccessPermit"/>
+			<path val="Booth/Counter"/>
+			<path val="AccessPermit"/>
+			<!-- These allows correlation with rule when carrying EntryPermit+IdSupplement instead of required AccessPermit -->
+			<path val="EntryPermit"/>			
+			<path val="IdSupplement"/>
+		</group>		
+		<group id="AccessPermit-Duration">
+			<path val="Speech/Duration"/>
+			<path val="Traveler/Duration"/>
+			<path val="AccessPermit/Duration"/>
+		</group>
+		<group id="AccessPermit-Purpose">
+			<path val="Speech/Purpose"/>
+			<path val="Traveler/Purpose"/>
+			<path val="AccessPermit/Purpose"/>
+		</group>
+		<group id="AccessPermit-Seal">
+			<path val="AccessPermit/Emblem/MinistryOfAdmission"/>
+			<path val="Rules/SealsMoa"/>
+		</group>
+		<group id="AccessPermit-SealRequired">
+			<path val="AccessPermit"/>
+			<path val="Rules/SealRequired" proxy="Rules/SealRequired-AccessPermit"/>
+		</group>
+		<group id="AccessPermit-SealRequired2">
+			<path val="AccessPermit"/>
+			<path val="Rules/SealsMoa" proxy="Rules/SealRequired-AccessPermit"/>
+		</group>		
+		<group id="AccessPermit-Exp">
+			<path val="Booth/Clock"/>
+			<path val="Bulletin/NowDate"/>
+			<path val="AccessPermit/ExpirationDate"/>
+			<path val="Rules/RuleNeedCurrentDocs"/>
+		</group>
+
+		<!-- WorkPermit -->
+		<group id="WorkPermit-Required">
+			<path val="Rules/RuleNeedWorkPermit"/>
+			<path val="WorkPermit"/>
+			<path val="Booth/Counter"/>
+		</group>		
+		<group id="WorkPermit-Seal">
+			<path val="WorkPermit/Emblem/MinistryOfLabor"/>
+			<path val="Rules/SealsMol"/>
+		</group>
+		<group id="WorkPermit-SealRequired">
+			<path val="WorkPermit"/>
+			<path val="Rules/SealRequired" proxy="Rules/SealRequired-WorkPermit"/>
+		</group>
+		<group id="WorkPermit-SealRequired2">
+			<path val="WorkPermit"/>
+			<path val="Rules/SealsMol" proxy="Rules/SealRequired-WorkPermit"/>
+		</group>		
+		<group id="WorkPermit-EndDate">
+			<path val="Booth/Clock"/>
+			<path val="Bulletin/NowDate"/>
+			<path val="WorkPermit/WorkEndDate"/>
+			<path val="EntryPermit/Duration"/>
+			<path val="Speech/Duration"/>
+			<path val="Rules/RuleNeedCurrentDocs"/>
+		</group>
+
+		<!-- Passport -->
+		<group id="Passport-Required">
+			<path val="Rules/RuleNeedPassport"/>
+			<path val="Passport"/>
+			<path val="Booth/Counter"/>
+			<path val="Pezpert"/>
+		</group>
+		<group id="Passport-Exp">
+			<path val="Booth/Clock"/>
+			<path val="Bulletin/NowDate"/>
+			<path val="Passport/ExpirationDate"/>
+			<path val="Rules/RuleNeedCurrentDocs"/>
+		</group>
+		<group id="Passport-IssuingCity[NATION]">
+			<path val="Passport/IssuingCity"/>
+			<path val="Rules/IssuingCity"/>
+			<path val="Rules/[NATION]-IssuingCities"/>
+		</group>
+		<group id="Passport-Appearance[NATION]">
+			<path val="Passport"/>
+			<path val="Rules/[NATION]-Passport0"/>
+		</group>
+		
+		<!-- EntryTicket -->
+		<group id="EntryTicket-Required">
+			<path val="Rules/RuleNeedEntryTicket"/>
+			<path val="Rules/RuleNeedEntryPermit"/>
+			<path val="Booth/Counter"/>
+			<path val="EntryTicket"/>
+		</group>
+		<group id="EntryTicket-UseDate">
+			<path val="Booth/Clock"/>
+			<path val="Bulletin/NowDate"/>
+			<path val="EntryTicket/UseDate"/>
+			<path val="Rules/RuleNeedCurrentDocs"/>
+			<path val="EntryTicket" proxy="EntryTicket/UseDate"/>
+		</group>
+
+		<!-- IdCard -->
+		<group id="IdCard-Required">
+			<path val="Rules/RuleNeedIdCard"/>
+			<path val="IdCard"/>
+			<path val="Booth/Counter"/>
+		</group>
+
+		<!-- IdSupplement-->
+		<group id="IdSupplement-Required">
+			<path val="Rules/RuleNeedIdSupplement"/>
+			<path val="Booth/Counter"/>
+			<path val="IdSupplement"/>
+		</group>			
+		<group id="IdSupplement-Exp">
+			<path val="Booth/Clock"/>
+			<path val="Bulletin/NowDate"/>
+			<path val="IdSupplement/ExpirationDate"/>
+			<path val="Rules/RuleNeedCurrentDocs"/>
+		</group>
+
+		<!-- VaccineCert -->
+		<group id="VaccineCert-Required">
+			<path val="Rules/RuleNeedVaccineCert"/>
+			<path val="Booth/Counter"/>
+			<path val="VaccineCert"/>
+		</group>
+		<group id="VaccineCert-Date">
+			<path val="VaccineCert/VaccineDates"/>
+			<path val="Booth/Clock"/>
+			<path val="Bulletin/NowDate"/>
+			<path val="Rules/RuleNeedCurrentDocs"/>			
+		</group>
+		<group id="VaccineCert-Drugs">
+			<path val="VaccineCert/VaccineDrugs"/>
+			<path val="Rules/RuleNeedVaccineCert"/>
+		</group>
+
+		<!-- Photo -->
+		<group id="Photo-BodyGender">
+			<path val=".*/Gender"/>
+			<path val="Photo/BodyFront" proxy="Photo/GenderProxy"/>
+			<path val="Photo/BodyBack" proxy="Photo/GenderProxy"/>
+		</group>
+		<group id="Photo-Contraband">
+			<path val="Rules/RuleNoContraband"/>
+			<path val="Photo/ContrabandBack"/>
+			<path val="Photo/ContrabandBackLegL"/>
+			<path val="Photo/ContrabandBackLegR"/>
+		</group>
+
+		<!-- DiplomaticAuth -->
+		<group id="Diplo-Required">
+			<path val="Rules/RuleNeedDiplomaticAuth"/>
+			<path val="Booth/Counter"/>
+			<path val="DiplomaticAuth"/>
+		</group>
+		<!-- Can only be used to correlate wrong nation, not seal -->
+		<!--
+		<group id="Diplo-NationAndSeal">
+			<path val="DiplomaticAuth/Nation"/>
+			<path val="DiplomaticAuth/Emblem/DiplomaticAuth" proxy="DiplomaticAuth/Nation"/>
+		</group>		
+		-->
+		<group id="Diplo-AccessNations">
+			<path val="DiplomaticAuth/AccessNations"/>
+			<path val="Rules/DiploAccess"/>
+		</group>
+		<group id="Diplo-AccessNations2">
+			<path val="DiplomaticAuth/AccessNations"/>
+			<path val="Rules/RuleNeedDiplomaticAuth"/>
+		</group>
+		<group id="Diplo-Seal[NATION]">
+			<path val="DiplomaticAuth/Emblem/DiplomaticAuth"/>
+			<path val="Rules/DiploSeals[NATION]"/>
+		</group>
+		<group id="Diplo-SealRequired[NATION]">
+			<path val="DiplomaticAuth"/>
+			<path val="Rules/DiploSeals[NATION]" proxy="Rules/SealRequired-DiplomaticAuth"/>
+		</group>
+		<group id="Diplo-SealRequired2">
+			<path val="DiplomaticAuth"/>
+			<path val="Rules/SealRequired" proxy="Rules/SealRequired-DiplomaticAuth"/>
+		</group>		
+
+		<!-- AsylumGrant -->
+		<group id="AsylumGrant-Required">
+			<path val="Rules/RuleNeedAsylumGrant"/>
+			<path val="Booth/Counter"/>
+			<path val="AsylumGrant"/>
+		</group>
+		<group id="AsylumGrant-Exp">
+			<path val="Booth/Clock"/>
+			<path val="Bulletin/NowDate"/>
+			<path val="AsylumGrant/ExpirationDate"/>
+			<path val="Rules/RuleNeedCurrentDocs"/>
+		</group>
+		<group id="AsylumGrant-Seal">
+			<path val="AsylumGrant/Emblem/MinistryOfAdmission"/>
+			<path val="Rules/SealsMoa"/>
+		</group>
+		<group id="AsylumGrant-SealRequired">
+			<path val="AsylumGrant"/>
+			<path val="Rules/SealRequired" proxy="Rules/SealRequired-AsylumGrant"/>
+		</group>
+		<group id="AsylumGrant-SealRequired2">
+			<path val="AsylumGrant"/>
+			<path val="Rules/SealsMoa" proxy="Rules/SealRequired-AsylumGrant"/>
+		</group>		
+
+		<!-- Misc -->
+		<group id="SecondPassport">
+			<path val="SecondPassport"/>
+			<path val="Passport"/>
+		</group>
+
+	</groups>
+
+</facts>
